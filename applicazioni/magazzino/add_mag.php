@@ -1,5 +1,5 @@
 <?php
-include '../asset/moduli/dbMySQL.php';
+include '../../asset/moduli/dbMySQL.php';
 $con = new DB_con();
 
 // data insert code starts here.
@@ -16,14 +16,14 @@ if(isset($_POST['btn-save'])) {
   ?>
   <script>
     alert('Prodotto inserito');
-    window.location='../index.php'
+    window.location='../../magazzino.php'
   </script>
   <?php
  } else {
   ?>
   <script>
     alert('Errore durante l&rsquo;inserimento del prodotto');
-    window.location='../index.php'
+    window.location='../../magazzino.php'
   </script>
   <?php
  }
@@ -39,8 +39,11 @@ if(isset($_POST['btn-save'])) {
 <!-- Mobile viewport optimized: j.mp/bplateviewport -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Inserimento del prodotto in Magazzino</title>
-<link rel="stylesheet" href="../asset/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../asset/css/style.css" type="text/css" />
+<link rel="stylesheet" href="../../asset/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="../../asset/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="../../asset/css/style.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="asset/js/custom_script.js"></script>
 </head>
 <body>
 <center>
@@ -74,7 +77,7 @@ if(isset($_POST['btn-save'])) {
     <button type="submit" name="btn-save"><strong>Aggiungi</strong></button>
     </td>
     <td>
-    <button href="../index.php"><strong>Home</strong></button>
+    <button href="../../index.php"><strong>Home</strong></button>
     </td>
     </tr>
     </table>
