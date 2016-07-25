@@ -18,7 +18,7 @@ if ($_SESSION['livello']=='suxuser'){
 
 include_once 'asset/moduli/dbMySQL.php';
 $con = new DB_con();
-$table = "Magazzino";
+$table = "utenti";
 $res=$con->select($table);
 ?>
 <!doctype html>
@@ -36,7 +36,7 @@ $res=$con->select($table);
 <script src="asset/js/custom_script.js"></script>
 </head>
 <body>
-<center>
+<div class="page text-center">
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
@@ -55,7 +55,7 @@ $res=$con->select($table);
 </div>
 <div id="header">
  <div id="content">
-    <label>Visuale completa del Magazzino</label>
+    <h1>Visuale completa degli utenti</h1>
     </div>
 </div>
 <div id="body">
@@ -63,14 +63,12 @@ $res=$con->select($table);
      <div class="table-responsive">
       <table class="table table-hover">
         <tr>
-        <th colspan="5" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/add_mag.php">Aggiungi Prodotti in magazzino</a></th>
+        <th colspan="5" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/add_user.php">Aggiungi Utente</a></th>
         </tr>
         <tr>
-        <th>Barcode</th>
-        <th>Nome Prodotto</th>
-        <th>Prezzo</th>
-        <th>Quantit&agrave;</th>
-        <th>Costo</th>
+        <th>Nome</th>
+        <th>User</th>
+        <th>Livello</th>
         <th></th>
         <th></th>
         </tr>
@@ -79,13 +77,11 @@ $res=$con->select($table);
          {
            ?>
             <tr>
-            <td><?php echo $row[0]; ?></td>
             <td><?php echo $row[1]; ?></td>
-            <td>&euro; <?php echo $row[2]; ?></td>
-            <td><?php echo $row[3]; ?></td>
-            <td>&euro; <?php echo $row[4]; ?></td>
-            <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $row['0'];?>"><i class="fa fa-edit"></i></a></td>
-            <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $row['0'];?>"><i class="fa fa-times-circle"></i></a></td>
+            <td><?php echo $row[2]; ?></td>
+            <td><?php echo $row[4]; ?></td>
+            <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $row['0'];?>"><i class="fa fa-edit"></i></a></td>
+            <td><a href="applicazioni/utenti/del_user.php?idUtente=<?php echo $row['0'];?>"><i class="fa fa-times-circle"></i></a></td>
             </tr>
             <?php
          }
@@ -101,7 +97,7 @@ $res=$con->select($table);
     </div>
 </div>
 
-</center>
+</div>
 <?php 
 } else {
     echo 'Non sei autorizzato';

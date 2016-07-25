@@ -21,6 +21,10 @@ class DB_con {
 	  $res = mysql_query("INSERT INTO $table (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
 	  return $res;
 	 }
+	 public function insert_user($table,$idUtente,$nome,$user,$password,$livello)  {
+	  $res = mysql_query("INSERT INTO $table (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
+	  return $res;
+	 }
 	 
 }
 ?>
