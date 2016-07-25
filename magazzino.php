@@ -84,8 +84,8 @@ $res=$con->select($table);
             <td>&euro; <?php echo $row[2]; ?></td>
             <td><?php echo $row[3]; ?></td>
             <td>&euro; <?php echo $row[4]; ?></td>
-            <td><i class="fa fa-edit"></i></td>
-            <td><i class="fa fa-times-circle"></i></td>
+            <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $row['0'];?>"><i class="fa fa-edit"></i></a></td>
+            <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $row['0'];?>"><i class="fa fa-times-circle"></i></a></td>
             </tr>
             <?php
          }

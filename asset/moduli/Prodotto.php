@@ -61,8 +61,6 @@ PER CREARE UN OGGETTO NUOVO CON DATI
 *******/
 $nuovo_oggetto = new Prodotto(14);
 
-$prodotto->cambia_prezzo(5);
-$prodotto->prezzo = 5;
 
 if ( $prodotto->cambia_prezzo(5) ) {
 	echo 'Prezzo cambiato';

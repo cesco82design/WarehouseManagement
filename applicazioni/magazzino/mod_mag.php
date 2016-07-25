@@ -37,9 +37,7 @@
     </div>
 <?php
 	if(isset($_GET['barcode'])){
-		$sql = "SELECT * FROM utenti WHERE idUtente = '".$_GET['idUtente']."';";
-		$result= $conn->query($sql) or die($conn->error);
-		$row=$result->fetch_array(MYSQLI_ASSOC);
+		
 	}
 ?>
   <div class="row">
