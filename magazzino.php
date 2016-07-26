@@ -17,9 +17,33 @@ if ($_SESSION['livello']=='dipendente'){
 if ($_SESSION['livello']=='suxuser'){
 
 include_once 'asset/moduli/dbMySQL.php';
-$con = new DB_con();
-$table = "Magazzino";
-$res=$con->select($table);
+$magazzino = new DB_con();
+$magazzino->connect();
+$table='Magazzino';
+echo 'step1';
+if ($res = $magazzino->select($table)) {
+echo 'step2';
+            while ($dati_prodotto = $res->fetch_object()) {
+              echo 'step3';
+                 ?>
+                  <tr>
+                  <td><?php echo $dati_prodotto->Barcode; ?></td>
+                  <td><?php echo $dati_prodotto->nome; ?></td>
+                  <td>&euro; <?php echo $dati_prodotto->prezzo; ?></td>
+                  <td><?php echo $dati_prodotto->quantita; ?></td>
+                  <td>&euro; <?php echo $dati_prodotto->costo; ?></td>
+                  <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
+                  <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-times-circle"></i></a></td>
+                  </tr>
+                  <?php
+               
+            }
+            $res->close();
+          }
+
+          $mysqli->close();
+/*
+
 ?>
 <!doctype html>
 <html>
@@ -38,6 +62,13 @@ $res=$con->select($table);
 <body>
 <center>
 <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-4 col-md-offset-8">
+        <small>
+          <a href="applicazioni/logout.php">Disconnetti</a>
+        </small>
+      </div>
+    </div>
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
         <?php
@@ -75,20 +106,28 @@ $res=$con->select($table);
         <th></th>
         </tr>
         <?php
-         while($row=mysql_fetch_row($res))
-         {
-           ?>
-            <tr>
-            <td><?php echo $row[0]; ?></td>
-            <td><?php echo $row[1]; ?></td>
-            <td>&euro; <?php echo $row[2]; ?></td>
-            <td><?php echo $row[3]; ?></td>
-            <td>&euro; <?php echo $row[4]; ?></td>
-            <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $row['0'];?>"><i class="fa fa-edit"></i></a></td>
-            <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $row['0'];?>"><i class="fa fa-times-circle"></i></a></td>
-            </tr>
-            <?php
-         }
+         if ($res = $query->select('Magazzino')) {
+
+            while ($dati_prodotto = $res->fetch_object()) {
+              {
+                 ?>
+                  <tr>
+                  <td><?php echo $dati_prodotto->Barcode; ?></td>
+                  <td><?php echo $dati_prodotto->nome; ?></td>
+                  <td>&euro; <?php echo $dati_prodotto->prezzo; ?></td>
+                  <td><?php echo $dati_prodotto->quantita; ?></td>
+                  <td>&euro; <?php echo $dati_prodotto->costo; ?></td>
+                  <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
+                  <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-times-circle"></i></a></td>
+                  </tr>
+                  <?php
+               }
+            }
+            $res->close();
+          }
+
+          $mysqli->close();
+         
          ?>
         </table>
     </div>
@@ -102,7 +141,7 @@ $res=$con->select($table);
 </div>
 
 </center>
-<?php 
+<?php */
 } else {
     echo 'Non sei autorizzato';
 }
