@@ -6,23 +6,36 @@ define('DB_USER','');
 define('DB_PASS','');
 define('DB_NAME','');
 
-class DB_con {
-	 function __construct()  {
-	  $conn = mysql_connect(DB_SERVER,DB_USER,DB_PASS) or die('localhost connection problem'.mysql_error());
-	  mysql_select_db(DB_NAME, $conn);
+class CheckLogin {
+	public function collega_db() {
+		$conn = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
+		if($conn->connect_errno){die('errore: Impossibile connettersi al database. '.$conn->connect_error);}
+	}
+	public function scollega_db() {
+		global $conn;
+		$conn->close();
+	}
+}
+
+class MySQL {
+	 public function connect()  {
+		$mysqli = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
+		if($mysqli->connect_errno){die('errore: Impossibile connettersi al database. '.$mysqli->connect_error);}
+		
 	 }
 	 
 	 public function select($table)  {
-	  $res=mysql_query("SELECT * FROM $table");
+	  	$sql = "SELECT * FROM $table;";
+	  	$res =mysqli_query($mysqli,$sql);
 	  return $res;
 	 }
 	 
-	 public function insert_magazzino($table,$barcode,$nome,$prezzo,$quantita,$costo)  {
-	  $res = mysql_query("INSERT INTO $table (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
+	 public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
+	  $res = mysqli_query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
 	  return $res;
 	 }
-	 public function insert_user($table,$idUtente,$nome,$user,$password,$livello)  {
-	  $res = mysql_query("INSERT INTO $table (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
+	 public function insert_user($idUtente,$nome,$user,$password,$livello)  {
+	  $res = mysqli_query("INSERT INTO utenti (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
 	  return $res;
 	 }
 	 
