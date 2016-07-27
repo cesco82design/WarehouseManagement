@@ -1,6 +1,6 @@
 <?php
 
-class Prodotto {
+class Prodotto extends DB_con {
 	
 	public $barcode 		= '';
 	public $nome 			= '';
@@ -48,17 +48,19 @@ class Prodotto {
 			$this->$quantita 	= $dati_prodotto['quantita'];			
 		}
     }
+
+	 
 }
 
 /*******
 PER CREARE UN OGGETTO NUOVO VUOTO
-*******/
+******* /
 $nuovo_oggetto = new Prodotto();
 // L'id non viene passato quindi la funzione dentro il costruttore non viene eseguita perché l'id passato alla funzione è NULL e il primo if blocca l'esecuzione di altre istruzioni
 
 /*******
 PER CREARE UN OGGETTO NUOVO CON DATI
-*******/
+******* /
 $nuovo_oggetto = new Prodotto(14);
 
 
@@ -67,5 +69,5 @@ if ( $prodotto->cambia_prezzo(5) ) {
 } else {
 	echo 'Nessuna variazione';
 }
-
+*/
 ?>

@@ -1,8 +1,10 @@
 <?php
-include 'asset/conn/db.php';
+include 'asset/moduli/dbMySQL.php';
 include 'applicazioni/check_login.php';
 session_start();
-collega_db();
+
+$magazzino = new DB_con();
+$table = "Magazzino";
 
 // cancello utente se mi è stato passato un parametro di cancellazione
 if(isset($_GET['idUtenteCancella'])){
@@ -14,36 +16,9 @@ if ($_SESSION['livello']=='dipendente'){
     header('location:dipendente.php?messaggio=questa è la pagina a te dedicata');
     exit;
 }
-if ($_SESSION['livello']=='suxuser'){
-
-include_once 'asset/moduli/dbMySQL.php';
-$magazzino = new DB_con();
-$magazzino->connect();
-$table='Magazzino';
-echo 'step1';
-if ($res = $magazzino->select($table)) {
-echo 'step2';
-            while ($dati_prodotto = $res->fetch_object()) {
-              echo 'step3';
-                 ?>
-                  <tr>
-                  <td><?php echo $dati_prodotto->Barcode; ?></td>
-                  <td><?php echo $dati_prodotto->nome; ?></td>
-                  <td>&euro; <?php echo $dati_prodotto->prezzo; ?></td>
-                  <td><?php echo $dati_prodotto->quantita; ?></td>
-                  <td>&euro; <?php echo $dati_prodotto->costo; ?></td>
-                  <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
-                  <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-times-circle"></i></a></td>
-                  </tr>
-                  <?php
-               
-            }
-            $res->close();
-          }
-
-          $mysqli->close();
-/*
-
+if ($_SESSION['livello']=='suxuser'){/*
+$res = $magazzino->select($table)
+var_dump($res);*/
 ?>
 <!doctype html>
 <html>
@@ -94,7 +69,7 @@ echo 'step2';
      <div class="table-responsive">
       <table class="table table-hover">
         <tr>
-        <th colspan="5" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/add_mag.php">Aggiungi Prodotti in magazzino</a></th>
+        <th colspan="5" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/magazzino/add_mag.php">Aggiungi Prodotti in magazzino</a></th>
         </tr>
         <tr>
         <th>Barcode</th>
@@ -106,10 +81,8 @@ echo 'step2';
         <th></th>
         </tr>
         <?php
-         if ($res = $query->select('Magazzino')) {
-
+          if ($res = $magazzino->select($table)){
             while ($dati_prodotto = $res->fetch_object()) {
-              {
                  ?>
                   <tr>
                   <td><?php echo $dati_prodotto->Barcode; ?></td>
@@ -121,12 +94,11 @@ echo 'step2';
                   <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-times-circle"></i></a></td>
                   </tr>
                   <?php
-               }
+               
             }
-            $res->close();
+            $this->res->close();
           }
 
-          $mysqli->close();
          
          ?>
         </table>
@@ -141,10 +113,10 @@ echo 'step2';
 </div>
 
 </center>
-<?php */
+<?php 
 } else {
     echo 'Non sei autorizzato';
 }
-scollega_db(); ?>
+ ?>
 </body>
 </html>

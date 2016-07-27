@@ -1,23 +1,20 @@
 <?php
 session_start();
 include '../asset/moduli/dbMySQL.php';
-$salt= '1234';
-$login = new CheckLogin();
-$login->collega_db();
+$login = new DB_con();
+
   if(isset($_POST['invio'])){
-    $utente = mysqli_real_escape_string($conn,trim($_POST['user']));
-    $pwd =  sha1(mysqli_real_escape_string($conn,trim($_POST['password'])).$salt);
-    if($utente != '' && $pwd != ''){
-        $sql = "SELECT * FROM utenti WHERE user = '$utente' AND password = '$pwd';";
-        $result = $conn->query($sql) or die($conn->error);
+    $user = $login->pulisci_stringa($_POST ['user']);
+    $pwd =  $login->salta_pwd($_POST ['password']);
+    if($user != '' && $pwd != ''){
+        $result = $login->CheckLogin($user,$pwd);
         $conta = $result->num_rows;
-        $row= $result->fetch_object();
-        $login->scollega_db();
+        $Utente_login= $result->fetch_object();
 
       if($conta == '1' ){
-        $_SESSION["user"] = $row->user;
-        $_SESSION["livello"] = $row->livello;
-        $_SESSION["nome"] = $row->nome;
+        $_SESSION["user"] = $Utente_login->user;
+        $_SESSION["livello"] = $Utente_login->livello;
+        $_SESSION["nome"] = $Utente_login->nome;
 
         if ($_SESSION['user']=='dipendente') {
           header('location:../dipendente.php');

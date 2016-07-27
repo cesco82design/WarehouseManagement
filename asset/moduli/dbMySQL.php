@@ -7,39 +7,50 @@ define('DB_PASS','');
 define('DB_NAME','');
 
 
-class CheckLogin {
-	public function collega_db() {
-		global $conn;
-		$conn = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
-		if($conn->connect_errno){die('errore: Impossibile connettersi al database. '.$conn->connect_error);}
+class DB_con {
+	private $conn;
+
+	//Attributi accessibili anche fuori dalla classe
+	public $salt = '1234';
+	public $testo_esempio;
+
+	function __construct()  {
+	  $this->conn = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
+	  if (mysqli_connect_errno()) {
+	   printf("Connect failed: %s\n", mysqli_connect_error());
+	   exit();
+	  }
+	  return $this;
 	}
-	public function scollega_db() {
-		global $conn;
-		$conn->close();
+
+	public function CheckLogin($user,$pwd) {
+		$this->res= $this->conn->query("SELECT * FROM utenti WHERE user = '$user' AND password = '$pwd'");
+		return $this->res;
 	}
-}
-class MySQL {
-	  public function _construct()  {	
-		$mysqli = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
-		if($mysqli->connect_errno){die('errore: Impossibile connettersi al database. '.$mysqli->connect_error);}
-	 }
-	 
-	 public function select($table)  {	
-	 	$mysqli = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
-	  	$sql = "SELECT * FROM $table;";
-	  	$res = $mysqli->query($sql);
-	  	$conta = $res->num_rows;
-	  	//echo $conta;
-	  return $res;
-	 }
-	 
+	public function select($table) {
+		$this->res= $this->conn->query("SELECT * FROM $table");
+		return $this->res;
+	}  
+	public function pulisci_stringa($stringa){
+		return $this->conn->real_escape_string(trim($stringa));
+	}
+
+	public function salta_pwd($pwd){
+		return sha1($this->pulisci_stringa($pwd).$this->salt);
+	}
 	 public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
-	  $res = mysqli_query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
-	  return $res;
+	  $this->res= $this->conn->query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
+	  return $this->res;
 	 }
 	 public function insert_user($idUtente,$nome,$user,$password,$livello)  {
-	  $res = mysqli_query("INSERT INTO utenti (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
-	  return $res;
+	 	$this->check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user'");
+	 	$conta = $this->check->num_rows;
+	 	if ($conta!=1){
+	  		$this->res= $this->conn->query("INSERT INTO utenti (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
+		  return $this->res;
+		} else {
+			header('location:?messaggio=l\'utente scelto è già in uso');
+		}
 	 }
 	 
 }

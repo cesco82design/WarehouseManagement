@@ -3,8 +3,7 @@
 include_once 'asset/moduli/dbMySQL.php';
 include_once 'applicazioni/check_login.php';
 session_start();
-$login = new CheckLogin();
-$login->collega_db();
+$login = new DB_con();
 
 if ($_SESSION['livello']=='dipendente'){
     header('location:dipendente.php?messaggio=questa è la pagina a te dedicata');
@@ -80,6 +79,6 @@ if ($_SESSION['livello']=='suxuser'){
 } else {
     echo 'Non sei autorizzato';
 }
-$login->scollega_db(); ?>
+ ?>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <?php
 	include '../../asset/moduli/dbMySQL.php';
-	include '../../asset/moduli/Prodotto.php';
-	$con = new DB_con();
+	$modUser = new DB_con();
 ?>
 <!doctype html>
 <html>
@@ -68,6 +67,6 @@
     </div>
   </div>
 </div>
-<?php scollega_db();?>
+
 </body>
 </html>

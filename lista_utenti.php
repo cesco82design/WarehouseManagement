@@ -2,9 +2,8 @@
 include 'asset/moduli/dbMySQL.php';
 include 'applicazioni/check_login.php';
 session_start();
-$login = new CheckLogin();
-$login->collega_db();
-
+$Utenti = new DB_con();
+$table = "utenti";
 // cancello utente se mi è stato passato un parametro di cancellazione
 if(isset($_GET['idUtenteCancella'])){
     $sql = "DELETE FROM utenti WHERE idUtente = '".$_GET['idUtenteCancella']."';";
@@ -17,9 +16,7 @@ if ($_SESSION['livello']=='dipendente'){
 }
 if ($_SESSION['livello']=='suxuser'){
 
-$con = new MySQL();
-$table = "utenti";
-$res=$con->select($table);
+
 
 ?>
 <!doctype html>
@@ -71,7 +68,7 @@ $res=$con->select($table);
      <div class="table-responsive">
       <table class="table table-hover">
         <tr>
-        <th colspan="5" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/add_user.php">Aggiungi Utente</a></th>
+        <th colspan="5" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/utenti/add_user.php">Aggiungi Utente</a></th>
         </tr>
         <tr>
         <th>Nome</th>
@@ -81,7 +78,7 @@ $res=$con->select($table);
         <th></th>
         </tr>
         <?php
-        
+        if  ($res=$Utenti->select($table)) {
          while($User = $res->fetch_object())
          {
            ?>
@@ -94,8 +91,8 @@ $res=$con->select($table);
             </tr>
             <?php
          }
-            $res->close();
-         
+            $this->res->close();
+         }
           //$con->close();
          ?>
         </table>
@@ -114,6 +111,6 @@ $res=$con->select($table);
 } else {
     echo 'Non sei autorizzato';
 }
-$login->scollega_db(); ?>
+ ?>
 </body>
 </html>
