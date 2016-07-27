@@ -25,8 +25,11 @@ class MySQL {
 	 
 	 public function select($table)  {
 	  	$sql = "SELECT * FROM $table;";
+	  	echo $sql;
 	  	$res =mysqli_query($mysqli,$sql);
-	  	printf($res);
+	  	$conta = $res->num_rows;
+	  	echo $conta;
+	  	printf($mysqli);printf($res);
 	  return $res;
 	 }
 	 
