@@ -1,13 +1,14 @@
 <?php
 include '../../asset/moduli/User.php';
 //$conUser = new DB_con();
-$modUser = new User($_GET['idUtente']);
+//$modUser = new User($_GET['idUtente']);
+$modUser = new User(6);
 $table = "utenti";
 if(isset($_POST['btn-save'])) {
    $id = $_GET['idUtente'];
-   $nome = $addUser->pulisci_stringa($_POST['nome']);
-   $user = $addUser->pulisci_stringa($_POST['user']);
-   $password = $addUser->salta_pwd($_POST ['password']);
+   $nome = $modUser->pulisci_stringa($_POST['nome']);
+   $user = $modUser->pulisci_stringa($_POST['user']);
+   $password = $modUser->salta_pwd($_POST ['password']);
    $livello = $_POST['livello'];
   $res= $modUser->modifyUser($id,$newnome,$newuser,$newpwd,$newlivello);
   if ($res) {
