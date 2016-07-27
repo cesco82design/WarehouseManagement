@@ -1,5 +1,5 @@
 <?php
-include '../../asset/moduli/dbMySQL.php';
+include '../../asset/moduli/User.php';
 //$conUser = new DB_con();
 $modUser = new User($_GET['idUtente']);
 $table = "utenti";
@@ -50,10 +50,10 @@ if(isset($_POST['btn-save'])) {
         </div>
     </div>
 <?php
-	/*if(isset($_GET['idUtente'])){
-		$res=$modUser->select($table);
+  /*if(isset($_GET['idUtente'])){
+    $res=$modUser->select($table);
     $modificautente=$res->fetch_object();
-	}*/
+  }*/
 ?>
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -76,7 +76,7 @@ if(isset($_POST['btn-save'])) {
           </select>
         </p>
         <p>
-        	<input type="hidden" name="hidden_id" id="hidden_id" value="<?php echo $_GET['idUtente']; ?>">
+          <input type="hidden" name="hidden_id" id="hidden_id" value="<?php echo $_GET['idUtente']; ?>">
           <input type="submit" name="invio" id="invio" value="MODIFICA">
         </p>
       </form>
