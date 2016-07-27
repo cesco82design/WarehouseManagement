@@ -9,7 +9,7 @@ class User extends DB_con {
 
 	function __construct( $id = NULL ) {
 		if ( !is_null($id) ) {
-			$this->check= $this->conn->query("SELECT * FROM utenti ");
+			$this->check= $this->conn->query("SELECT * FROM utenti WHERE idUtente = '$id'");
 			$utente = $this->checks->fetch_object();/*
 			 Query (che non sto a scrivere perché non è rilevante per questa guida) che preleva dal db i dati del prodotto con id uguale a quello passato al costruttore e che li salva nella variabile $dati_prodotto;
 			*/
