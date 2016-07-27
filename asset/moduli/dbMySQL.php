@@ -21,7 +21,6 @@ class MySQL {
 	 public function connect()  {
 		$mysqli = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 		if($mysqli->connect_errno){die('errore: Impossibile connettersi al database. '.$mysqli->connect_error);}
-		
 	 }
 	 
 	 public function select($table)  {
