@@ -42,8 +42,12 @@ class DB_con {
 	  $this->res= $this->conn->query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
 	  return $this->res;
 	 }
-	 public function insert_user($idUtente,$nome,$user,$password,$livello)  {
+	 public function checkUserExist($user) {
 	 	$this->check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user'");
+	 	return $this->check;
+	 }
+	 public function insert_user($idUtente,$nome,$user,$password,$livello)  {
+	 	$this->check= checkUserExist($user);
 	 	$conta = $this->check->num_rows;
 	 	if ($conta!=1){
 	  		$this->res= $this->conn->query("INSERT INTO utenti (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");

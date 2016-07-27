@@ -1,6 +1,20 @@
 <?php
-	include '../../asset/moduli/dbMySQL.php';
-	$modUser = new DB_con();
+include '../../asset/moduli/dbMySQL.php';
+$modUser = new User();
+$table = "utenti";
+if(isset($_POST['btn-save'])) {
+   $id = $_GET['idUtente'];
+   $nome = $addUser->pulisci_stringa($_POST['nome']);
+   $user = $addUser->pulisci_stringa($_POST['user']);
+   $password = $addUser->salta_pwd($_POST ['password']);
+   $livello = $_POST['livello'];
+  $res= $modUser->modifyUser($id,$newnome,$newuser,$newpwd,$newlivello);
+  if ($res) {
+    echo 'ok';
+  } else {
+    echo 'ko';
+  }
+} else {
 ?>
 <!doctype html>
 <html>
@@ -14,7 +28,7 @@
 <link rel="stylesheet" href="../../asset/css/font-awesome.min.css" type="text/css" />
 <link rel="stylesheet" href="../../asset/css/style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="asset/js/custom_script.js"></script>
+<script src="../../asset/js/custom_script.js"></script>
 </head>
 
 <body>
@@ -35,25 +49,26 @@
         </div>
     </div>
 <?php
-	if(isset($_GET['barcode'])){
-		
+	if(isset($_GET['idUtente'])){
+		$res=$modUser->select($table);
+    $modificautente=$res->fetch_object();
 	}
 ?>
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form name="form1" method="post">
         <p>nome
-        <input type="text" name="nome" id="nome" value="<?php echo utf8_encode($row['nome']); ?>">
+        <input type="text" name="nome" id="nome" value="<?php echo $modificautente->nome; ?>">
         </p>
         <p>user
-          <input type="text" name="user" id="user" value="<?php echo utf8_encode($row['user']); ?>">
+          <input type="text" name="user" id="user" value="<?php echo $modificautente->user; ?>">
         </p>
         <p>cambia password
-          <input type="password" name="password" id="password">
+          <input type="password" name="password" id="password" value="<?php echo $modificautente->password; ?>">
         </p>
         <p>
           <select name="livello" id="livello">
-            <option value="<?php echo utf8_encode($row['livello']); ?>"><?php echo utf8_encode($row['livello']); ?></option>
+            <option value="<?php echo $modificautente->livello; ?>"><?php echo $modificautente->livello; ?></option>
             <option value="suxuser">Admin</option>
             <option value="guest">Guest</option>
             <option value="ore">Ore</option>
@@ -70,3 +85,4 @@
 
 </body>
 </html>
+<?php } ?>
