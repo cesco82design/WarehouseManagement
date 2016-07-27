@@ -34,7 +34,7 @@ if ($_SESSION['livello']=='suxuser'){
 <script src="asset/js/custom_script.js"></script>
 </head>
 <body>
-<div class="page text-center">
+<div class="page">
 <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-4 col-md-offset-8">
@@ -59,7 +59,7 @@ if ($_SESSION['livello']=='suxuser'){
     </div>
 </div>
 <div id="header">
- <div id="content">
+ <div id="content" class="text-center">
     <h1>Visuale completa degli utenti</h1>
     </div>
 </div>
