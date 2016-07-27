@@ -1,6 +1,7 @@
 <?php
 include '../../asset/moduli/dbMySQL.php';
-$modUser = new User();
+//$conUser = new DB_con();
+$modUser = new User($_GET['idUtente']);
 $table = "utenti";
 if(isset($_POST['btn-save'])) {
    $id = $_GET['idUtente'];
@@ -49,26 +50,26 @@ if(isset($_POST['btn-save'])) {
         </div>
     </div>
 <?php
-	if(isset($_GET['idUtente'])){
+	/*if(isset($_GET['idUtente'])){
 		$res=$modUser->select($table);
     $modificautente=$res->fetch_object();
-	}
+	}*/
 ?>
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form name="form1" method="post">
         <p>nome
-        <input type="text" name="nome" id="nome" value="<?php echo $modificautente->nome; ?>">
+        <input type="text" name="nome" id="nome" value="<?php echo $modUser->nome; ?>">
         </p>
         <p>user
-          <input type="text" name="user" id="user" value="<?php echo $modificautente->user; ?>">
+          <input type="text" name="user" id="user" value="<?php echo $modUser->user; ?>">
         </p>
         <p>cambia password
-          <input type="password" name="password" id="password" value="<?php echo $modificautente->password; ?>">
+          <input type="password" name="password" id="password" value="<?php echo $modUser->password; ?>">
         </p>
         <p>
           <select name="livello" id="livello">
-            <option value="<?php echo $modificautente->livello; ?>"><?php echo $modificautente->livello; ?></option>
+            <option value="<?php echo $modUser->livello; ?>"><?php echo $modUser->livello; ?></option>
             <option value="suxuser">Admin</option>
             <option value="guest">Guest</option>
             <option value="ore">Ore</option>
