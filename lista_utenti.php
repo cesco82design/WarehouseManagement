@@ -21,6 +21,7 @@ $con = new MySQL();
 $table = "utenti";
 $con->connect();
 $res=$con->select($table);
+print_r($res);
 if ($res) {
   echo 'ok';
 } else {

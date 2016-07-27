@@ -26,6 +26,7 @@ class MySQL {
 	 public function select($table)  {
 	  	$sql = "SELECT * FROM $table;";
 	  	$res =mysqli_query($mysqli,$sql);
+	  	printf($res);
 	  return $res;
 	 }
 	 
