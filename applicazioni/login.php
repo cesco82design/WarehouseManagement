@@ -7,18 +7,11 @@ $login->collega_db();
   if(isset($_POST['invio'])){
     $utente = mysqli_real_escape_string($conn,trim($_POST['user']));
     $pwd =  sha1(mysqli_real_escape_string($conn,trim($_POST['password'])).$salt);
-    //echo $utente.' e '.$pwd;
     if($utente != '' && $pwd != ''){
-       // echo $utente.' e '.$pwd;
         $sql = "SELECT * FROM utenti WHERE user = '$utente' AND password = '$pwd';";
-        //echo $sql;
         $result = $conn->query($sql) or die($conn->error);
         $conta = $result->num_rows;
-        //echo $conta;
-        //$row= $result->fetch_array(MYSQLI_ASSOC);
         $row= $result->fetch_object();
-        //echo $row->user;
-        //echo $row->livello;
         $login->scollega_db();
 
       if($conta == '1' ){

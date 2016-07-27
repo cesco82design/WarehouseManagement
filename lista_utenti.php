@@ -19,14 +19,7 @@ if ($_SESSION['livello']=='suxuser'){
 
 $con = new MySQL();
 $table = "utenti";
-$con->connect();
 $res=$con->select($table);
-print_r($res);
-if ($res) {
-  echo 'ok';
-} else {
-  echo 'ko';
-}
 
 ?>
 <!doctype html>
@@ -88,7 +81,7 @@ if ($res) {
         <th></th>
         </tr>
         <?php
-        if ($res=$con->select($table)) {
+        
          while($User = $res->fetch_object())
          {
            ?>
@@ -102,8 +95,7 @@ if ($res) {
             <?php
          }
             $res->close();
-          }
-
+         
           //$con->close();
          ?>
         </table>

@@ -6,8 +6,10 @@ define('DB_USER','');
 define('DB_PASS','');
 define('DB_NAME','');
 
+
 class CheckLogin {
 	public function collega_db() {
+		global $conn;
 		$conn = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 		if($conn->connect_errno){die('errore: Impossibile connettersi al database. '.$conn->connect_error);}
 	}
@@ -16,20 +18,18 @@ class CheckLogin {
 		$conn->close();
 	}
 }
-
 class MySQL {
-	 public function connect()  {
+	  public function _construct()  {	
 		$mysqli = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 		if($mysqli->connect_errno){die('errore: Impossibile connettersi al database. '.$mysqli->connect_error);}
 	 }
 	 
-	 public function select($table)  {
+	 public function select($table)  {	
+	 	$mysqli = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 	  	$sql = "SELECT * FROM $table;";
-	  	echo $sql;
-	  	$res =mysqli_query($mysqli,$sql);
+	  	$res = $mysqli->query($sql);
 	  	$conta = $res->num_rows;
-	  	echo $conta;
-	  	printf($mysqli);printf($res);
+	  	//echo $conta;
 	  return $res;
 	 }
 	 
