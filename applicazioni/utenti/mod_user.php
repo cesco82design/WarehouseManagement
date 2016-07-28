@@ -1,6 +1,7 @@
 <?php
 	include '../../asset/moduli/dbMySQL.php';
-	$modUser = new DB_con();
+	$modUser = new User($_GET['idUtente']);
+echo $modUser->nome;
 ?>
 <!doctype html>
 <html>
@@ -35,7 +36,7 @@
         </div>
     </div>
 <?php
-	if(isset($_GET['barcode'])){
+	if(isset($_GET['idUtente'])){
 		
 	}
 ?>

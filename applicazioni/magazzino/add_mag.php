@@ -9,9 +9,8 @@ if(isset($_POST['btn-save'])) {
  $prezzo = $_POST['prezzo'];
  $quantita = $_POST['quantita'];
  $costo = $_POST['costo'];
- $table = 'Magazzino';
  
- $res=$con->insert_magazzino($table,$barcode,$nome,$prezzo,$quantita,$costo);
+ $res=$con->insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo);
  if($res) {
   ?>
   <script>

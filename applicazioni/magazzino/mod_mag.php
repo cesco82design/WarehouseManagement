@@ -1,7 +1,8 @@
 <?php
 	include '../../asset/moduli/dbMySQL.php';
 	include '../../asset/moduli/Prodotto.php';
-	$con = new DB_con();
+	//$con = new Prodotto($_GET['barcode']);
+	echo $_GET['barcode'];/*
 ?>
 <!doctype html>
 <html>
@@ -71,3 +72,4 @@
 <?php scollega_db();?>
 </body>
 </html>
+*/?>

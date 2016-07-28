@@ -36,16 +36,16 @@ class Prodotto extends DB_con {
 
 	function __construct( $id = NULL ) {
 		if ( !is_null($id) ) {
-			/*
-			 Query (che non sto a scrivere perché non è rilevante per questa guida) che preleva dal db i dati del prodotto con id uguale a quello passato al costruttore e che li salva nella variabile $dati_prodotto;
-			*/
+
+			$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$id'");
+         	$dati_prodotto = $res->fetch_object()
 			// Nelle righe sottostanti inizializzo l'oggendo caricando nelle variabili i valori prelevati dal db
 			$this->$id 			= $id;
-			$this->$barcode 	= $dati_prodotto['barcode'];
-			$this->$prezzo 		= $dati_prodotto['prezzo'];
-			$this->$colore 		= $dati_prodotto['colore'];
-			$this->$nome 		= $dati_prodotto['nome'];
-			$this->$quantita 	= $dati_prodotto['quantita'];			
+			$this->$barcode 	= $dati_prodotto->barcode;
+			$this->$prezzo 		= $dati_prodotto->prezzo;
+			$this->$colore 		= $dati_prodotto->colore;
+			$this->$nome 		= $dati_prodotto->nome;
+			$this->$quantita 	= $dati_prodotto->quantita;			
 		}
     }
 
