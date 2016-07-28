@@ -1,5 +1,5 @@
 <?php
-
+include 'dbMySQL.php';
 class Prodotto extends DB_con {
 	
 	public $barcode 		= '';
@@ -34,19 +34,26 @@ class Prodotto extends DB_con {
 		*/
 	}
 
-	function __construct( $id = NULL ) {
-		if ( !is_null($id) ) {
+	function __construct( $id  ) {
+		//if ( !is_null($id) ) {
 
-			$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$id'");
-         	$dati_prodotto = $res->fetch_object()
+			//$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$id'");
+         	//$dati_prodotto = $res->fetch_object()
 			// Nelle righe sottostanti inizializzo l'oggendo caricando nelle variabili i valori prelevati dal db
-			$this->$id 			= $id;
-			$this->$barcode 	= $dati_prodotto->barcode;
-			$this->$prezzo 		= $dati_prodotto->prezzo;
-			$this->$colore 		= $dati_prodotto->colore;
-			$this->$nome 		= $dati_prodotto->nome;
-			$this->$quantita 	= $dati_prodotto->quantita;			
-		}
+			$this->barcode		= $id;
+			$query = "SELECT * FROM Magazzino WHERE barcode = '$this->barcode'";
+			$res=$this->conn->query($query);
+			//$dati_prodotto = $res->fetch_object();
+			$this->barcode 		= $dati_prodotto->barcode;
+			$this->nome 		= $dati_prodotto->nome;	
+			$this->prezzo 		= $dati_prodotto->prezzo;
+			$this->quantita 	= $dati_prodotto->quantita;	
+			$this->costo 		= $dati_prodotto->costo;
+	//	}
+    }
+    public function selectProd($barcode) {
+    	$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$barcode'");
+			return $res;
     }
 
 	 

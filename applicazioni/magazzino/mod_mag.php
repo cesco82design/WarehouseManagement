@@ -1,8 +1,15 @@
 <?php
-	include '../../asset/moduli/dbMySQL.php';
+	
 	include '../../asset/moduli/Prodotto.php';
-	//$con = new Prodotto($_GET['barcode']);
-	echo $_GET['barcode'];/*
+	$modifica = new Prodotto($_GET['barcode']);
+	var_dump($modifica);
+	echo $modifica->nome;
+	echo $modifica->quantita;
+	echo $modifica->prezzo;
+	/*$res=$modifica->selectProd($_GET['barcode']);
+	$Usermod = $res->fetch_object();
+	echo $Usermod->nome;
+	/*
 ?>
 <!doctype html>
 <html>
