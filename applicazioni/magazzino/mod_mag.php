@@ -1,10 +1,10 @@
 <?php
 	
 	include '../../asset/moduli/Prodotto.php';
-  //$modifica = new Prodotto($_GET['barcode']);
-	$modifica = new Prodotto();
-	var_dump($modifica);/*
-	echo $modifica->nome;
+  $modifica = new Prodotto($_GET['barcode']);
+	//$modifica = new Prodotto();
+	var_dump($modifica);
+	echo $modifica->nome;/*
 	echo $modifica->quantita;
 	echo $modifica->prezzo;*/
 	/*$res=$modifica->selectProd($_GET['barcode']);
