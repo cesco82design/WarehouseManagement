@@ -8,7 +8,7 @@ define('DB_NAME','');
 
 
 class DB_con {
-	private $conn;
+	protected $conn;
 
 	//Attributi accessibili anche fuori dalla classe
 	public $salt = '1234';
