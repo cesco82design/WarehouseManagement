@@ -43,12 +43,13 @@ class Prodotto extends DB_con {
 			$this->barcode		= $id;
 			$query = "SELECT * FROM Magazzino WHERE barcode = '$this->barcode'";
 			$res=$this->conn->query($query);
+			var_dump($res);/*
 			//$dati_prodotto = $res->fetch_object();
 			$this->barcode 		= $dati_prodotto->barcode;
 			$this->nome 		= $dati_prodotto->nome;	
 			$this->prezzo 		= $dati_prodotto->prezzo;
 			$this->quantita 	= $dati_prodotto->quantita;	
-			$this->costo 		= $dati_prodotto->costo;
+			$this->costo 		= $dati_prodotto->costo;*/
 	//	}
     }
     public function selectProd($barcode) {
