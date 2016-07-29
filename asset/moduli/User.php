@@ -8,6 +8,7 @@ class User extends DB_con {
 	public $livello 		= 'guest';
 
 	function __construct( $id = NULL ) {
+		parent::__construct();
 		if ( !is_null($id) ) {
 			$userselect= $this->conn->query("SELECT * FROM utenti WHERE idUtente = '$id'");
 			echo $userselect;
@@ -44,6 +45,21 @@ class User extends DB_con {
     		return false;
     	}
     }
+    
+	public function checkUserExist($user) {
+	 	$this->check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user'");
+	 	return $this->check;
+	}
+	public function insert_user($idUtente,$nome,$user,$password,$livello)  {
+	 	$this->check= checkUserExist($user);
+	 	$conta = $this->check->num_rows;
+	 	if ($conta!=1){
+	  		$this->res= $this->conn->query("INSERT INTO utenti (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
+		  return $this->res;
+		} else {
+			header('location:?messaggio=l\'utente scelto è già in uso');
+		}
+	}
 
 	 
 }

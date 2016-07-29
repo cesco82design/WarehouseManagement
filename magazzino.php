@@ -1,5 +1,6 @@
 <?php
-include 'asset/moduli/dbMySQL.php';
+//include 'asset/moduli/dbMySQL.php';
+include 'asset/moduli/Prodotto.php';
 include 'applicazioni/check_login.php';
 session_start();
 
@@ -7,10 +8,15 @@ $magazzino = new DB_con();
 $table = "Magazzino";
 
 // cancello utente se mi è stato passato un parametro di cancellazione
-if(isset($_GET['idUtenteCancella'])){
-    $sql = "DELETE FROM utenti WHERE idUtente = '".$_GET['idUtenteCancella']."';";
-    $result = $conn->query($sql) or die($conn->error);
-    header('location:?messaggio=cancellazione avvenuta correttamente');
+if(isset($_GET['idMagazzinoCancella'])){
+  $delprodotto = new Prodotto();
+  
+   $res=$delprodotto->del_prodotto($_GET['idMagazzinoCancella']);
+   if ($res) {
+      header('location:?messaggio=cancellazione avvenuta correttamente');
+   } else {
+      header('location:?messaggio=si è verificato un errore durante la cancellazione');
+   }
 }
 if ($_SESSION['livello']=='dipendente'){
     header('location:dipendente.php?messaggio=questa è la pagina a te dedicata');
@@ -91,7 +97,7 @@ var_dump($res);*/
                     <td><?php echo $dati_prodotto->quantita; ?></td>
                     <td>&euro; <?php echo $dati_prodotto->costo; ?></td>
                     <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
-                    <td><a href="applicazioni/magazzino/del_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-times-circle"></i></a></td>
+                    <td><a href="?idMagazzinoCancella=<?php echo $dati_prodotto->Barcode;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
                     <?php
                  

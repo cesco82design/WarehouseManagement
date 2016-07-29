@@ -1,16 +1,31 @@
 <?php
 	
-	include '../../asset/moduli/Prodotto.php';
-  $modifica = new Prodotto($_GET['barcode']);
-	//$modifica = new Prodotto();
-	var_dump($modifica);
-	echo $modifica->nome;/*
-	echo $modifica->quantita;
-	echo $modifica->prezzo;*/
-	/*$res=$modifica->selectProd($_GET['barcode']);
-	$Usermod = $res->fetch_object();
-	echo $Usermod->nome;
-	/*
+include '../../asset/moduli/Prodotto.php';
+$modifica = new Prodotto($_GET['barcode']);
+if(isset($_POST['aggiorna'])) {
+
+  $barcode=$modifica->pulisci_stringa($_GET['barcode']);
+  $newnome = $modifica->pulisci_stringa($_POST['nome']);
+  $newquantita = $modifica->pulisci_stringa($_POST['quantita']);
+  $newprezzo = $modifica->pulisci_stringa($_POST['prezzo']);
+  $newcosto = $modifica->pulisci_stringa($_POST['costo']);
+
+ 
+  $res=$modifica->aggiorna_prodotto($barcode,$newnome,$newquantita,$newprezzo,$newcosto);
+  if($res) {
+    ?>
+  <script>
+    window.location='../../magazzino.php?messaggio=Prodotto Modificato correttamente';
+    </script>
+  <?php
+  } else {
+    ?>
+  <script>
+    window.location='../../magazzino.php?messaggio=c\'è stato un errore durante la modifica del prodotto, si prega di riprovare';
+    </script>
+  <?php
+  }
+} else {
 ?>
 <!doctype html>
 <html>
@@ -28,56 +43,33 @@
 </head>
 
 <body>
-<div class="page text-center">
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-4 col-md-offset-4">
-        <?php
-            if(isset($_GET['messaggio'])){ ?>
-            <div class="messaggio">
-            <?php
-              echo $_GET['messaggio'];
-              ?>
-              </div>
-              <?php
-            }
-          ?>
-        </div>
-    </div>
-<?php
-	if(isset($_GET['barcode'])){
-		
-	}
-?>
+<header>
+  <h1>Modifica Prodotto <?php echo $modifica->barcode;?></h1>
+</header>
+<section class="container">
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form name="form1" method="post">
         <p>nome
-        <input type="text" name="nome" id="nome" value="<?php echo utf8_encode($row['nome']); ?>">
+        <input type="text" name="nome" id="nome" value="<?php echo $modifica->nome; ?>">
         </p>
-        <p>user
-          <input type="text" name="user" id="user" value="<?php echo utf8_encode($row['user']); ?>">
+        <p>quantità
+          <input type="text" name="quantita" value="<?php echo $modifica->quantita; ?>">
         </p>
-        <p>cambia password
-          <input type="password" name="password" id="password">
+        <p>prezzo
+          <input type="text" name="prezzo" value="<?php echo $modifica->prezzo; ?>">
         </p>
-        <p>
-          <select name="livello" id="livello">
-            <option value="<?php echo utf8_encode($row['livello']); ?>"><?php echo utf8_encode($row['livello']); ?></option>
-            <option value="suxuser">Admin</option>
-            <option value="guest">Guest</option>
-            <option value="ore">Ore</option>
-          </select>
+        <p>costo
+          <input type="text" name="costo" value="<?php echo $modifica->costo; ?>">
         </p>
         <p>
-        	<input type="hidden" name="hidden_id" id="hidden_id" value="<?php echo $_GET['idUtente']; ?>">
-          <input type="submit" name="invio" id="invio" value="MODIFICA">
+        	<input type="hidden" name="hidden_id" id="hidden_id" value="<?php echo $_GET['barcode']; ?>">
+          <input type="submit" name="aggiorna" onclick="return confirm('Sei sicuro di modificare?')" value="MODIFICA">
         </p>
       </form>
     </div>
   </div>
-</div>
-<?php scollega_db();?>
+</section>
 </body>
 </html>
-*/?>
+<?php } ?>

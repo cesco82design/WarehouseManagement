@@ -37,16 +37,12 @@ class Prodotto extends DB_con {
 	function __construct( $id = NULL ) {
 		parent::__construct();
 		if ( !is_null($id) ) {
-
-			//$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$id'");
-         	//$dati_prodotto = $res->fetch_object()
-			// Nelle righe sottostanti inizializzo l'oggendo caricando nelle variabili i valori prelevati dal db
-			$this->barcode		= $id;
-			$query = "SELECT * FROM Magazzino WHERE barcode = '$this->barcode'";
+			$query = "SELECT * FROM Magazzino WHERE barcode = '$id'";
 			$res=$this->conn->query($query);
-			//var_dump($res);
+
 			$dati_prodotto = $res->fetch_object();
-			$this->barcode 		= $dati_prodotto->barcode;
+
+			$this->barcode 		= $id;
 			$this->nome 		= $dati_prodotto->nome;	
 			$this->prezzo 		= $dati_prodotto->prezzo;
 			$this->quantita 	= $dati_prodotto->quantita;	
@@ -57,6 +53,21 @@ class Prodotto extends DB_con {
     	$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$barcode'");
 			return $res;
     }
+
+	public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
+	  $this->res= $this->conn->query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
+	  return $this->res;
+	}
+	public function aggiorna_prodotto($barcode,$newnome,$newquantita,$newprezzo,$newcosto) {
+		$aggiornaprod="UPDATE Magazzino SET nome='$newnome', quantita='$newquantita', prezzo='$newprezzo', costo='$newcosto' WHERE Barcode = '$barcode'";
+    	$this->res= $this->conn->query($aggiornaprod);
+	  return $this->res;
+	}
+	public function del_prodotto($barcode) {
+		$delprod="DELETE FROM Magazzino WHERE Barcode = '$barcode'";
+    	$this->res= $this->conn->query($delprod);
+	  return $this->res;
+	}
 
 	 
 }

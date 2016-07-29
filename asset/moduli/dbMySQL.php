@@ -38,24 +38,6 @@ class DB_con {
 	public function salta_pwd($pwd){
 		return sha1($this->pulisci_stringa($pwd).$this->salt);
 	}
-	 public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
-	  $this->res= $this->conn->query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
-	  return $this->res;
-	 }
-	 public function checkUserExist($user) {
-	 	$this->check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user'");
-	 	return $this->check;
-	 }
-	 public function insert_user($idUtente,$nome,$user,$password,$livello)  {
-	 	$this->check= checkUserExist($user);
-	 	$conta = $this->check->num_rows;
-	 	if ($conta!=1){
-	  		$this->res= $this->conn->query("INSERT INTO utenti (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
-		  return $this->res;
-		} else {
-			header('location:?messaggio=l\'utente scelto è già in uso');
-		}
-	 }
 	 
 }
 ?>
