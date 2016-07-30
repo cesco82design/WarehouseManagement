@@ -1,17 +1,18 @@
 <?php
-include '../../asset/moduli/dbMySQL.php';
-$con = new DB_con();
+include '../../asset/moduli/Prodotto.php';
+$addprod = new Prodotto();
 
 // data insert code starts here.
 if(isset($_POST['btn-save'])) {
- $barcode = $_POST['barcode'];
- $nome = $_POST['nome'];
- $prezzo = $_POST['prezzo'];
- $quantita = $_POST['quantita'];
- $costo = $_POST['costo'];
- 
- $res=$con->insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo);
- if($res) {
+ $barcode = $addprod->pulisci_stringa($_POST['barcode']);
+ $nome = $addprod->pulisci_stringa($_POST['nome']);
+ $prezzo = $addprod->pulisci_stringa($_POST['prezzo']);
+ $quantita = $addprod->pulisci_stringa($_POST['quantita']);
+ $costo = $addprod->pulisci_stringa($_POST['costo']);
+ //echo $barcode.$nome.$prezzo.$quantita.$costo;
+ //$res=$addUser->insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo);
+ $prodotto = Prodotto::insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo);
+ if($prodotto) {
   ?>
   <script>
     alert('Prodotto inserito');

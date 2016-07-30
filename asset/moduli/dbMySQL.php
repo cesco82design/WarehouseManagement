@@ -38,6 +38,23 @@ class DB_con {
 	public function salta_pwd($pwd){
 		return sha1($this->pulisci_stringa($pwd).$this->salt);
 	}
-	 
+	public function insert( $dati ) {
+		$colonne = array();
+		$valori = array();
+		//if ( is_array($dati) && !empty($dati) ) {
+			foreach($dati as $key => $value) {
+				$colonne[] = $key;
+				$valori[] = $value;
+			}
+			print_r($colonne);
+			print_r($valori);/*
+			$result = $this->conn->query('INSERT INTO ' . $this->table . ' (' . implode(',', $colonne) . ') VALUES (' . implode(',', $valori) . ')');
+			if ( $result ) {
+				return $this->conn->query('SELECT LAST_INSERT_ID()');
+			}*/
+		//}
+		//return false;
+	}
+
 }
 ?>

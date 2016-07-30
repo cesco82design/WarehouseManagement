@@ -1,17 +1,16 @@
 <?php
-include '../../asset/moduli/dbMySQL.php';
-$addUser = new DB_con();
+include '../../asset/moduli/User.php';
+$addUser = new User();
 
 // data insert code starts here.
 if(isset($_POST['btn-save'])) {
- $idUtente = $addUser->pulisci_stringa($_POST['idUtente']);
+
  $nome = $addUser->pulisci_stringa($_POST['nome']);
  $user = $addUser->pulisci_stringa($_POST['user']);
  $password = $addUser->salta_pwd($_POST ['password']);
  $livello = $_POST['livello'];
-
  
- $res=$addUser->insert_user($idUtente,$nome,$user,$password,$livello);
+ $res=$addUser->insert_user($nome,$user,$password,$livello);
  if($res) {
   ?>
   <script>
@@ -26,7 +25,7 @@ if(isset($_POST['btn-save'])) {
     window.location='../../magazzino.php?messaggio=c&rsquo;&egrave; un errore nell&rsquo;inserimento dell&rsquo;utente'
   </script>
   <?php
- }
+ } 
 } else {
 // data insert code ends here.
 

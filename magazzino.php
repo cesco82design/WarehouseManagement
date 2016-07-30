@@ -91,6 +91,7 @@ var_dump($res);*/
             if ($res = $magazzino->select($table)){
               while ($dati_prodotto = $res->fetch_object()) {
                 $totprezzo = ($dati_prodotto->quantita)*($dati_prodotto->prezzo);
+                $sommaprezzo[] = $totprezzo;
                    ?>
                     <tr>
                     <td><?php echo $dati_prodotto->Barcode; ?></td>
@@ -105,9 +106,15 @@ var_dump($res);*/
                     <?php
                  
               }
-              $this->res->close();
+              echo '<tr><td colspan="4"></td>
+            <td><strong>&euro; ';
+            $totsomma= array_sum($sommaprezzo);
+            echo number_format((float)$totsomma, 2, '.', '');
+            echo '</strong></td>
+            <td colspan="3"></td>
+            </tr>';
             }
-
+            
            
            ?>
           </table>

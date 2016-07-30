@@ -8,6 +8,7 @@ class Prodotto extends DB_con {
 	public $quantita 		= 0;
 	public $costo 			= 0;
 	private $sottoscorta 	= 2;
+	public $table 			= 'Magazzino';
 
 	public function cambia_prezzo( $nuovo_prezzo ) {
 		$pattern = '/^\d+(?:\.\d{2})?$/';
@@ -53,11 +54,11 @@ class Prodotto extends DB_con {
     	$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$barcode'");
 			return $res;
     }
-
+    /*
 	public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
 	  $this->res= $this->conn->query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
 	  return $this->res;
-	}
+	}*/
 	public function aggiorna_prodotto($barcode,$newnome,$newquantita,$newprezzo,$newcosto) {
 		$aggiornaprod="UPDATE Magazzino SET nome='$newnome', quantita='$newquantita', prezzo='$newprezzo', costo='$newcosto' WHERE Barcode = '$barcode'";
     	$this->res= $this->conn->query($aggiornaprod);
@@ -68,7 +69,18 @@ class Prodotto extends DB_con {
     	$this->res= $this->conn->query($delprod);
 	  return $this->res;
 	}
-
+	static public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
+		$db_con = new DB_con;
+		$dati_prodotto = array('barcode'=>$barcode,'nome'=>$nome,'prezzo'=>$prezzo,'quantita'=>$quantita,'costo'=>$costo);
+		$id_nuovo_oggetto = $db_con->insert($dati_prodotto);
+		if ( $id_nuovo_oggetto ) {
+			$prodotto = new Prodotto($id_nuovo_oggetto);
+			if ( $prodotto ) {
+				return $prodotto;
+			}
+		}
+		return false;
+	}
 	 
 }
 

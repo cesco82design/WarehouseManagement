@@ -1,12 +1,14 @@
 <?php
 
+include 'dbMySQL.php';  
 class User extends DB_con {
 	
 	public $nome 			= '';
 	public $user 			= '';
 	public $password  		= '';
 	public $livello 		= 'guest';
-
+	public $table 			= 'utenti';
+	
 	function __construct( $id = NULL ) {
 		parent::__construct();
 		if ( !is_null($id) ) {
@@ -47,18 +49,32 @@ class User extends DB_con {
     }
     
 	public function checkUserExist($user) {
-	 	$this->check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user'");
-	 	return $this->check;
+	 	$check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user'");
+	 	return $check;
 	}
-	public function insert_user($idUtente,$nome,$user,$password,$livello)  {
+	/*
+	public function insert_user($nome,$user,$password,$livello)  {
 	 	$this->check= checkUserExist($user);
 	 	$conta = $this->check->num_rows;
 	 	if ($conta!=1){
-	  		$this->res= $this->conn->query("INSERT INTO utenti (idUtente,nome,user,password,livello) VALUES('$idUtente','$nome','$user','$password','$livello')");
+	  		$this->res= $this->conn->query("INSERT INTO utenti (nome,user,password,livello) VALUES('$nome','$user','$password','$livello')");
 		  return $this->res;
 		} else {
 			header('location:?messaggio=l\'utente scelto è già in uso');
 		}
+	}*/
+
+	static public function insert_utenti($nome,$user,$password,$livello)  {
+		$db_con = new DB_con;
+		$dati_utente = array('nome'=>$nome,'user'=>$user,'password'=>$password,'livello'=>$livello);
+		$id_nuovo_utente = $db_con->insert($dati_utente);
+		if ( $id_nuovo_utente ) {
+			$utente = new User($id_nuovo_utente);
+			if ( $utente ) {
+				return $utente;
+			}
+		}
+		return false;
 	}
 
 	 

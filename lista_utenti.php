@@ -85,7 +85,8 @@ if ($_SESSION['livello']=='suxuser'){
             <tr>
             <td><?php echo $User->nome; ?></td>
             <td><?php echo $User->user; ?></td>
-            <td><?php echo $User->livello; ?></td>
+            <td><?php 
+            if ($User->livello=='suxuser') : echo 'Supervisor'; else : echo $User->livello; endif; ?></td>
             <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $User->idUtente;?>"><i class="fa fa-edit"></i></a></td>
             <td><a href="applicazioni/utenti/del_user.php?idUtente=<?php echo $User->idUtente;?>"><i class="fa fa-times-circle"></i></a></td>
             </tr>
