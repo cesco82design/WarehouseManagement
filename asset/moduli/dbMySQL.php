@@ -12,7 +12,6 @@ class DB_con {
 
 	//Attributi accessibili anche fuori dalla classe
 	public $salt = '1234';
-	public $testo_esempio;
 
 	function __construct()  {
 	  $this->conn = new mysqli(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
@@ -38,23 +37,26 @@ class DB_con {
 	public function salta_pwd($pwd){
 		return sha1($this->pulisci_stringa($pwd).$this->salt);
 	}
-	public function insert( $dati ) {
+	 
+	public function insert( $table,$dati ) {
 		$colonne = array();
 		$valori = array();
-		//if ( is_array($dati) && !empty($dati) ) {
+		if ( is_array($dati) && !empty($dati) ) {
 			foreach($dati as $key => $value) {
 				$colonne[] = $key;
 				$valori[] = $value;
 			}
-			print_r($colonne);
-			print_r($valori);/*
+			//print_r($colonne);
+			//print_r($valori);
+			
 			$result = $this->conn->query('INSERT INTO ' . $this->table . ' (' . implode(',', $colonne) . ') VALUES (' . implode(',', $valori) . ')');
+			printf($result);
+			/*
 			if ( $result ) {
 				return $this->conn->query('SELECT LAST_INSERT_ID()');
 			}*/
-		//}
-		//return false;
+		}
+		return false;
 	}
-
 }
 ?>
