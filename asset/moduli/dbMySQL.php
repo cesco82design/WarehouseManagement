@@ -6,7 +6,6 @@ define('DB_USER','');
 define('DB_PASS','');
 define('DB_NAME','');
 
-
 class DB_con {
 	protected $conn;
 
@@ -48,9 +47,11 @@ class DB_con {
 			}
 			//print_r($colonne);
 			//print_r($valori);
-			
-			$result = $this->conn->query('INSERT INTO ' . $this->table . ' (' . implode(',', $colonne) . ') VALUES (' . implode(',', $valori) . ')');
-			printf($result);
+			$sql = ('INSERT INTO Magazzino (' . implode(',', $colonne) . ') VALUES (' . implode(',', $valori) . ')');
+			echo $sql;
+			var_dump($this->conn);
+			$result = $this->conn->query($sql);
+			var_dump($result);
 			/*
 			if ( $result ) {
 				return $this->conn->query('SELECT LAST_INSERT_ID()');
