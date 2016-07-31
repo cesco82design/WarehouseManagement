@@ -2,7 +2,7 @@
 
 	include '../../asset/moduli/User.php';
 	$modUser = new User($_GET['idUtente']);
-  var_dump($modUser);
+  //var_dump($modUser);
 if(isset($_POST['aggiorna'])) {
 /*
   $idUtente     = $modUser->pulisci_stringa($_GET['idUtente']);
@@ -44,7 +44,9 @@ if(isset($_POST['aggiorna'])) {
 </head>
 
 <body>
-<div class="page text-center">
+<header class="text-center">
+  <h1>Modifica Utente <?php echo $modUser->user;?></h1>
+</header>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -55,7 +57,7 @@ if(isset($_POST['aggiorna'])) {
         <p>user
           <input type="text" name="user" id="user" value="<?php echo $modUser->user; ?>">
         </p>
-        <p>cambia password
+        <p>password
           <input type="password" name="password" id="password" value="<?php echo $modUser->password; ?>">
         </p>
         <p>
