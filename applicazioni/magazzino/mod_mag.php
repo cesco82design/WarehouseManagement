@@ -2,6 +2,7 @@
 	
 include '../../asset/moduli/Prodotto.php';
 $modifica = new Prodotto($_GET['barcode']);
+//var_dump($modifica);
 if(isset($_POST['aggiorna'])) {
 
   $barcode=$modifica->pulisci_stringa($_GET['barcode']);

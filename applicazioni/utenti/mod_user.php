@@ -1,7 +1,32 @@
 <?php
-	include '../../asset/moduli/dbMySQL.php';
+
+	include '../../asset/moduli/User.php';
 	$modUser = new User($_GET['idUtente']);
-echo $modUser->nome;
+  var_dump($modUser);
+if(isset($_POST['aggiorna'])) {
+/*
+  $idUtente     = $modUser->pulisci_stringa($_GET['idUtente']);
+  $newnnomeutente      = $modUser->pulisci_stringa($_POST['nome']);
+  $newuser      = $modUser->pulisci_stringa($_POST['user']);
+  $newpassword  = $modUser->salta_pwd($_POST ['password']);
+  $newlivello   = $modUser->pulisci_stringa($_POST['livello']);
+  echo $idUtente.','.$newnomeutente.','.$newuser.','.$newpassword.','.$newlivello;
+/* 
+  $res=$modUser->aggiorna_utente($idUtente,$newnome,$newuser,$newpassword,$newlivello);
+  if($res) {
+    ?>
+  <script>
+    window.location='../../lista_utenti.php?messaggio=Utente Modificato correttamente';
+    </script>
+  <?php
+  } else {
+    ?>
+  <script>
+    window.location='../../lista_utenti.php?messaggio=c\'è stato un errore durante la modifica dell\'utente, si prega di riprovare';
+    </script>
+  <?php
+  }*/
+} else {
 ?>
 <!doctype html>
 <html>
@@ -15,46 +40,27 @@ echo $modUser->nome;
 <link rel="stylesheet" href="../../asset/css/font-awesome.min.css" type="text/css" />
 <link rel="stylesheet" href="../../asset/css/style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="asset/js/custom_script.js"></script>
+<script src="../../asset/js/custom_script.js"></script>
 </head>
 
 <body>
 <div class="page text-center">
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-4 col-md-offset-4">
-        <?php
-            if(isset($_GET['messaggio'])){ ?>
-            <div class="messaggio">
-            <?php
-              echo $_GET['messaggio'];
-              ?>
-              </div>
-              <?php
-            }
-          ?>
-        </div>
-    </div>
-<?php
-	if(isset($_GET['idUtente'])){
-		
-	}
-?>
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form name="form1" method="post">
         <p>nome
-        <input type="text" name="nome" id="nome" value="<?php echo utf8_encode($row['nome']); ?>">
+        <input type="text" name="nome" id="nome" value="<?php echo $modUser->nomeutente; ?>">
         </p>
         <p>user
-          <input type="text" name="user" id="user" value="<?php echo utf8_encode($row['user']); ?>">
+          <input type="text" name="user" id="user" value="<?php echo $modUser->user; ?>">
         </p>
         <p>cambia password
-          <input type="password" name="password" id="password">
+          <input type="password" name="password" id="password" value="<?php echo $modUser->password; ?>">
         </p>
         <p>
           <select name="livello" id="livello">
-            <option value="<?php echo utf8_encode($row['livello']); ?>"><?php echo utf8_encode($row['livello']); ?></option>
+            <option value="<?php echo $modUser->livello; ?>"><?php echo $modUser->livello; ?></option>
             <option value="suxuser">Admin</option>
             <option value="guest">Guest</option>
             <option value="ore">Ore</option>
@@ -68,6 +74,6 @@ echo $modUser->nome;
     </div>
   </div>
 </div>
-
 </body>
 </html>
+<?php } ?>

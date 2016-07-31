@@ -9,7 +9,23 @@ class Prodotto extends DB_con {
 	public $costo 			= 0;
 	private $sottoscorta 	= 2;
 
-	public function cambia_prezzo( $nuovo_prezzo ) {
+	
+	function __construct( $id = NULL ) {
+		parent::__construct();
+		if ( !is_null($id) ) {
+			$query = "SELECT * FROM Magazzino WHERE barcode = '$id'";
+			$res=$this->conn->query($query);
+
+			$dati_prodotto = $res->fetch_object();
+
+			$this->barcode 		= $id;
+			$this->nome 		= $dati_prodotto->nome;	
+			$this->prezzo 		= $dati_prodotto->prezzo;
+			$this->quantita 	= $dati_prodotto->quantita;	
+			$this->costo 		= $dati_prodotto->costo;
+		}
+    }
+    public function cambia_prezzo( $nuovo_prezzo ) {
 		$pattern = '/^\d+(?:\.\d{2})?$/';
 		if (preg_match($pattern, $nuovo_prezzo) == '0') {
 		   return false;
@@ -34,21 +50,6 @@ class Prodotto extends DB_con {
 		*/
 	}
 
-	function __construct( $id = NULL ) {
-		parent::__construct();
-		if ( !is_null($id) ) {
-			$query = "SELECT * FROM Magazzino WHERE barcode = '$id'";
-			$res=$this->conn->query($query);
-
-			$dati_prodotto = $res->fetch_object();
-
-			$this->barcode 		= $id;
-			$this->nome 		= $dati_prodotto->nome;	
-			$this->prezzo 		= $dati_prodotto->prezzo;
-			$this->quantita 	= $dati_prodotto->quantita;	
-			$this->costo 		= $dati_prodotto->costo;
-		}
-    }
     public function selectProd($barcode) {
     	$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$barcode'");
 			return $res;
@@ -71,22 +72,17 @@ class Prodotto extends DB_con {
 	static public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
 		$db_con = new DB_con();
 		$dati_prodotto = array('Barcode'=>$barcode,'nome'=>$nome,'prezzo'=>$prezzo,'quantita'=>$quantita,'costo'=>$costo);
-
 		$table 			= 'Magazzino';
-		//print_r($dati_prodotto);
-		
 		$id_nuovo_oggetto = $db_con->insert($table,$dati_prodotto);
-		var_dump($id_nuovo_oggetto);
-		/*
+		
 		if ( $id_nuovo_oggetto ) {
 			$prodotto = new Prodotto($id_nuovo_oggetto);
 			if ( $prodotto ) {
 				return $prodotto;
 			}
-		}*/
-		return false;
+		}
+		return true;
 	}
-	 
 }
 
 /*******

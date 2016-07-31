@@ -1,37 +1,42 @@
 <?php
-
 include 'dbMySQL.php';  
 class User extends DB_con {
 	
-	public $nome 			= '';
+	public $idUtente 		= '';
+	public $nomeutente 		= '';
 	public $user 			= '';
 	public $password  		= '';
 	public $livello 		= 'guest';
-	public $table 			= 'utenti';
-	
+
 	function __construct( $id = NULL ) {
 		parent::__construct();
 		if ( !is_null($id) ) {
-			$userselect= $this->conn->query("SELECT * FROM utenti WHERE idUtente = '$id'");
+			$query = "SELECT * FROM utenti WHERE idUtente = '$id'";
+			echo $query;
+			$userselect=$this->conn->query($query);
+			var_dump($userselect);
 			echo $userselect;
-			$utente = $userselect->fetch_object();/*
-			 Query (che non sto a scrivere perché non è rilevante per questa guida) che preleva dal db i dati del prodotto con id uguale a quello passato al costruttore e che li salva nella variabile $dati_prodotto;
-			*/
-			// Nelle righe sottostanti inizializzo l'oggendo caricando nelle variabili i valori prelevati dal db
-			$this->$id 			= $id;
-			$this->$nome 		= $utente->nome;
-			$this->$user 		= $utente->user;
-			$this->$password 	= $utente->password;
-			$this->$livello 	= $utente->livello;			
+
+			$utente = $userselect->fetch_object();
+//			var_dump($utente);
+			//echo $id;
+/*
+			$this->$idUtente 		= $id;
+			$this->$nomeutente 		= $utente->nomeutente;
+			$this->$user 			= $utente->user;
+			$this->$password 		= $utente->password;
+			$this->$livello 		= $utente->livello;	
+*/				
 		}
     }
-    public function modifyUser($id,$newnome,$newuser,$newpwd,$newlivello){
-    	$update="UPDATE utenti SET nome='$newnome',user='$newuser', password='$newpwd', livello='$newlivello' WHERE idUtente = '$id'";
-    	$updateNoPwd="UPDATE utenti SET nome='$newnome',user='$newuser', livello='$newlivello' WHERE idUtente = '$id'";
-    	$this->check= checkUserExist($newuser);
+    
+    public function aggiorna_utente($idUtente,$newnomeutente,$newuser,$newpwd,$newlivello){
+    	$update="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', password='$newpwd', livello='$newlivello' WHERE idUtente = '$id'";
+    	$updateNoPwd="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', livello='$newlivello' WHERE idUtente = '$id'";
+    	$this->check= $this->conn->checkUserExist($newuser);
 	 	$contau = $this->check->num_rows;
 	 	if ($contau!=1){
-	 		if ($this->checkpass= checkPWD($newpwd)) {
+	 		if ($this->checkpass= $this->conn->checkPWD($newpwd)) {
 	 			$this->res= $this->conn->query($update);
 	 		} else {
 	    		$this->res= $this->conn->query($updateNoPwd);
@@ -64,17 +69,25 @@ class User extends DB_con {
 		}
 	}*/
 
-	static public function insert_utenti($nome,$user,$password,$livello)  {
-		$db_con = new DB_con;
-		$dati_utente = array('nome'=>$nome,'user'=>$user,'password'=>$password,'livello'=>$livello);
-		$id_nuovo_utente = $db_con->insert($dati_utente);
+	static public function insert_user($nomeutente,$user,$password,$livello)  {
+		$db_con = new DB_con();
+		$dati_utente = array('nomeutente'=>$nomeutente,'user'=>$user,'password'=>$password,'livello'=>$livello);
+		$table 			= 'utenti';
+		$id_nuovo_utente = $db_con->insert($table,$dati_utente);
+		/*
 		if ( $id_nuovo_utente ) {
-			$utente = new User($id_nuovo_utente);
+			$prodotto = new User($id_nuovo_utente);
 			if ( $utente ) {
 				return $utente;
 			}
-		}
-		return false;
+		}*/
+		return true;
+	}
+
+	public function del_utente($idUtente) {
+		$deluser="DELETE FROM utenti WHERE idUtente = '$idUtente'";
+    	$this->res= $this->conn->query($deluser);
+	  return $this->res;
 	}
 
 	 

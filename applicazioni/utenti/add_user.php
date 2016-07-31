@@ -5,13 +5,13 @@ $addUser = new User();
 // data insert code starts here.
 if(isset($_POST['btn-save'])) {
 
- $nome = $addUser->pulisci_stringa($_POST['nome']);
+ $nomeutente = $addUser->pulisci_stringa($_POST['nome']);
  $user = $addUser->pulisci_stringa($_POST['user']);
  $password = $addUser->salta_pwd($_POST ['password']);
  $livello = $_POST['livello'];
  
- $res=$addUser->insert_user($nome,$user,$password,$livello);
- if($res) {
+ $utente = User::insert_user($nomeutente,$user,$password,$livello);
+ if($utente) {
   ?>
   <script>
     //alert('Utente inserito');
@@ -22,7 +22,7 @@ if(isset($_POST['btn-save'])) {
   ?>
   <script>
     //alert('Errore durante l&rsquo;inserimento dell&rsquo;utente');
-    window.location='../../magazzino.php?messaggio=c&rsquo;&egrave; un errore nell&rsquo;inserimento dell&rsquo;utente'
+    window.location='../../lista_utenti.php?messaggio=c&rsquo;&egrave; un errore nell&rsquo;inserimento dell&rsquo;utente'
   </script>
   <?php
  } 

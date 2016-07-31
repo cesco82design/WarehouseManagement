@@ -2,17 +2,17 @@
 include '../../asset/moduli/Prodotto.php';
 $addprod = new Prodotto();
 
-// data insert code starts here.
 if(isset($_POST['btn-save'])) {
+
  $barcode = $addprod->pulisci_stringa($_POST['barcode']);
  $nome = $addprod->pulisci_stringa($_POST['nome']);
  $prezzo = $addprod->pulisci_stringa($_POST['prezzo']);
  $quantita = $addprod->pulisci_stringa($_POST['quantita']);
  $costo = $addprod->pulisci_stringa($_POST['costo']);
- //echo $barcode.$nome.$prezzo.$quantita.$costo;
- //$res=$addUser->insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo);
+
  $prodotto = Prodotto::insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo);
- if($prodotto) {
+
+ if($prodotto)   {
   ?>
   <script>
     alert('Prodotto inserito');
@@ -43,7 +43,7 @@ if(isset($_POST['btn-save'])) {
 <link rel="stylesheet" href="../../asset/css/font-awesome.min.css" type="text/css" />
 <link rel="stylesheet" href="../../asset/css/style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="asset/js/custom_script.js"></script>
+<script src="../../asset/js/custom_script.js"></script>
 </head>
 <body>
 <center>

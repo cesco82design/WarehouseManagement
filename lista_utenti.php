@@ -1,14 +1,22 @@
 <?php
-include 'asset/moduli/dbMySQL.php';
+include 'asset/moduli/User.php';
 include 'applicazioni/check_login.php';
 session_start();
 $Utenti = new DB_con();
 $table = "utenti";
 // cancello utente se mi è stato passato un parametro di cancellazione
 if(isset($_GET['idUtenteCancella'])){
-    $sql = "DELETE FROM utenti WHERE idUtente = '".$_GET['idUtenteCancella']."';";
+  $delutente = new User();
+  
+   $res=$delutente->del_utente($_GET['idUtenteCancella']);
+    /*$sql = "DELETE FROM utenti WHERE idUtente = '".$_GET['idUtenteCancella']."';";
     $result = $conn->query($sql) or die($conn->error);
-    header('location:?messaggio=cancellazione avvenuta correttamente');
+    header('location:?messaggio=cancellazione avvenuta correttamente');*/
+    if ($res) {
+      header('location:?messaggio=cancellazione avvenuta correttamente');
+   } else {
+      header('location:?messaggio=si è verificato un errore durante la cancellazione');
+   }
 }
 if ($_SESSION['livello']=='dipendente'){
     header('location:dipendente.php?messaggio=questa è la pagina a te dedicata');
@@ -43,6 +51,14 @@ if ($_SESSION['livello']=='suxuser'){
         </small>
       </div>
     </div>
+</div>
+<header>
+  <div class="continer">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 class="text-center">Visuale completa degli utenti</h1>
+      </div>
+    </div>
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
         <?php
@@ -57,13 +73,9 @@ if ($_SESSION['livello']=='suxuser'){
           ?>
         </div>
     </div>
-</div>
-<div id="header">
- <div id="content" class="text-center">
-    <h1>Visuale completa degli utenti</h1>
-    </div>
-</div>
-<div id="body">
+  </div>
+</header>
+<section id="body">
  <div class="container">
      <div class="table-responsive">
       <table class="table table-hover">
@@ -79,33 +91,32 @@ if ($_SESSION['livello']=='suxuser'){
         </tr>
         <?php
         if  ($res=$Utenti->select($table)) {
-         while($User = $res->fetch_object())
-         {
-           ?>
-            <tr>
-            <td><?php echo $User->nome; ?></td>
-            <td><?php echo $User->user; ?></td>
-            <td><?php 
-            if ($User->livello=='suxuser') : echo 'Supervisor'; else : echo $User->livello; endif; ?></td>
-            <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $User->idUtente;?>"><i class="fa fa-edit"></i></a></td>
-            <td><a href="applicazioni/utenti/del_user.php?idUtente=<?php echo $User->idUtente;?>"><i class="fa fa-times-circle"></i></a></td>
-            </tr>
-            <?php
+           while($User = $res->fetch_object())
+           {
+             ?>
+              <tr>
+              <td><?php echo $User->nomeutente; ?></td>
+              <td><?php echo $User->user; ?></td>
+              <td><?php 
+              if ($User->livello=='suxuser') : echo 'Supervisor'; else : echo $User->livello; endif; ?></td>
+              <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $User->idUtente;?>"><i class="fa fa-edit"></i></a></td>
+              <td><a href="?idUtenteCancella=<?php echo $User->idUtente;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
+              </tr>
+              <?php
+           }
+            
          }
-            $this->res->close();
-         }
-          //$con->close();
+          
          ?>
         </table>
     </div>
-</div>
+</section>
 
-<div id="footer">
- <div id="content">
-    <hr /><br/>
-    <label>Per qualsiasi problema contattare : <a href="http://www.cesco82design.it">Cesco82Design.it</a></label>
-    </div>
-</div>
+<footer>
+  <div class="text-center">
+    <small>Per qualsiasi problema contattare : <a href="http://www.cesco82design.it">Cesco82Design.it</a></small>
+  </div>
+</footer>
 
 </div>
 <?php 

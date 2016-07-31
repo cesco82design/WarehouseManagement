@@ -45,19 +45,14 @@ class DB_con {
 				$colonne[] = $key;
 				$valori[] = $value;
 			}
-			//print_r($colonne);
-			//print_r($valori);
-			$sql = ('INSERT INTO Magazzino (' . implode(',', $colonne) . ') VALUES (' . implode(',', $valori) . ')');
-			echo $sql;
-			var_dump($this->conn);
+			$sql = ('INSERT INTO '.$table.' (' . implode(',', $colonne) . ') VALUES (\'' . implode('\',\'', $valori) . '\')');
 			$result = $this->conn->query($sql);
-			var_dump($result);
-			/*
+			
 			if ( $result ) {
 				return $this->conn->query('SELECT LAST_INSERT_ID()');
-			}*/
+			}
 		}
-		return false;
+		return true;
 	}
 }
 ?>
