@@ -1,5 +1,6 @@
 <?php
 include 'dbMySQL.php';  
+
 class User extends DB_con {
 	
 	public $idUtente 		= '';
@@ -13,20 +14,20 @@ class User extends DB_con {
 		if ( !is_null($id) ) {
 			$query = "SELECT * FROM utenti WHERE idUtente = '$id'";
 			echo $query;
-			$userselect=$this->conn->query($query);
-			var_dump($userselect);
-			echo $userselect;
+			$res=$this->conn->query($query);
+//			var_dump($$res);
+			print_r($res);
 
-			$utente = $userselect->fetch_object();
-//			var_dump($utente);
+			$utente = $res->fetch_object();
+			print_r($utente);
 			//echo $id;
-/*
-			$this->$idUtente 		= $id;
+
+			$this->$idUtente 		= $utente->idUtente;
 			$this->$nomeutente 		= $utente->nomeutente;
 			$this->$user 			= $utente->user;
 			$this->$password 		= $utente->password;
 			$this->$livello 		= $utente->livello;	
-*/				
+				
 		}
     }
     
