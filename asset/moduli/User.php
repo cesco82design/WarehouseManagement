@@ -13,11 +13,11 @@ class User extends DB_con {
 		parent::__construct();
 		if ( !is_null($id) ) {
 			$query = "SELECT * FROM utenti WHERE idUtente = '$id'";
-			echo $query.'   ';
+			echo $query.'  /  '; // aggiungo un po' di spazio tra una stampa e l'altra di debug
 			$res=$this->conn->query($query);
 //			var_dump($$res);
 			print_r($res);
-			echo '   ';
+			echo '  /  ';  // aggiungo un po' di spazio tra una stampa e l'altra di debug
 			$utente = $res->fetch_object();
 			print_r($utente);
 //			return $utente;
