@@ -21,7 +21,7 @@ class User extends DB_con {
 			$utente = $res->fetch_object();
 			print_r($utente);
 //			return $utente;
-			//echo $id;
+			echo  $utente->nomeutente;
 
 			$this->$idUtente 		= $utente->idUtente;
 			$this->$nomeutente 		= $utente->nomeutente;
