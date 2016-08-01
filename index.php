@@ -27,13 +27,20 @@ if ($_SESSION['livello']=='suxuser'){
 <script src="asset/js/custom_script.js"></script>
 </head>
 <body>
-<div class="page text-center">
-<div class="container">
+<div class="container text-center">
     <div class="row">
       <div class="col-xs-12 col-md-4 col-md-offset-8">
         <small>
           <a href="applicazioni/logout.php">Disconnetti</a>
         </small>
+      </div>
+    </div>
+</div>
+<header class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Home Page</h1>
       </div>
     </div>
     <div class="row">
@@ -50,11 +57,9 @@ if ($_SESSION['livello']=='suxuser'){
           ?>
         </div>
     </div>
-</div>
-<header>
-    <h1>Home Page</h1>
+  </div>
 </header>
-<section>
+<section class="text-center">
  <div class="container">
      <div class="row">
        <div class="col-xs-12 col-md-6">
@@ -68,17 +73,20 @@ if ($_SESSION['livello']=='suxuser'){
 </section>
 
 <footer>
-  <div id="content">
-    <hr /><br/>
-    <label>Per qualsiasi problema contattare : <a href="http://www.cesco82design.it">Cesco82Design.it</a></label>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <hr /><br/>
+        <small>Per qualsiasi problema contattare : <a href="http://www.cesco82design.it">Cesco82Design.it</a></small>
+      </div>
+    </div>
   </div>
 </footer>
-</div>
 
+</body>
+</html>
 <?php 
 } else {
     echo 'Non sei autorizzato';
 }
  ?>
-</body>
-</html>
