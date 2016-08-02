@@ -35,23 +35,23 @@ class User extends DB_con {
     public function aggiorna_utente($idUtente,$newnomeutente,$newuser,$newpwd,$newlivello){
     	$update="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', password='$newpwd', livello='$newlivello' WHERE idUtente = '$idUtente'";
     	$updateNoPwd="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', livello='$newlivello' WHERE idUtente = '$idUtente'";
-    	//echo $update;
-    	//echo $updateNoPwd;
-    	$checku= $this->checkUserExist($newuser);
+    	
+    	$checku = $this->checkUserExist($idUtente,$newuser);
 
 	 	$contau = $checku->num_rows;
-
-	 	if ($contau!=1){
-	 		/*)
-	 		if ($checkpass= $this->checkPWD($newpwd)) {
+	 	
+	 	if ($contau==1){
+	 		header('location:?idUtente='.$idUtente.'&messaggio=l\'utente scelto è già in uso');
+	 		
+    	} else {
+	    	$checkpass = $this->checkPWD($newpwd);
+	    	if ($checkpass) {
 	 			$res= $this->conn->query($update);
+	 			header('location:../../lista_utenti.php?messaggio=l\'utente è stato aggiornato');
 	 		} else {
 	    		$res= $this->conn->query($updateNoPwd);
+	    		header('location:../../lista_utenti.php?messaggio=l\'utente è stato aggiornato MA la password NON è stata modificata');
 	    	}
-    	} else {
-    		header('location:?idUtente='.$idUtente.'&?messaggio=l\'utente scelto è già in uso');*/
-    		$checkpass= $this->checkPWD($newpwd);
-    		var_dump($checkpass);
     	}
     }
     public function checkPWD($pwd) {
@@ -62,35 +62,33 @@ class User extends DB_con {
     	}
     }
     
-	public function checkUserExist($user) {
-	 	$check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user'");
+	public function checkUserExist($idUtente,$user) {
+		$check= $this->conn->query("SELECT * FROM utenti WHERE user = '$user' AND idUtente != '$idUtente'");
 	 	return $check;
 	}
-	/*
-	public function insert_user($nome,$user,$password,$livello)  {
-	 	$this->check= checkUserExist($user);
-	 	$conta = $this->check->num_rows;
-	 	if ($conta!=1){
-	  		$this->res= $this->conn->query("INSERT INTO utenti (nome,user,password,livello) VALUES('$nome','$user','$password','$livello')");
-		  return $this->res;
-		} else {
-			header('location:?messaggio=l\'utente scelto è già in uso');
-		}
-	}*/
+
 
 	static public function insert_user($nomeutente,$user,$password,$livello)  {
 		$db_con = new DB_con();
 		$dati_utente = array('nomeutente'=>$nomeutente,'user'=>$user,'password'=>$password,'livello'=>$livello);
 		$table 			= 'utenti';
-		$id_nuovo_utente = $db_con->insert($table,$dati_utente);
+		$checkUser = $db_con->checknewUserExist($user);
+		var_dump($checkUser);
+		return false;/*
+		if ($checkUser->num_rows==1){
+			header('location:?messaggio=lo username scelto è già utilizzato');
+			return false;
+		} else {
+			$id_nuovo_utente = $db_con->insert($table,$dati_utente);
+		}
 		/*
 		if ( $id_nuovo_utente ) {
 			$prodotto = new User($id_nuovo_utente);
 			if ( $utente ) {
 				return $utente;
 			}
-		}*/
-		return true;
+		}* /
+		return true;*/
 	}
 
 	public function del_utente($idUtente) {

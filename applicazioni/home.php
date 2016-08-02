@@ -71,7 +71,7 @@
         </div>
         <div class="btn-group margintop20 fullwidth">
           <button type="submit" name="invio" id="invio" class="floatleft enter cyano"><i class="fa fa-sign-in"></i> Entra</button>
-          <button href="join.php" class="floatright cyano"><i class="fa fa-check-square-o"></i> Registrati</button>
+          <button href="utenti/add_user.php" class="floatright cyano"><i class="fa fa-check-square-o"></i> Registrati</button>
         </div>
         
         

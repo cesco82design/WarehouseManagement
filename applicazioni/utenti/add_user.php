@@ -7,7 +7,7 @@ if(isset($_POST['btn-save'])) {
 
  $nomeutente = $addUser->pulisci_stringa($_POST['nome']);
  $user = $addUser->pulisci_stringa($_POST['user']);
- $password = $addUser->salta_pwd($_POST ['password']);
+ $password = $addUser->reg_pwd($_POST ['password']);
  $livello = $_POST['livello'];
  
  $utente = User::insert_user($nomeutente,$user,$password,$livello);
