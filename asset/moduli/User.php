@@ -13,38 +13,45 @@ class User extends DB_con {
 		parent::__construct();
 		if ( !is_null($id) ) {
 			$query = "SELECT * FROM utenti WHERE idUtente = '$id'";
-			echo $query.'  /  '; // aggiungo un po' di spazio tra una stampa e l'altra di debug
+			//echo $query.'  /  '; // aggiungo un po' di spazio tra una stampa e l'altra di debug
 			$res=$this->conn->query($query);
 //			var_dump($$res);
-			print_r($res);
-			echo '  /  ';  // aggiungo un po' di spazio tra una stampa e l'altra di debug
+			//print_r($res);
+			//echo '  /  ';  // aggiungo un po' di spazio tra una stampa e l'altra di debug
 			$utente = $res->fetch_object();
-			print_r($utente);
+			//print_r($utente);
 //			return $utente;
-			echo  $utente->nomeutente;
+			//echo  $utente->nomeutente;
 
-			$this->$idUtente 		= $utente->idUtente;
-			$this->$nomeutente 		= $utente->nomeutente;
-			$this->$user 			= $utente->user;
-			$this->$password 		= $utente->password;
-			$this->$livello 		= $utente->livello;	
+			$this->idUtente 		= $utente->idUtente;
+			$this->nomeutente 		= $utente->nomeutente;
+			$this->user 			= $utente->user;
+			$this->password 		= $utente->password;
+			$this->livello 			= $utente->livello;	
 				
 		}
     }
     
     public function aggiorna_utente($idUtente,$newnomeutente,$newuser,$newpwd,$newlivello){
-    	$update="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', password='$newpwd', livello='$newlivello' WHERE idUtente = '$id'";
-    	$updateNoPwd="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', livello='$newlivello' WHERE idUtente = '$id'";
-    	$this->check= $this->conn->checkUserExist($newuser);
-	 	$contau = $this->check->num_rows;
+    	$update="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', password='$newpwd', livello='$newlivello' WHERE idUtente = '$idUtente'";
+    	$updateNoPwd="UPDATE utenti SET nomeutente='$newnomeutente',user='$newuser', livello='$newlivello' WHERE idUtente = '$idUtente'";
+    	//echo $update;
+    	//echo $updateNoPwd;
+    	$checku= $this->checkUserExist($newuser);
+
+	 	$contau = $checku->num_rows;
+
 	 	if ($contau!=1){
-	 		if ($this->checkpass= $this->conn->checkPWD($newpwd)) {
-	 			$this->res= $this->conn->query($update);
+	 		/*)
+	 		if ($checkpass= $this->checkPWD($newpwd)) {
+	 			$res= $this->conn->query($update);
 	 		} else {
-	    		$this->res= $this->conn->query($updateNoPwd);
+	    		$res= $this->conn->query($updateNoPwd);
 	    	}
     	} else {
-    		header('location:?messaggio=l\'utente scelto è già in uso');
+    		header('location:?idUtente='.$idUtente.'&?messaggio=l\'utente scelto è già in uso');*/
+    		$checkpass= $this->checkPWD($newpwd);
+    		var_dump($checkpass);
     	}
     }
     public function checkPWD($pwd) {

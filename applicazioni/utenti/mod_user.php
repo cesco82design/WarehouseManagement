@@ -4,16 +4,16 @@
 	$modUser = new User($_GET['idUtente']);
   //var_dump($modUser);
 if(isset($_POST['aggiorna'])) {
-/*
-  $idUtente     = $modUser->pulisci_stringa($_GET['idUtente']);
-  $newnnomeutente      = $modUser->pulisci_stringa($_POST['nome']);
-  $newuser      = $modUser->pulisci_stringa($_POST['user']);
-  $newpassword  = $modUser->salta_pwd($_POST ['password']);
-  $newlivello   = $modUser->pulisci_stringa($_POST['livello']);
-  echo $idUtente.','.$newnomeutente.','.$newuser.','.$newpassword.','.$newlivello;
-/* 
-  $res=$modUser->aggiorna_utente($idUtente,$newnome,$newuser,$newpassword,$newlivello);
-  if($res) {
+
+  $idUtente         = $modUser->pulisci_stringa($_GET['idUtente']);
+  $newnomeutente   = $modUser->pulisci_stringa($_POST['nome']);
+  $newuser          = $modUser->pulisci_stringa($_POST['user']);
+  $newpassword      = $modUser->salta_pwd($_POST ['password']);
+  $newlivello       = $modUser->pulisci_stringa($_POST['livello']);
+  //echo $idUtente.','.$newnomeutente.','.$newuser.','.$newpassword.','.$newlivello;
+ 
+  $res=$modUser->aggiorna_utente($idUtente,$newnomeutente,$newuser,$newpassword,$newlivello);
+  /*if($res) {
     ?>
   <script>
     window.location='../../lista_utenti.php?messaggio=Utente Modificato correttamente';
@@ -48,6 +48,20 @@ if(isset($_POST['aggiorna'])) {
   <h1>Modifica Utente <?php echo $modUser->user;?></h1>
 </header>
 <div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+        <?php
+            if(isset($_GET['messaggio'])){ ?>
+            <div class="messaggio">
+            <?php
+              echo $_GET['messaggio'];
+              ?>
+              </div>
+              <?php
+            }
+          ?>
+        </div>
+    </div>
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form name="form1" method="post">
@@ -69,8 +83,8 @@ if(isset($_POST['aggiorna'])) {
           </select>
         </p>
         <p>
-        	<input type="hidden" name="hidden_id" id="hidden_id" value="<?php echo $_GET['idUtente']; ?>">
-          <input type="submit" name="invio" id="invio" value="MODIFICA">
+        	<input type="hidden" name="hidden_id" value="<?php echo $_GET['idUtente']; ?>">
+          <input type="submit" name="aggiorna" value="MODIFICA">
         </p>
       </form>
     </div>
