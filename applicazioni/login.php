@@ -12,11 +12,12 @@ $login = new DB_con();
         $Utente_login= $result->fetch_object();
 
       if($conta == '1' ){
+        $_SESSION["userID"] = $Utente_login->idUtente;
         $_SESSION["user"] = $Utente_login->user;
         $_SESSION["livello"] = $Utente_login->livello;
-        $_SESSION["nome"] = $Utente_login->nome;
+        $_SESSION["nomeutente"] = $Utente_login->nomeutente;
 
-        if ($_SESSION['user']=='dipendente') {
+        if ($_SESSION['livello']=='dipendente') {
           header('location:../dipendente.php');
         } else {
           header('location:../index.php');

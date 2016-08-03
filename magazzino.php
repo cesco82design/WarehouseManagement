@@ -2,7 +2,7 @@
 //include 'asset/moduli/dbMySQL.php';
 include 'asset/moduli/Prodotto.php';
 include 'applicazioni/check_login.php';
-session_start();
+//session_start();
 
 $magazzino = new DB_con();
 $table = "Magazzino";
@@ -22,9 +22,8 @@ if ($_SESSION['livello']=='dipendente'){
     header('location:dipendente.php?messaggio=questa è la pagina a te dedicata');
     exit;
 }
-if ($_SESSION['livello']=='suxuser'){/*
-$res = $magazzino->select($table)
-var_dump($res);*/
+if ($_SESSION['livello']=='suxuser'){
+  
 ?>
 <!doctype html>
 <html>

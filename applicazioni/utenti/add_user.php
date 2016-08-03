@@ -9,23 +9,15 @@ if(isset($_POST['btn-save'])) {
  $user = $addUser->pulisci_stringa($_POST['user']);
  $password = $addUser->reg_pwd($_POST ['password']);
  $livello = $_POST['livello'];
+ //echo $nomeutente.' - '.$user.' - '.$password.' - '.$livello;
  
  $utente = User::insert_user($nomeutente,$user,$password,$livello);
+ //var_dump($utente);
  if($utente) {
-  ?>
-  <script>
-    //alert('Utente inserito');
-    window.location='../../lista_utenti.php?messaggio=Utente inserito'
-  </script>
-  <?php
- } else {
-  ?>
-  <script>
-    //alert('Errore durante l&rsquo;inserimento dell&rsquo;utente');
-    window.location='../../lista_utenti.php?messaggio=c&rsquo;&egrave; un errore nell&rsquo;inserimento dell&rsquo;utente'
-  </script>
-  <?php
- } 
+    header('location:../../lista_utenti.php?messaggio=utente aggiunto correttamente');
+  } else {
+    header('location:?messaggio=c\'è un errore nell\'inserimento dell\'utente');
+  }
 } else {
 // data insert code ends here.
 
@@ -80,16 +72,10 @@ if(isset($_POST['btn-save'])) {
                 <td colspan="2"><input type="text" name="user" placeholder="Username" required /></td>
                 </tr>
                 <tr>
-                <td colspan="2"><input type="password"  name="password" placeholder="Password" required /></td>
+                <td colspan="2"><input type="password" maxlength="12" name="password" placeholder="Password" required /></td>
                 </tr>
                 <tr>
-                <td colspan="2">
-                    <select name="livello" id="livello">
-                        <option value="suxuser">Admin</option>
-                        <option value="guest">Guest</option>
-                        <option value="ore">Ore</option>
-                    </select>
-                </td>
+                <td colspan="2"><input type="hidden"  name="livello" value="guest" /></td>
                 </tr>
                 <tr>
                 <td>

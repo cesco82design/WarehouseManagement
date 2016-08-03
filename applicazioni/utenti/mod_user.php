@@ -1,5 +1,6 @@
 <?php
 
+include '../check_login.php';
 	include '../../asset/moduli/User.php';
 	$modUser = new User($_GET['idUtente']);
   //var_dump($modUser);
@@ -8,24 +9,20 @@ if(isset($_POST['aggiorna'])) {
   $idUtente         = $modUser->pulisci_stringa($_GET['idUtente']);
   $newnomeutente   = $modUser->pulisci_stringa($_POST['nome']);
   $newuser          = $modUser->pulisci_stringa($_POST['user']);
-  $newpassword      = $modUser->salta_pwd($_POST ['password']);
+  
+    $password      = $modUser->pulisci_stringa($_POST ['password']);
+       
   $newlivello       = $modUser->pulisci_stringa($_POST['livello']);
-  //echo $idUtente.','.$newnomeutente.','.$newuser.','.$newpassword.','.$newlivello;
+
+  //echo $idUtente.','.$newnomeutente.','.$newuser.','.$password.','.$newlivello;
  
-  $res=$modUser->aggiorna_utente($idUtente,$newnomeutente,$newuser,$newpassword,$newlivello);
-  /*if($res) {
-    ?>
-  <script>
-    window.location='../../lista_utenti.php?messaggio=Utente Modificato correttamente';
-    </script>
-  <?php
-  } else {
-    ?>
-  <script>
-    window.location='../../lista_utenti.php?messaggio=c\'è stato un errore durante la modifica dell\'utente, si prega di riprovare';
-    </script>
-  <?php
-  }*/
+  $res=$modUser->aggiorna_utente($idUtente,$newnomeutente,$newuser,$password,$newlivello);
+  if($res) {
+    header('location:../../lista_utenti.php?messaggio=Utente Modificato correttamente');
+  }
+  else {
+    header('location:../../lista_utenti.php?messaggio=c\'è stato un errore durante la modifica dell\'utente, si prega di effettuare verifiche');
+  }
 } else {
 ?>
 <!doctype html>
@@ -66,22 +63,25 @@ if(isset($_POST['aggiorna'])) {
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form name="form1" method="post">
         <p>nome
-        <input type="text" name="nome" id="nome" value="<?php echo $modUser->nomeutente; ?>">
+        <input type="text" name="nome" id="nome" required value="<?php echo $modUser->nomeutente; ?>">
         </p>
         <p>user
-          <input type="text" name="user" id="user" value="<?php echo $modUser->user; ?>">
+          <input type="text" name="user" id="user" required value="<?php echo $modUser->user; ?>">
         </p>
         <p>password
-          <input type="password" name="password" id="password" value="<?php echo $modUser->password; ?>">
+          <input type="password" name="password" id="password" required value="<?php echo $modUser->password; ?>" >
         </p>
+        <?php if ($_SESSION['livello']=='suxuser') { ?>
         <p>
           <select name="livello" id="livello">
             <option value="<?php echo $modUser->livello; ?>"><?php echo $modUser->livello; ?></option>
             <option value="suxuser">Admin</option>
+            <option value="dipendente">Dipendnete</option>
             <option value="guest">Guest</option>
-            <option value="ore">Ore</option>
           </select>
         </p>
+        <?php }
+        if ($_SESSION['livello']=='dipendnete') {echo '<p><input type="hidden"  name="livello" value="guest" /></p>';} ?>
         <p>
         	<input type="hidden" name="hidden_id" value="<?php echo $_GET['idUtente']; ?>">
           <input type="submit" name="aggiorna" value="MODIFICA">

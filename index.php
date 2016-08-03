@@ -5,10 +5,6 @@ include_once 'applicazioni/check_login.php';
 session_start();
 $login = new DB_con();
 
-if ($_SESSION['livello']=='dipendente'){
-    header('location:dipendente.php?messaggio=questa è la pagina a te dedicata');
-    exit;
-}
 if ($_SESSION['livello']=='suxuser'){
 
 ?>
@@ -88,5 +84,8 @@ if ($_SESSION['livello']=='suxuser'){
 <?php 
 } else {
     echo 'Non sei autorizzato';
+    echo '<small>
+          <a href="applicazioni/logout.php">Disconnetti</a>
+        </small>';
 }
  ?>

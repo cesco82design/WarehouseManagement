@@ -1,7 +1,7 @@
 <?php
 include 'asset/moduli/User.php';
 include 'applicazioni/check_login.php';
-session_start();
+//session_start();
 $Utenti = new DB_con();
 $table = "utenti";
 // cancello utente se mi è stato passato un parametro di cancellazione
@@ -9,23 +9,13 @@ if(isset($_GET['idUtenteCancella'])){
   $delutente = new User();
   
    $res=$delutente->del_utente($_GET['idUtenteCancella']);
-    /*$sql = "DELETE FROM utenti WHERE idUtente = '".$_GET['idUtenteCancella']."';";
-    $result = $conn->query($sql) or die($conn->error);
-    header('location:?messaggio=cancellazione avvenuta correttamente');*/
     if ($res) {
       header('location:?messaggio=cancellazione avvenuta correttamente');
    } else {
       header('location:?messaggio=si è verificato un errore durante la cancellazione');
    }
 }
-if ($_SESSION['livello']=='dipendente'){
-    header('location:dipendente.php?messaggio=questa è la pagina a te dedicata');
-    exit;
-}
-if ($_SESSION['livello']=='suxuser'){
-
-
-
+if (($_SESSION['livello']=='suxuser')||($_SESSION['livello']=='dipendente')){
 ?>
 <!doctype html>
 <html>
@@ -99,8 +89,17 @@ if ($_SESSION['livello']=='suxuser'){
               <td><?php echo $User->user; ?></td>
               <td><?php 
               if ($User->livello=='suxuser') : echo 'Supervisor'; else : echo $User->livello; endif; ?></td>
+              <?php if ($_SESSION['livello']=='dipendente') {
+                if ($_SESSION['userID']==$User->idUtente) {
+                  echo '<td><a href="applicazioni/utenti/mod_user.php?idUtente='.$User->idUtente.'"><i class="fa fa-edit"></i></a></td><td></td>';
+                } else {
+                  echo '<td></td><td></td>';
+                }
+              }
+              if ($_SESSION['livello']=='suxuser') { ?>
               <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $User->idUtente;?>"><i class="fa fa-edit"></i></a></td>
               <td><a href="?idUtenteCancella=<?php echo $User->idUtente;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
+              <?php } ?>
               </tr>
               <?php
            }

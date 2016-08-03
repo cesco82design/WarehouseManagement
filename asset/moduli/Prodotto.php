@@ -54,11 +54,7 @@ class Prodotto extends DB_con {
     	$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$barcode'");
 			return $res;
     }
-    /*
-	public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
-	  $this->res= $this->conn->query("INSERT INTO Magazzino (Barcode,nome,prezzo,quantita,costo) VALUES('$barcode','$nome','$prezzo','$quantita','$costo')");
-	  return $this->res;
-	}*/
+
 	public function aggiorna_prodotto($barcode,$newnome,$newquantita,$newprezzo,$newcosto) {
 		$aggiornaprod="UPDATE Magazzino SET nome='$newnome', quantita='$newquantita', prezzo='$newprezzo', costo='$newcosto' WHERE Barcode = '$barcode'";
     	$this->res= $this->conn->query($aggiornaprod);
