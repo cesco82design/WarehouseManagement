@@ -21,17 +21,69 @@ if ($_SESSION['livello']=='suxuser'){
 <link rel="stylesheet" href="asset/css/style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="asset/js/custom_script.js"></script>
+<script src="asset/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container text-center">
-    <div class="row">
-      <div class="col-xs-12 col-md-4 col-md-offset-8">
-        <small>
-          <a href="applicazioni/logout.php">Disconnetti</a>
-        </small>
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://disputebills.com"><img src="http://res.cloudinary.com/candidbusiness/image/upload/v1455406304/dispute-bills-chicago.png" alt="Dispute Bills">
+        </a>
       </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Azienda <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Dati Azienda</a></li>
+              <li><a href="#">Utenti</a></li>
+              <li><a href="#">Dipendenti</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clienti <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Anagrafica</a></li>
+              <li><a href="#">Scheda Clienti</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Magazzino <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Gestione Prodotti</a></li>
+              <li><a href="#">Movimenti Magazzino</a></li>
+              <li><a href="#">Inventario Magazzino</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fornitori <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Anagrafica Fornitori</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">link</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header"><i class="fa fa-sign-out"></i> LogOut</li>
+              <li><a href="applicazioni/logout.php">Disconnetti</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
     </div>
-</div>
+    <!--/.container-fluid -->
+  </nav>
 <header class="text-center">
   <div class="container">
     <div class="row">
