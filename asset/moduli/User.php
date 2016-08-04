@@ -35,14 +35,15 @@ class User extends DB_con {
 		if ($newpassword) {
 			$password = $newpassword;
 		} else {
-			header('location:'.$_SERVER['HTTP_REFERER'].'&var='.$newpassword.'&alert=danger&messaggio=la password non soddisfa i criteri');
+			header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri');
+			return false;
 			exit();
 		}
 
     	$checku = $db_con->checkUserExist($idUtente,$newuser);
 	 	$contau = $checku->num_rows;
 	 	if ($contau==1){
-	 		header('location:?idUtente='.$idUtente.'&messaggio=l\'utente scelto è già in uso');
+	 		header('location:?idUtente='.$idUtente.'&alert=danger&messaggio=l\'utente scelto è già in uso');
     	} else {
     		$fields = array('nome'=>$newnomeutente,'cognome'=>$newcognome,'username'=>$newuser,'password'=>$password,'livello'=>$newlivello);
     		$res = $db_con->update($table, $idUtente, $fields);
@@ -60,8 +61,10 @@ class User extends DB_con {
 		if ($newpassword) {
 			$password = $newpassword;
 		} else {
-			header('location:'.$_SERVER['HTTP_REFERER'].'?var='.$newpassword.'&alert=danger&messaggio=la password non soddisfa i criteri');
-			exit();
+			//for ($x=1;$x<2;$x++) {
+				header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri');
+				exit();
+			//}
 		}
 		$checkUser = $db_con->checknewUserExist($user);
 		$contau = $checkUser->num_rows;

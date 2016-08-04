@@ -49,6 +49,8 @@ class DB_con {
 				}
 			   return false;
 			   header('location:'.$_SERVER['HTTP_REFERER'].'&alert=danger&messaggio=la password non soddisfa i criteri di sicurezza');
+			   exit();
+
 			   
 			} else {
 				return sha1($this->pulisci_stringa($pwd).$this->salt);		
