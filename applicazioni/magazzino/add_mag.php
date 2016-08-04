@@ -1,5 +1,6 @@
 <?php
-include '../../asset/moduli/Prodotto.php';
+include_once('../../functions.php');
+include moduli.'Prodotto.php';
 $addprod = new Prodotto();
 
 if(isset($_POST['btn-save'])) {
@@ -16,45 +17,39 @@ if(isset($_POST['btn-save'])) {
   ?>
   <script>
     alert('Prodotto inserito');
-    window.location='../../magazzino.php'
+    window.location=PATH.'magazzino.php'
   </script>
   <?php
  } else {
   ?>
   <script>
     alert('Errore durante l&rsquo;inserimento del prodotto');
-    window.location='../../magazzino.php'
+    window.location=PATH.'magazzino.php'
   </script>
   <?php
  }
 } else {
 // data insert code ends here.
 
-?>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<!-- Mobile viewport optimized: j.mp/bplateviewport -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Inserimento del prodotto in Magazzino</title>
-<link rel="stylesheet" href="../../asset/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../../asset/css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="../../asset/css/style.css" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="../../asset/js/custom_script.js"></script>
-</head>
-<body>
-<center>
+include_once(LAYOUT.'pretitle.php'); ?>
 
-<div id="header">
- <div id="content">
-    <label>Inserimento del prodotto in Magazzino</label>
+<title>Inserimento del prodotto in Magazzino</title>
+
+<?php include_once(LAYOUT.'header.php'); ?>
+
+<header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h1>Inserimento del prodotto in Magazzino</h1>
+            </div>
+        </div>
     </div>
-</div>
-<div id="body">
- <div id="content">
+</header>
+<section>
+ <div class="container">
+ <div class="row">
+ <div class="col-xs-12 col-md-4 col-md-offset-4">
     <form method="post">
     <table align="center">
     <tr>
@@ -84,8 +79,8 @@ if(isset($_POST['btn-save'])) {
     </form>
     </div>
 </div>
+</div>
 
-</center>
-</body>
-</html>
+</section>
+<?php include_once(LAYOUT.'footer.php'); ?>
 <?php } ?>

@@ -2,6 +2,7 @@
 include 'dbMySQL.php';
 class Prodotto extends DB_con {
 	
+	public $id 		= '';
 	public $barcode 		= '';
 	public $nome 			= '';
 	public $prezzo  		= 0;
@@ -13,12 +14,13 @@ class Prodotto extends DB_con {
 	function __construct( $id = NULL ) {
 		parent::__construct();
 		if ( !is_null($id) ) {
-			$query = "SELECT * FROM Magazzino WHERE barcode = '$id'";
+			$query = "SELECT * FROM prodotti WHERE id = '$id'";
 			$res=$this->conn->query($query);
 
 			$dati_prodotto = $res->fetch_object();
 
-			$this->barcode 		= $id;
+			$this->id 		= $id;
+			$this->barcode 		= $dati_prodotto->barcode;
 			$this->nome 		= $dati_prodotto->nome;	
 			$this->prezzo 		= $dati_prodotto->prezzo;
 			$this->quantita 	= $dati_prodotto->quantita;	
@@ -50,25 +52,25 @@ class Prodotto extends DB_con {
 		*/
 	}
 
-    public function selectProd($barcode) {
-    	$res=$this->conn->query("SELECT * FROM Magazzino WHERE barcode = '$barcode'");
+    public function selectProd($id) {
+    	$res=$this->conn->query("SELECT * FROM prodotti WHERE id = '$id'");
 			return $res;
     }
 
-	public function aggiorna_prodotto($barcode,$newnome,$newquantita,$newprezzo,$newcosto) {
-		$aggiornaprod="UPDATE Magazzino SET nome='$newnome', quantita='$newquantita', prezzo='$newprezzo', costo='$newcosto' WHERE Barcode = '$barcode'";
+	public function aggiorna_prodotto($id,$barcode,$newnome,$marca,$categoria,$datainserimento) {
+		$aggiornaprod="UPDATE prodotti SET barcode='$barcode', nome='$newnome', marca='$marca', categoria='$categoria', datainserimento='$datainserimento' WHERE id = '$id'";
     	$this->res= $this->conn->query($aggiornaprod);
 	  return $this->res;
 	}
-	public function del_prodotto($barcode) {
-		$delprod="DELETE FROM Magazzino WHERE Barcode = '$barcode'";
+	public function del_prodotto($id) {
+		$delprod="DELETE FROM prodotti WHERE id = '$id'";
     	$this->res= $this->conn->query($delprod);
 	  return $this->res;
 	}
-	static public function insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo)  {
+	static public function insert_magazzino($id,$barcode,$nome,$marca,$categoria,$datainserimento)  {
 		$db_con = new DB_con();
-		$dati_prodotto = array('Barcode'=>$barcode,'nome'=>$nome,'prezzo'=>$prezzo,'quantita'=>$quantita,'costo'=>$costo);
-		$table 			= 'Magazzino';
+		$dati_prodotto = array('id'=>NULL,'barcode'=>$barcode,'nome'=>$nome,'marca'=>$marca,'categoria'=>$categoria,'datainserimento'=>$datainserimento);
+		$table 			= 'prodotti';
 		$id_nuovo_oggetto = $db_con->insert($table,$dati_prodotto);
 		
 		if ( $id_nuovo_oggetto ) {
@@ -95,6 +97,8 @@ $nuovo_oggetto = new Prodotto(14);
 
 if ( $prodotto->cambia_prezzo(5) ) {
 	echo 'Prezzo cambiato';
+} else {
+} else {
 } else {
 	echo 'Nessuna variazione';
 }

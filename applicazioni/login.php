@@ -1,6 +1,8 @@
 <?php
+include_once('../functions.php');
 session_start();
-include '../asset/moduli/dbMySQL.php';
+//echo CLASMOD;
+include CLASMOD.'dbMySQL.php';
 $login = new DB_con();
 
   if(isset($_POST['invio'])){
@@ -10,20 +12,18 @@ $login = new DB_con();
         $result = $login->CheckLogin($user,$pwd);
         $conta = $result->num_rows;
         $Utente_login= $result->fetch_object();
-
-      if($conta == '1' ){
-        $_SESSION["userID"] = $Utente_login->idUtente;
-        $_SESSION["user"] = $Utente_login->user;
-        $_SESSION["livello"] = $Utente_login->livello;
-        $_SESSION["nomeutente"] = $Utente_login->nomeutente;
-
-        if ($_SESSION['livello']=='dipendente') {
-          header('location:../dipendente.php');
-        } else {
-          header('location:../index.php');
-        }
+      if ($conta != '1' ){
+          header('location:login.php?messaggio=credenziali errate');
+       
       } else{
-        header('location:login.php?messaggio=credenziali errate');
+        $_SESSION["userID"] = $Utente_login->id;
+        $_SESSION["username"] = $Utente_login->username;
+        $_SESSION["livello"] = $Utente_login->livello;
+        $_SESSION["nome"] = $Utente_login->nome;
+         header('location:../../index.php');
+      
+     
+        
       }
     } else {
         header('location:login.php?messaggio=devi inserire delle credenziali');

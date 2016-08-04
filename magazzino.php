@@ -1,5 +1,5 @@
 <?php
-//include 'asset/moduli/dbMySQL.php';
+include_once('functions.php');
 include 'asset/moduli/Prodotto.php';
 include 'applicazioni/check_login.php';
 //session_start();
@@ -23,47 +23,14 @@ if ($_SESSION['livello']=='dipendente'){
     exit;
 }
 if ($_SESSION['livello']=='suxuser'){
-  
+
+include_once(LAYOUT.'pretitle.php');  
 ?>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<!-- Mobile viewport optimized: j.mp/bplateviewport -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <title>Magazzino </title>
-<link rel="stylesheet" href="asset/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="asset/css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="asset/css/style.css" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="asset/js/custom_script.js"></script>
-</head>
-<body>
-<div class="page">
-<div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-4 col-md-offset-8">
-        <small>
-          <a href="applicazioni/logout.php">Disconnetti</a>
-        </small>
-      </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-4 col-md-offset-4">
-        <?php
-            if(isset($_GET['messaggio'])){ ?>
-            <div class="messaggio">
-            <?php
-              echo $_GET['messaggio'];
-              ?>
-              </div>
-              <?php
-            }
-          ?>
-        </div>
-    </div>
-</div>
+
+<?php include_once(LAYOUT.'header.php'); ?>
+
 <header id="header">
   <div id="content" class="text-center">
     <h1>Visuale completa del Magazzino</h1>
@@ -120,18 +87,13 @@ if ($_SESSION['livello']=='suxuser'){
       </div>
   </div>
 </section>
-<footer id="footer">
- <div id="content">
-    <hr /><br/>
-    <label>Per qualsiasi problema contattare : <a href="http://www.cesco82design.it">Cesco82Design.it</a></label>
-    </div>
-</footer>
 
-</div>
 <?php 
+include_once(LAYOUT.'footer.php');
 } else {
-    echo 'Non sei autorizzato';
+   echo 'Non sei autorizzato';
+    echo '<small>
+          <a href="applicazioni/logout.php">Disconnetti</a>
+        </small>';
 }
  ?>
-</body>
-</html>

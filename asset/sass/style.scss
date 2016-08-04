@@ -1,5 +1,9 @@
 @import "variables";
+@import "menu";
 
 body {
 	background:$white;
+}
+header {
+	margin-top:80px;
 }

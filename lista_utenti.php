@@ -1,7 +1,9 @@
 <?php
-include 'asset/moduli/User.php';
-include 'applicazioni/check_login.php';
-//session_start();
+include_once('functions.php');
+include_once(CLASMOD.'User.php');
+
+include_once(APP.'check_login.php');
+session_start();
 $Utenti = new DB_con();
 $table = "utenti";
 // cancello utente se mi è stato passato un parametro di cancellazione
@@ -15,33 +17,13 @@ if(isset($_GET['idUtenteCancella'])){
       header('location:?messaggio=si è verificato un errore durante la cancellazione');
    }
 }
+
 if (($_SESSION['livello']=='suxuser')||($_SESSION['livello']=='dipendente')){
+include_once(LAYOUT.'pretitle.php');
 ?>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<!-- Mobile viewport optimized: j.mp/bplateviewport -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <title>Lista utenti </title>
-<link rel="stylesheet" href="asset/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="asset/css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="asset/css/style.css" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="asset/js/custom_script.js"></script>
-</head>
-<body>
-<div class="page">
-<div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-4 col-md-offset-8">
-        <small>
-          <a href="applicazioni/logout.php">Disconnetti</a>
-        </small>
-      </div>
-    </div>
-</div>
+<?php include_once(LAYOUT.'header.php'); ?>
 <header>
   <div class="continer">
     <div class="row">
@@ -70,7 +52,7 @@ if (($_SESSION['livello']=='suxuser')||($_SESSION['livello']=='dipendente')){
      <div class="table-responsive">
       <table class="table table-hover">
         <tr>
-        <th colspan="5" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/utenti/add_user.php">Aggiungi Utente</a></th>
+        <th colspan="5"></th>
         </tr>
         <tr>
         <th>Nome</th>
@@ -85,20 +67,20 @@ if (($_SESSION['livello']=='suxuser')||($_SESSION['livello']=='dipendente')){
            {
              ?>
               <tr>
-              <td><?php echo $User->nomeutente; ?></td>
-              <td><?php echo $User->user; ?></td>
+              <td><?php echo $User->nome; ?></td>
+              <td><?php echo $User->username; ?></td>
               <td><?php 
               if ($User->livello=='suxuser') : echo 'Supervisor'; else : echo $User->livello; endif; ?></td>
               <?php if ($_SESSION['livello']=='dipendente') {
-                if ($_SESSION['userID']==$User->idUtente) {
-                  echo '<td><a href="applicazioni/utenti/mod_user.php?idUtente='.$User->idUtente.'"><i class="fa fa-edit"></i></a></td><td></td>';
+                if ($_SESSION['userID']==$User->id) {
+                  echo '<td><a href="applicazioni/utenti/mod_user.php?idUtente='.$User->id.'"><i class="fa fa-edit"></i></a></td><td></td>';
                 } else {
                   echo '<td></td><td></td>';
                 }
               }
               if ($_SESSION['livello']=='suxuser') { ?>
-              <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $User->idUtente;?>"><i class="fa fa-edit"></i></a></td>
-              <td><a href="?idUtenteCancella=<?php echo $User->idUtente;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
+              <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $User->id;?>"><i class="fa fa-edit"></i></a></td>
+              <td><a href="?idUtenteCancella=<?php echo $User->id;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
               <?php } ?>
               </tr>
               <?php
@@ -111,17 +93,12 @@ if (($_SESSION['livello']=='suxuser')||($_SESSION['livello']=='dipendente')){
     </div>
 </section>
 
-<footer>
-  <div class="text-center">
-    <small>Per qualsiasi problema contattare : <a href="http://www.cesco82design.it">Cesco82Design.it</a></small>
-  </div>
-</footer>
-
-</div>
 <?php 
+include_once(LAYOUT.'footer.php');
 } else {
-    echo 'Non sei autorizzato';
+   echo 'Non sei autorizzato';
+    echo '<small>
+          <a href="applicazioni/logout.php">Disconnetti</a>
+        </small>';
 }
  ?>
-</body>
-</html>

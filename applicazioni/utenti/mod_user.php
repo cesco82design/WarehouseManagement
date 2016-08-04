@@ -1,9 +1,11 @@
 <?php
-
-include '../check_login.php';
-	include '../../asset/moduli/User.php';
+session_start();
+include_once('../../functions.php');
+include APP.'check_login.php';
+	include CLASMOD.'User.php';
 	$modUser = new User($_GET['idUtente']);
-  //var_dump($modUser);
+//var_dump($modUser);
+
 if(isset($_POST['aggiorna'])) {
 
   $idUtente         = $modUser->pulisci_stringa($_GET['idUtente']);
@@ -24,25 +26,15 @@ if(isset($_POST['aggiorna'])) {
     header('location:../../lista_utenti.php?messaggio=c\'è stato un errore durante la modifica dell\'utente, si prega di effettuare verifiche');
   }
 } else {
-?>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<!-- Mobile viewport optimized: j.mp/bplateviewport -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Modifica Utente</title>
-<link rel="stylesheet" href="../../asset/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../../asset/css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="../../asset/css/style.css" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="../../asset/js/custom_script.js"></script>
-</head>
+  
+include_once(LAYOUT.'pretitle.php'); ?>
 
-<body>
+<title>Modifica Utente</title>
+
+<?php include_once(LAYOUT.'header.php'); ?>
+
 <header class="text-center">
-  <h1>Modifica Utente <?php echo $modUser->user;?></h1>
+  <h1>Modifica Utente <?php echo $modUser->username;?></h1>
 </header>
 <div class="container">
     <div class="row">
@@ -63,20 +55,21 @@ if(isset($_POST['aggiorna'])) {
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form name="form1" method="post">
         <p>nome
-        <input type="text" name="nome" id="nome" required value="<?php echo $modUser->nomeutente; ?>">
+        <input type="text" name="nome" id="nome" required value="<?php echo $modUser->nome; ?>">
         </p>
         <p>user
-          <input type="text" name="user" id="user" required value="<?php echo $modUser->user; ?>">
+          <input type="text" name="user" id="user" required value="<?php echo $modUser->username; ?>">
         </p>
         <p>password
           <input type="password" name="password" id="password" required value="<?php echo $modUser->password; ?>" >
         </p>
-        <?php if ($_SESSION['livello']=='suxuser') { ?>
+        <?php 
+        if ($_SESSION['livello']=='suxuser') { ?>
         <p>
           <select name="livello" id="livello">
-            <option value="<?php echo $modUser->livello; ?>"><?php echo $modUser->livello; ?></option>
-            <option value="suxuser">Admin</option>
-            <option value="dipendente">Dipendnete</option>
+            <option value="<?php echo $modUser->livello; ?>"><?php if ($modUser->livello=='suxuser') : echo 'Supervisor'; else : echo $modUser->livello; endif; ?></option>
+            <option value="suxuser">Supervisor</option>
+            <option value="dipendente">Dipendente</option>
             <option value="guest">Guest</option>
           </select>
         </p>
@@ -90,6 +83,6 @@ if(isset($_POST['aggiorna'])) {
     </div>
   </div>
 </div>
-</body>
-</html>
+
+<?php include_once(LAYOUT.'footer.php'); ?>
 <?php } ?>
