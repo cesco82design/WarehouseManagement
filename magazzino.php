@@ -41,7 +41,7 @@ include_once(LAYOUT.'pretitle.php');
        <div class="table-responsive">
         <table class="table table-hover">
           <tr>
-          <th colspan="8" class="text-center"><a href="index.php">Home</a> | <a href="applicazioni/magazzino/add_mag.php">Aggiungi Prodotti in magazzino</a></th>
+          <th></th>
           </tr>
           <tr>
           <th>Barcode</th>

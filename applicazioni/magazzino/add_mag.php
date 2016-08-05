@@ -8,12 +8,13 @@ if(isset($_POST['btn-save'])) {
 
  $barcode = $addprod->pulisci_stringa($_POST['barcode']);
  $nome = $addprod->pulisci_stringa($_POST['nome']);
- $prezzo = $addprod->pulisci_stringa($_POST['prezzo']);
- $quantita = $addprod->pulisci_stringa($_POST['quantita']);
- $costo = $addprod->pulisci_stringa($_POST['costo']);
-
- $prodotto = Prodotto::insert_magazzino($barcode,$nome,$prezzo,$quantita,$costo);
-
+ $marca = $addprod->pulisci_stringa($_POST['marca']);
+ $categoria = $addprod->pulisci_stringa($_POST['categoria']);
+/*echo $barcode.' '.$nome.' '.$marca.' '.$categoria;
+exit();*/
+ $prodotto = Prodotto::insert_magazzino($barcode,$nome,$marca,$categoria);
+ var_dump($prodotto);
+ exit();
  if($prodotto)   {
   ?>
   <script>
@@ -38,45 +39,54 @@ include_once(LAYOUT.'pretitle.php'); ?>
 
 <?php include_once(LAYOUT.'header.php'); ?>
 
-<header">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <h1>Inserimento del prodotto in Magazzino</h1>
-            </div>
+
+<header class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Inserimento del prodotto in Magazzino</h1>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+        <?php
+            if(isset($_GET['messaggio'])){ ?>
+            <div class="messaggio <?php if (isset($_GET['alert'])) { echo 'alert alert-danger';} else { echo 'alert alert-success';} ?>">
+            <?php
+              echo $_GET['messaggio'];
+              ?>
+              </div>
+              <?php
+            }
+          ?>
         </div>
     </div>
+  </div>
 </header>
 <section>
  <div class="container">
  <div class="row">
- <div class="col-xs-12 col-md-4 col-md-offset-4">
+ <div class="col-xs-12 col-md-6 col-md-offset-3">
     <form method="post">
-    <table align="center">
-    <tr>
-    <td colspan="2"><input type="text" name="barcode" placeholder="Barcode Prodotto" required /></td>
-    </tr>
-    <tr>
-    <td colspan="2"><input type="text" name="nome" placeholder="Nome Prodotto" required /></td>
-    </tr>
-    <tr>
-    <td colspan="2"><input type="text" name="prezzo" placeholder="Prezzo unitario" required /></td>
-    </tr>
-    <tr>
-    <td colspan="2"><input type="text" name="quantita" placeholder="Quantità" required /></td>
-    </tr>
-    <tr>
-    <td colspan="2"><input type="text" name="costo" placeholder="Costo di Vendita" required /></td>
-    </tr>
-    <tr>
-    <td>
-    <button type="submit" name="btn-save"><strong>Aggiungi</strong></button>
-    </td>
-    <td>
-    <button href="../../index.php"><strong>Home</strong></button>
-    </td>
-    </tr>
-    </table>
+        <p>
+            <label for="barcode">Barcode</label>
+            <input type="text" name="barcode" placeholder="Barcode Prodotto" required />
+        </p>
+        <p>
+            <label for="nome">Nome Prodotto</label>
+            <input type="text" name="nome" placeholder="Nome Prodotto" required />
+        </p>
+        <p>
+            <label for="nome">Marca Prodotto</label>
+            <input type="text" name="marca" placeholder="Marca Prodotto" required />
+        </p>
+        <p>
+            <label for="nome">Categoria</label>
+            <input type="text" name="categoria" placeholder="Categoria Prodotto" required />
+        </p>
+        <p>
+            <input type="submit" name="btn-save" value="Aggiungi" />
+        </p>
     </form>
     </div>
 </div>

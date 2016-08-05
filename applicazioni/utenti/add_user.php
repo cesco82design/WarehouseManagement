@@ -10,12 +10,13 @@ if(isset($_POST['btn-save'])) {
  $nomeutente = $addUser->pulisci_stringa($_POST['nome']);
  $cognome = $addUser->pulisci_stringa($_POST['cognome']);
  $user = $addUser->pulisci_stringa($_POST['user']);
- $password = $addUser->reg_pwd($_POST ['password']);
+ $password = $_POST ['password'];
  $livello = $_POST['livello'];
  //echo $nomeutente.' - '.$user.' - '.$password.' - '.$livello;
  
  $utente = User::insert_user($nomeutente,$cognome,$user,$password,$livello);
- //var_dump($utente);
+ /*var_dump($utente);
+ exit();*/
  if($utente) {
     header('location:../../lista_utenti.php?messaggio=utente aggiunto correttamente');
   } else {

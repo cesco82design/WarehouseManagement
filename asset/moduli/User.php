@@ -32,8 +32,8 @@ class User extends DB_con {
 		$db_con = new DB_con();
 		$newpassword = $db_con->checkPWD($idUtente,$password);
 		$table 			= 'utenti';
-		echo $newpassword;
-		exit();
+		/*echo $newpassword;
+		exit();*/
 		if ($newpassword) {
 			$password = $newpassword;
 		} else {
@@ -57,27 +57,30 @@ class User extends DB_con {
 
 	static public function insert_user($nomeutente,$cognome,$username,$password,$livello)  {
 		$db_con = new DB_con();
-		$dati_utente = array('id'=>NULL,'nome'=>$nomeutente,'cognome'=>$cognome,'username'=>$username,'password'=>$password,'livello'=>$livello);
-		$table 			= 'utenti';
+		//echo $password;
 		$newpassword = $db_con->reg_pwd($password);
-		echo $newpassword; 
-		exit();
-		if (isset($newpassword)) {
+		/*echo $newpassword; 
+		exit();*/
+		if ($newpassword) {
 			$password = $newpassword;
 		} else {
 				header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri');
 				exit();
 		}
+
+		$dati_utente = array('id'=>NULL,'nome'=>$nomeutente,'cognome'=>$cognome,'username'=>$username,'password'=>$password,'livello'=>$livello);
+		$table 			= 'utenti';
 		$checkUser = $db_con->checknewUserExist($username);
 		$contau = $checkUser->num_rows;
-		echo $contau;
-		exit();
-		if ($contau!=1) {
-			$id_nuovo_utente = $db_con->insert($table,$dati_utente);
+		/*echo $contau;
+		exit();*/
+		if ($contau==1) {
+			header('location:?alert=danger&messaggio=lo username scelto è già utilizzato,devi sceglierne un altro');
+			exit();
 		} else {
-			header('location:?messaggio=lo username scelto è già utilizzato,devi sceglierne un altro');
+			$id_nuovo_utente = $db_con->insert($table,$dati_utente);
 		}
-		return true;
+		return $id_nuovo_utente;
 	}
 
 	public function del_utente($id) {

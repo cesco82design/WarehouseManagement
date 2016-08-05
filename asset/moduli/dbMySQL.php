@@ -41,7 +41,7 @@ class DB_con {
 
 	public function reg_pwd($pwd){
 		if (!is_null($pwd)){
-			   $checkpassword = preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$', $pwd);
+			   $checkpassword =  preg_match( '/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,16}/',$pwd);
 		    if ($checkpassword!=1){
         		header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri di sicurezza');
         	} else {
@@ -82,14 +82,21 @@ class DB_con {
 	public function insert( $table,$dati ) {
 		$colonne = array();
 		$valori = array();
+
 		if ( is_array($dati) && !empty($dati) ) {
 			foreach($dati as $key => $value) {
 				$colonne[] = $key;
 				$valori[] = $value;
 			}
+			/*
+			print_r($colonne);
+			print_r($valori);*/
 			$sql = ('INSERT INTO '.$table.' (' . implode(',', $colonne) . ') VALUES (\'' . implode('\',\'', $valori) . '\')');
-			$result = $this->conn->query($sql);
 			
+			$result = $this->conn->query($sql);
+			/*echo $sql;
+			var_dump($result);
+			exit();*/
 			if ( $result ) {
 				return $this->conn->query('SELECT LAST_INSERT_ID()');
 			}

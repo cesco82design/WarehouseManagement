@@ -11,4 +11,11 @@ jQuery(window).load(function() {
 	    3000
 	  );
 	}
+    $("input").keydown(function(e){
+        if(e.which==17 || e.which==74){
+            e.preventDefault();
+        }else{
+            console.log(e.which);
+        }
+    })
 });

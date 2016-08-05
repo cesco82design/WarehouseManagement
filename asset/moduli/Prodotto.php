@@ -2,29 +2,27 @@
 include 'dbMySQL.php';
 class Prodotto extends DB_con {
 	
-	public $id 		= '';
+	public $id 				= '';
 	public $barcode 		= '';
 	public $nome 			= '';
-	public $prezzo  		= 0;
-	public $quantita 		= 0;
-	public $costo 			= 0;
-	private $sottoscorta 	= 2;
+	public $marca  			= '';
+	public $categoria 		= '';
+	private $sottoscorta 	= '';
 
-	
 	function __construct( $id = NULL ) {
 		parent::__construct();
 		if ( !is_null($id) ) {
 			$query = "SELECT * FROM prodotti WHERE id = '$id'";
-			$res=$this->conn->query($query);
 
+			$res=$this->conn->query($query);
 			$dati_prodotto = $res->fetch_object();
 
-			$this->id 		= $id;
+			$this->id 			= $dati_prodotto->id;
 			$this->barcode 		= $dati_prodotto->barcode;
 			$this->nome 		= $dati_prodotto->nome;	
-			$this->prezzo 		= $dati_prodotto->prezzo;
-			$this->quantita 	= $dati_prodotto->quantita;	
-			$this->costo 		= $dati_prodotto->costo;
+			$this->marca 		= $dati_prodotto->marca;
+			$this->categoria 	= $dati_prodotto->categoria;	
+			//$this->costo 		= $dati_prodotto->costo;
 		}
     }
     public function cambia_prezzo( $nuovo_prezzo ) {
@@ -58,7 +56,7 @@ class Prodotto extends DB_con {
     }
 
 	public function aggiorna_prodotto($id,$barcode,$newnome,$marca,$categoria,$datainserimento) {
-		$aggiornaprod="UPDATE prodotti SET barcode='$barcode', nome='$newnome', marca='$marca', categoria='$categoria', datainserimento='$datainserimento' WHERE id = '$id'";
+		$aggiornaprod="UPDATE prodotti SET barcode='$barcode', nome='$newnome', marca='$marca', categoria='$categoria' WHERE id = '$id'";
     	$this->res= $this->conn->query($aggiornaprod);
 	  return $this->res;
 	}
@@ -67,19 +65,21 @@ class Prodotto extends DB_con {
     	$this->res= $this->conn->query($delprod);
 	  return $this->res;
 	}
-	static public function insert_magazzino($id,$barcode,$nome,$marca,$categoria,$datainserimento)  {
+	static public function insert_magazzino($barcode,$nome,$marca,$categoria)  {
 		$db_con = new DB_con();
-		$dati_prodotto = array('id'=>NULL,'barcode'=>$barcode,'nome'=>$nome,'marca'=>$marca,'categoria'=>$categoria,'datainserimento'=>$datainserimento);
+		$dati_prodotto = array('id'=>NULL,'barcode'=>$barcode,'nome'=>$nome,'marca'=>$marca,'categoria'=>$categoria);
+		/*print_r($dati_prodotto);*/
 		$table 			= 'prodotti';
 		$id_nuovo_oggetto = $db_con->insert($table,$dati_prodotto);
-		
+		var_dump($id_nuovo_oggetto);
+		exit();
 		if ( $id_nuovo_oggetto ) {
 			$prodotto = new Prodotto($id_nuovo_oggetto);
 			if ( $prodotto ) {
 				return $prodotto;
 			}
 		}
-		return true;
+		return $id_nuovo_oggetto;
 	}
 }
 
