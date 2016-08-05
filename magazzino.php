@@ -5,7 +5,7 @@ include 'applicazioni/check_login.php';
 //session_start();
 
 $magazzino = new DB_con();
-$table = "Magazzino";
+$table = "prodotti";
 
 // cancello utente se mi è stato passato un parametro di cancellazione
 if(isset($_GET['idMagazzinoCancella'])){
@@ -31,9 +31,27 @@ include_once(LAYOUT.'pretitle.php');
 
 <?php include_once(LAYOUT.'header.php'); ?>
 
-<header id="header">
-  <div id="content" class="text-center">
-    <h1>Visuale completa del Magazzino</h1>
+<header>
+  <div class="continer">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 class="text-center">Visuale completa del Magazzino</h1>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+        <?php
+            if(isset($_GET['messaggio'])){ ?>
+            <div class="messaggio <?php if (isset($_GET['alert'])) { echo 'alert alert-danger';} else { echo 'alert alert-success';} ?>">
+            <?php
+              echo $_GET['messaggio'];
+              ?>
+              </div>
+              <?php
+            }
+          ?>
+        </div>
+    </div>
   </div>
 </header>
 <section id="body">
@@ -60,7 +78,7 @@ include_once(LAYOUT.'pretitle.php');
                 $sommaprezzo[] = $totprezzo;
                    ?>
                     <tr>
-                    <td><?php echo $dati_prodotto->Barcode; ?></td>
+                    <td><?php echo $dati_prodotto->barcode; ?></td>
                     <td><?php echo $dati_prodotto->nome; ?></td>
                     <td>&euro; <?php echo $dati_prodotto->prezzo; ?></td>
                     <td><?php echo $dati_prodotto->quantita; ?></td>

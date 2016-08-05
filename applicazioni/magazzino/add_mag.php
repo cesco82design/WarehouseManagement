@@ -13,23 +13,13 @@ if(isset($_POST['btn-save'])) {
 /*echo $barcode.' '.$nome.' '.$marca.' '.$categoria;
 exit();*/
  $prodotto = Prodotto::insert_magazzino($barcode,$nome,$marca,$categoria);
- var_dump($prodotto);
- exit();
+ /*var_dump($prodotto);
+ exit();*/
  if($prodotto)   {
-  ?>
-  <script>
-    alert('Prodotto inserito');
-    window.location=PATH.'magazzino.php'
-  </script>
-  <?php
- } else {
-  ?>
-  <script>
-    alert('Errore durante l&rsquo;inserimento del prodotto');
-    window.location=PATH.'magazzino.php'
-  </script>
-  <?php
- }
+    header('location:../../magazzino.php?messaggio=Prodotto inserito correttamente');
+  } else {
+    header('location:../../magazzino.php?alert=danger&messaggio=c\'è un errore nell\'inserimento dell\'utente');
+  }
 } else {
 // data insert code ends here.
 
