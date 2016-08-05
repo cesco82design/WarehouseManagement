@@ -15,7 +15,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
         <div class="col-xs-12 col-md-4 col-md-offset-4">
         <?php
             if(isset($_GET['messaggio'])){ ?>
-            <div class="messaggio">
+            <div class="messaggio alert alert-success text-center">
             <?php
               echo $_GET['messaggio'];
               ?>
@@ -31,7 +31,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
   <div class="row">
     <div id="loginform" class="col-xs-12 col-md-4 col-md-offset-4 bordered padding20 margintop">
       <div class="logo">
-        <img src="<?php echo IMG; ?>logo_fumetto.png" alt="logo">
+        <img src="<?php echo IMG; ?>logo_jole_acconciature.jpg" class="img-responsive img-circle" alt="logo">
       </div>
       <form name="form1" method="post">
         <div class="input-group">

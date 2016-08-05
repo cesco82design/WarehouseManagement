@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('../../functions.php');
-include APP.'check_login.php';
+include APPL.'check_login.php';
 	include CLASMOD.'User.php';
 	$modUser = new User($_GET['idUtente']);
 //var_dump($modUser);

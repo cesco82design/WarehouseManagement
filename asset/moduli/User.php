@@ -32,6 +32,8 @@ class User extends DB_con {
 		$db_con = new DB_con();
 		$newpassword = $db_con->checkPWD($idUtente,$password);
 		$table 			= 'utenti';
+		echo $newpassword;
+		exit();
 		if ($newpassword) {
 			$password = $newpassword;
 		} else {
@@ -57,17 +59,19 @@ class User extends DB_con {
 		$db_con = new DB_con();
 		$dati_utente = array('id'=>NULL,'nome'=>$nomeutente,'cognome'=>$cognome,'username'=>$username,'password'=>$password,'livello'=>$livello);
 		$table 			= 'utenti';
-		$newpassword = $db_con->checkPWD($idUtente,$password);
-		if ($newpassword) {
+		$newpassword = $db_con->reg_pwd($password);
+		echo $newpassword; 
+		exit();
+		if (isset($newpassword)) {
 			$password = $newpassword;
 		} else {
-			//for ($x=1;$x<2;$x++) {
 				header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri');
 				exit();
-			//}
 		}
-		$checkUser = $db_con->checknewUserExist($user);
+		$checkUser = $db_con->checknewUserExist($username);
 		$contau = $checkUser->num_rows;
+		echo $contau;
+		exit();
 		if ($contau!=1) {
 			$id_nuovo_utente = $db_con->insert($table,$dati_utente);
 		} else {

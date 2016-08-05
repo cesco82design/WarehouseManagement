@@ -1,6 +1,7 @@
 <?php
+session_start();
 include_once('../../functions.php');
-include moduli.'Prodotto.php';
+include CLASMOD.'Prodotto.php';
 $addprod = new Prodotto();
 
 if(isset($_POST['btn-save'])) {

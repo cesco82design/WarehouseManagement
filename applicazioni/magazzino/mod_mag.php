@@ -1,6 +1,7 @@
 <?php
-	
-include '../../asset/moduli/Prodotto.php';
+	session_start();
+  include_once('../../functions.php');
+include CLASMOD.'Prodotto.php';
 $modifica = new Prodotto($_GET['barcode']);
 //var_dump($modifica);
 if(isset($_POST['aggiorna'])) {

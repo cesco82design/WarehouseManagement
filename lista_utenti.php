@@ -1,8 +1,8 @@
 <?php
-include_once('functions.php');
-include_once(CLASMOD.'User.php');
+include_once 'functions.php';
+include CLASMOD.'User.php';
 
-include_once(APP.'check_login.php');
+include APPL.'check_login.php';
 session_start();
 $Utenti = new DB_con();
 $table = "utenti";

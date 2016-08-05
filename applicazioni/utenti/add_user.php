@@ -1,7 +1,7 @@
 <?php
-
+session_start();
 include_once('../../functions.php');
-include '../../asset/moduli/User.php';
+  include CLASMOD.'User.php';
 $addUser = new User();
 
 // data insert code starts here.

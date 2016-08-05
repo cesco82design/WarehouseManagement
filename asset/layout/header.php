@@ -37,7 +37,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="http://disputebills.com"><img src="http://res.cloudinary.com/candidbusiness/image/upload/v1455406304/dispute-bills-chicago.png" alt="Dispute Bills">
+        <a class="navbar-brand" href="http://acconciaturejole.it"><img src="<?php echo IMG; ?>logo_top_jole_acconciature.jpg" alt="Dispute Bills">
         </a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
@@ -65,7 +65,10 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Magazzino <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="<?php echo PATH;?>/magazzino.php">Gestione Prodotti</a></li>
+              <li class="dropdown-header">Gestione Prodotti</li>
+              <li><a href="<?php echo PATH;?>/magazzino.php">Tutti i prodotti</a></li>
+              <li><a href="<?php echo MAGAZZINO;?>add_mag.php">Aggiungi Prodotto</a></li>
+              <li class="divider"></li>
               <li><a href="#">Movimenti Magazzino</a></li>
               <li><a href="#">Inventario Magazzino</a></li>
             </ul>
@@ -79,7 +82,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li class="dropdown-header"><?php echo $_SESSION['nomeutente'];?></li>
+              <li class="dropdown-header"><?php echo $_SESSION['nome'];?></li>
               <li><a href="#">Profile</a></li>
               <li><a href="#">link</a></li>
               <li class="divider"></li>

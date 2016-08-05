@@ -1,0 +1,9 @@
+#loginform {
+	& .logo {
+		text-align:center;
+		& img {
+			margin:50px auto;
+			max-width: 200px;
+		}
+	}
+}
