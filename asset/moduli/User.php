@@ -37,7 +37,7 @@ class User extends DB_con {
 		if ($newpassword) {
 			$password = $newpassword;
 		} else {
-			header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri');
+			header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri di sicurezza');
 			return false;
 			exit();
 		}

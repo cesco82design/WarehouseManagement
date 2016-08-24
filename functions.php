@@ -1,6 +1,7 @@
 <?php
 
 define('PATH', 'http://'.$_SERVER['SERVER_NAME']);
+//define('PATH', 'http://localhost/gestionale');
 define('LAYOUT', __DIR__.'/asset/layout/');
 define('HOME', __DIR__.'/');
 define('UTENTI', PATH.'/applicazioni/utenti/');

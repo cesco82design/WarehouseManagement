@@ -20,7 +20,7 @@ $login = new DB_con();
         $_SESSION["username"] = $Utente_login->username;
         $_SESSION["livello"] = $Utente_login->livello;
         $_SESSION["nome"] = $Utente_login->nome;
-         header('location:../../index.php');
+         header('location:'.PATH);
       
      
         

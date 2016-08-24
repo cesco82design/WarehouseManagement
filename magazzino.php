@@ -64,6 +64,7 @@ include_once(LAYOUT.'pretitle.php');
           <tr>
           <th>Barcode</th>
           <th>Nome Prodotto</th>
+          <th>Marca</th>
           <th>Prezzo</th>
           <th>Quantit&agrave;</th>
           <th>Tot. articolo</th>
@@ -74,16 +75,17 @@ include_once(LAYOUT.'pretitle.php');
           <?php
             if ($res = $magazzino->select($table)){
               while ($dati_prodotto = $res->fetch_object()) {
-                $totprezzo = ($dati_prodotto->quantita)*($dati_prodotto->prezzo);
-                $sommaprezzo[] = $totprezzo;
+                /*$totprezzo = ($dati_prodotto->quantita)*($dati_prodotto->prezzo);
+                $sommaprezzo[] = $totprezzo;*/
                    ?>
                     <tr>
                     <td><?php echo $dati_prodotto->barcode; ?></td>
                     <td><?php echo $dati_prodotto->nome; ?></td>
-                    <td>&euro; <?php echo $dati_prodotto->prezzo; ?></td>
+                    <td><?php echo $dati_prodotto->marca; ?></td>
+                    <?php /* <td>&euro; <?php echo $dati_prodotto->prezzo; ?></td>
                     <td><?php echo $dati_prodotto->quantita; ?></td>
                     <td>&euro; <?php echo number_format((float)$totprezzo, 2, '.', ''); ?></td>
-                    <td>&euro; <?php echo $dati_prodotto->costo; ?></td>
+                    <td>&euro; <?php echo $dati_prodotto->costo; ?></td>*/ ?>
                     <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
                     <td><a href="?idMagazzinoCancella=<?php echo $dati_prodotto->Barcode;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
@@ -92,8 +94,8 @@ include_once(LAYOUT.'pretitle.php');
               }
               echo '<tr><td colspan="4"></td>
             <td><strong>&euro; ';
-            $totsomma= array_sum($sommaprezzo);
-            echo number_format((float)$totsomma, 2, '.', '');
+            //$totsomma= array_sum($sommaprezzo);
+            //echo number_format((float)$totsomma, 2, '.', '');
             echo '</strong></td>
             <td colspan="3"></td>
             </tr>';

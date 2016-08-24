@@ -8,3 +8,11 @@ body {
 header {
 	margin-top:80px;
 }
+#insert_prod {
+	& > div {
+		margin-top:15px;
+	}
+	& label, & input {
+		width:100%;
+	}
+}

@@ -42,7 +42,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Home</a></li>
+          <li><a href="<?php echo PATH; ?>">Home</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Anagrafica <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -69,6 +69,15 @@
               <li><a href="<?php echo PATH;?>/magazzino.php">Tutti i prodotti</a></li>
               <li><a href="<?php echo MAGAZZINO;?>add_mag.php">Aggiungi Prodotto</a></li>
               <li class="divider"></li>
+              <li class="dropdown-header">Gestione Categorie</li>
+              <li><a href="<?php echo PATH;?>/categorie.php">Tutte le categorie</a></li>
+              <li><a href="<?php echo MAGAZZINO;?>add_cat.php">Aggiungi categoria</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Gestione Marche</li>
+              <li><a href="<?php echo PATH;?>/marche.php">Tutte le marche</a></li>
+              <li><a href="<?php echo MAGAZZINO;?>add_mar.php">Aggiungi marca</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Gestione Magazzino</li>
               <li><a href="#">Movimenti Magazzino</a></li>
               <li><a href="#">Inventario Magazzino</a></li>
             </ul>

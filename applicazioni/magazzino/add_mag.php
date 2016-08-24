@@ -10,9 +10,10 @@ if(isset($_POST['btn-save'])) {
  $nome = $addprod->pulisci_stringa($_POST['nome']);
  $marca = $addprod->pulisci_stringa($_POST['marca']);
  $categoria = $addprod->pulisci_stringa($_POST['categoria']);
+ $sottoscorta = $addprod->pulisci_stringa($_POST['sottoscorta']);
 /*echo $barcode.' '.$nome.' '.$marca.' '.$categoria;
 exit();*/
- $prodotto = Prodotto::insert_magazzino($barcode,$nome,$marca,$categoria);
+ $prodotto = Prodotto::insert_magazzino($barcode,$nome,$marca,$categoria,$sottoscorta);
  /*var_dump($prodotto);
  exit();*/
  if($prodotto)   {
@@ -55,31 +56,35 @@ include_once(LAYOUT.'pretitle.php'); ?>
 </header>
 <section>
  <div class="container">
- <div class="row">
- <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <form method="post">
-        <p>
-            <label for="barcode">Barcode</label>
-            <input type="text" name="barcode" placeholder="Barcode Prodotto" required />
-        </p>
-        <p>
-            <label for="nome">Nome Prodotto</label>
-            <input type="text" name="nome" placeholder="Nome Prodotto" required />
-        </p>
-        <p>
-            <label for="nome">Marca Prodotto</label>
-            <input type="text" name="marca" placeholder="Marca Prodotto" required />
-        </p>
-        <p>
-            <label for="nome">Categoria</label>
-            <input type="text" name="categoria" placeholder="Categoria Prodotto" required />
-        </p>
-        <p>
-            <input type="submit" name="btn-save" value="Aggiungi" />
-        </p>
-    </form>
-    </div>
-</div>
+   <div class="row">
+     <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <form id="insert_prod" method="post">
+            <div class="col-xs-12 col-sm-6">
+                <label for="nome">Categoria</label>
+                <input type="text" name="categoria" placeholder="Categoria Prodotto" required />
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <label for="barcode">Barcode</label>
+                <input type="text" name="barcode" placeholder="Barcode Prodotto" required />
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <label for="nome">Nome Prodotto</label>
+                <input type="text" name="nome" placeholder="Nome Prodotto" required />
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <label for="nome">Marca Prodotto</label>
+                <input type="text" name="marca" placeholder="Marca Prodotto" required />
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <label for="nome">Sottoscorta</label>
+                <input type="text" name="sottoscorta" placeholder="indica una scorta minima" required />
+            </div>
+            <div class="col-xs-12">
+                <input type="submit" name="btn-save" value="Aggiungi" />
+            </div>
+        </form>
+      </div>
+  </div>
 </div>
 
 </section>

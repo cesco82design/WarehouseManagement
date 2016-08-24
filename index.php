@@ -38,11 +38,17 @@ include_once(LAYOUT.'pretitle.php'); ?>
 <section class="text-center">
  <div class="container">
      <div class="row">
-       <div class="col-xs-12 col-md-6">
-         <a href="lista_utenti.php">Lista<br>Utenti</a>
+       <div class="col-xs-12 col-md-6 text-center">
+         <a href="lista_utenti.php" class="btn-home">Utenti</a>
        </div>
-       <div class="col-xs-12 col-md-6">
-         <a href="magazzino.php">Gestione<br>Magazzino</a>
+       <div class="col-xs-12 col-md-6 text-center">
+         <a href="magazzino.php" class="btn-home">Magazzino</a>
+       </div>
+       <div class="col-xs-12 col-md-6 text-center">
+         <a href="clienti.php" class="btn-home">Clienti</a>
+       </div>
+       <div class="col-xs-12 col-md-6 text-center">
+         <a href="fornitori.php" class="btn-home">Fornitori</a>
        </div>
      </div>
   </div>

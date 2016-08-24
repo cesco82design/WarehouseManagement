@@ -591,3 +591,15 @@ progress {
       width: 100%;
     }
 }
+
+.btn-home {
+  @include css3-prefix('border-radius', 10px);
+  text-transform: uppercase;
+  color: $white;
+  background:$blu;
+  height: 150px;
+  width: 150px;
+  display: block;
+  line-height: 150px;
+  margin: 30px auto;
+}
