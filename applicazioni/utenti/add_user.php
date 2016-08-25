@@ -24,6 +24,10 @@ if(isset($_POST['btn-save'])) {
   }
 } else {
 // data insert code ends here.
+  if ($_SESSION['livello']!='suxuser') {
+    header('location:'.PATH.'?alert=danger&messaggio=non hai i permessi per aggiungere altri utenti');
+    exit();
+  }
 include_once(LAYOUT.'pretitle.php'); ?>
 
 <title>Inserimento dell&rsquo;utente</title>
@@ -59,15 +63,15 @@ include_once(LAYOUT.'pretitle.php'); ?>
             <div class="col-xs-12 col-md-4 col-md-offset-4 text-center">
               
               <?php
-                if(isset($_GET['messaggio'])){ ?>
-                <div class="messaggio">
-                <?php
-                    echo $_GET['messaggio'];
-                  ?>
-                  </div>
-                  <?php
-                }
+            if(isset($_GET['messaggio'])){ ?>
+            <div class="messaggio <?php if (isset($_GET['alert'])) { echo 'alert alert-danger';} else { echo 'alert alert-success';} ?>">
+            <?php
+              echo $_GET['messaggio'];
               ?>
+              </div>
+              <?php
+            }
+          ?>
             </div>
         
         </div>

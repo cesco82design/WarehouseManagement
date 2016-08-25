@@ -44,14 +44,15 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="<?php echo PATH; ?>">Home</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Anagrafica <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Magazzino <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Azienda</a></li>
+              <li class="dropdown-header">Gestione Prodotti</li>
+              <li><a href="<?php echo PATH;?>/magazzino.php">Tutti i prodotti</a></li>
+              <li><a href="<?php echo MAGAZZINO;?>add_mag.php">Aggiungi Prodotto</a></li>
               <li class="divider"></li>
-              <li><a href="<?php echo PATH;?>/lista_utenti.php">Lista Utenti</a></li>
-              <li><a href="<?php echo UTENTI;?>add_user.php">Aggiungi Utenti</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Lista Dipendenti</a></li>
+              <li class="dropdown-header">Gestione Magazzino</li>
+              <li><a href="#">Movimenti Magazzino</a></li>
+              <li><a href="#">Inventario Magazzino</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -63,26 +64,6 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Magazzino <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li class="dropdown-header">Gestione Prodotti</li>
-              <li><a href="<?php echo PATH;?>/magazzino.php">Tutti i prodotti</a></li>
-              <li><a href="<?php echo MAGAZZINO;?>add_mag.php">Aggiungi Prodotto</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Gestione Categorie</li>
-              <li><a href="<?php echo PATH;?>/categorie.php">Tutte le categorie</a></li>
-              <li><a href="<?php echo MAGAZZINO;?>add_cat.php">Aggiungi categoria</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Gestione Marche</li>
-              <li><a href="<?php echo PATH;?>/marche.php">Tutte le marche</a></li>
-              <li><a href="<?php echo MAGAZZINO;?>add_mar.php">Aggiungi marca</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Gestione Magazzino</li>
-              <li><a href="#">Movimenti Magazzino</a></li>
-              <li><a href="#">Inventario Magazzino</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fornitori <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Anagrafica Fornitori</a></li>
@@ -91,14 +72,47 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
+              
+              <li><a href="<?php echo PATH;?>/lista_utenti.php">Lista Utenti</a></li>
+              <li><a href="<?php echo UTENTI;?>add_user.php">Aggiungi Utenti</a></li>
+              <li class="divider"></li>
+            </ul>
+          </li>
+          <?php 
+          if (!$_SESSION['nome']) {
+            echo '
+          <li class="dropdown">
+            <a href="'.APP.'/login.php" role="button" aria-expanded="false">Login</a>
+          </li>';
+          } else {
+          ?>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $_SESSION['nome'];?> <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
               <li class="dropdown-header"><?php echo $_SESSION['nome'];?></li>
               <li><a href="#">Profile</a></li>
               <li><a href="#">link</a></li>
+              <?php if ($_SESSION['livello']=='suxuser') {
+                echo '<li class="divider"></li>
+                        <li class="dropdown-header">Configurazione</li>
+                        <li><a href="#">Dati Azienda</a></li>
+                        <li><a href="#">Lista Dipendenti</a></li>
+                        <li><a href="#">Aggiungi Dipendente</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Gestione Categorie</li>
+                        <li><a href="'.PATH.'/categorie.php">Tutte le categorie</a></li>
+                        <li><a href="'.MAGAZZINO.'add_cat.php">Aggiungi categoria</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Gestione Marche</li>
+                        <li><a href="'.PATH.'/brand.php">Tutte le marche</a></li>
+                        <li><a href="'.MAGAZZINO.'add_marca.php">Aggiungi marca</a></li>';
+                } ?>
               <li class="divider"></li>
-              <li><a href="<?php echo UTENTI;?>add_user.php"><i class="fa fa-check-square-o"></i> Registrati</a></li>
+              <?php /*<li><a href="<?php echo UTENTI;?>add_user.php"><i class="fa fa-check-square-o"></i> Registrati</a></li>*/ ?>
               <li><a href="<?php echo APP;?>/logout.php"><i class="fa fa-sign-out"></i> Disconnetti</a></li>
             </ul>
           </li>
+          <?php } ?>
         </ul>
       </div>
       <!--/.nav-collapse -->

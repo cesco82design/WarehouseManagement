@@ -19,7 +19,7 @@ exit();*/
  if($prodotto)   {
     header('location:../../magazzino.php?messaggio=Prodotto inserito correttamente');
   } else {
-    header('location:../../magazzino.php?alert=danger&messaggio=c\'è un errore nell\'inserimento dell\'utente');
+    header('location:../../magazzino.php?alert=danger&messaggio=c\'è un errore nell\'inserimento del prodotto');
   }
 } else {
 // data insert code ends here.
@@ -60,8 +60,19 @@ include_once(LAYOUT.'pretitle.php'); ?>
      <div class="col-xs-12 col-md-6 col-md-offset-3">
         <form id="insert_prod" method="post">
             <div class="col-xs-12 col-sm-6">
-                <label for="nome">Categoria</label>
-                <input type="text" name="categoria" placeholder="Categoria Prodotto" required />
+                <label for="categoria">Categoria Prodotto</label>
+                <select name="categoria" required class="withadd">
+                    <option value="">Selezionare</option>
+                    <?php if  ($res=$addprod->select_categorie()) {
+                               while($cat = $res->fetch_object())
+                               {
+                                 ?>
+                                <option value="<?php echo $cat->nome; ?>"><?php echo $cat->nome; ?></option>
+                        <?php } 
+                            } ?>
+                </select>
+                <a href="add_cat.php" class="addfield" title="Aggiungi una nuova categoria"><i class="fa fa-plus"></i></a>
+          
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="barcode">Barcode</label>
@@ -72,8 +83,19 @@ include_once(LAYOUT.'pretitle.php'); ?>
                 <input type="text" name="nome" placeholder="Nome Prodotto" required />
             </div>
             <div class="col-xs-12 col-sm-6">
-                <label for="nome">Marca Prodotto</label>
-                <input type="text" name="marca" placeholder="Marca Prodotto" required />
+                <label for="marca">Marca Prodotto</label>
+                <select name="marca" required class="withadd">
+                    <option value="">Selezionare</option>
+                    <?php if  ($res=$addprod->select_brand()) {
+                               while($marca = $res->fetch_object())
+                               {
+                                 ?>
+                                <option value="<?php echo $marca->nome; ?>"><?php echo $marca->nome; ?></option>
+                        <?php } 
+                            } ?>
+                </select>
+                <a href="add_marca.php" class="addfield" title="Aggiungi una nuova marca"><i class="fa fa-plus"></i></a>
+          
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="nome">Sottoscorta</label>

@@ -56,6 +56,40 @@ class Prodotto extends DB_con {
 			return $res;
     }
 
+    public function select_categorie() {
+    	$res=$this->conn->query("SELECT * FROM categorie");
+			return $res;
+    }
+
+    public function insert_categorie($nome) {
+    	$sql = "INSERT INTO categorie (nome) VALUES ('$nome')";
+    	$res=$this->conn->query($sql);
+			return $res;
+    }
+
+    public function del_categoria($id) {
+    	$del_cat="DELETE FROM categorie WHERE id = '$id'";
+    	$this->res= $this->conn->query($del_cat);
+	  return $this->res;
+    }
+
+    public function select_brand() {
+    	$res=$this->conn->query("SELECT * FROM marche");
+			return $res;
+    }
+
+    public function insert_marca($nome) {
+    	$sql = "INSERT INTO marche (nome) VALUES ('$nome')";
+    	$res=$this->conn->query($sql);
+			return $res;
+    }
+
+    public function del_marca($id) {
+    	$del_cat="DELETE FROM marche WHERE id = '$id'";
+    	$this->res= $this->conn->query($del_cat);
+	  return $this->res;
+    }
+
 	public function aggiorna_prodotto($id,$barcode,$newnome,$marca,$categoria,$datainserimento) {
 		$aggiornaprod="UPDATE prodotti SET barcode='$barcode', nome='$newnome', marca='$marca', categoria='$categoria' WHERE id = '$id'";
     	$this->res= $this->conn->query($aggiornaprod);

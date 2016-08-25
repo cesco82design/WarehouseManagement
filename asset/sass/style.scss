@@ -15,4 +15,15 @@ header {
 	& label, & input {
 		width:100%;
 	}
+	& select.withadd {
+		width: 85%;
+		display: inline-block;
+		padding: 3px 2px;
+	}
+	& .addfield {
+		width: 10%;
+		margin-left: 3%;
+		padding: 3px 2px;
+		display: inline-block;
+	}
 }

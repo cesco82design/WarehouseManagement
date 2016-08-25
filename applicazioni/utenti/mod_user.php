@@ -41,7 +41,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
         <div class="col-xs-12 col-md-4 col-md-offset-4">
         <?php
             if(isset($_GET['messaggio'])){ ?>
-            <div class="messaggio">
+            <div class="messaggio <?php if (isset($_GET['alert'])) { echo 'alert alert-danger';} else { echo 'alert alert-success';} ?>">
             <?php
               echo $_GET['messaggio'];
               ?>
