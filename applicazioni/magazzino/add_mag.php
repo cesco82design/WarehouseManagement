@@ -8,10 +8,10 @@ if(isset($_POST['btn-save'])) {
 
  $barcode = $addprod->pulisci_stringa($_POST['barcode']);
  $nome = $addprod->pulisci_stringa($_POST['nome']);
- $marca = $addprod->pulisci_stringa($_POST['marca']);
- $categoria = $addprod->pulisci_stringa($_POST['categoria']);
+ $marca = $_POST['marca'];
+ $categoria = $_POST['categoria'];
  $sottoscorta = $addprod->pulisci_stringa($_POST['sottoscorta']);
-/*echo $barcode.' '.$nome.' '.$marca.' '.$categoria;
+/*echo $barcode.' '.$nome.' '.$marca.' '.$categoria.' '.$sottoscorta;
 exit();*/
  $prodotto = Prodotto::insert_magazzino($barcode,$nome,$marca,$categoria,$sottoscorta);
  /*var_dump($prodotto);
@@ -61,7 +61,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
         <form id="insert_prod" method="post">
             <div class="col-xs-12 col-sm-6">
                 <label for="categoria">Categoria Prodotto</label>
-                <select name="categoria" required class="withadd">
+                <select name="categoria" required class="col-xs-9">
                     <option value="">Selezionare</option>
                     <?php if  ($res=$addprod->select_categorie()) {
                                while($cat = $res->fetch_object())
@@ -71,7 +71,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
                         <?php } 
                             } ?>
                 </select>
-                <a href="add_cat.php" class="addfield" title="Aggiungi una nuova categoria"><i class="fa fa-plus"></i></a>
+                <a href="add_cat.php" class="addfield col-xs-1 col-xs-offset-1" title="Aggiungi una nuova categoria"><i class="fa fa-plus"></i></a>
           
             </div>
             <div class="col-xs-12 col-sm-6">
@@ -84,7 +84,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="marca">Marca Prodotto</label>
-                <select name="marca" required class="withadd">
+                <select name="marca" required class="col-xs-9">
                     <option value="">Selezionare</option>
                     <?php if  ($res=$addprod->select_brand()) {
                                while($marca = $res->fetch_object())
@@ -94,7 +94,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
                         <?php } 
                             } ?>
                 </select>
-                <a href="add_marca.php" class="addfield" title="Aggiungi una nuova marca"><i class="fa fa-plus"></i></a>
+                <a href="add_marca.php" class="addfield col-xs-1 col-xs-offset-1" title="Aggiungi una nuova marca"><i class="fa fa-plus"></i></a>
           
             </div>
             <div class="col-xs-12 col-sm-6">

@@ -59,8 +59,10 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clienti <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Lista Clienti</a></li>
-              <li><a href="#">Aggiungi Cliente</a></li>
               <li><a href="#">Scheda Cliente</a></li>
+              <?php if ($_SESSION['livello']=='suxuser') { ?>
+                <li><a href="#">Aggiungi Cliente</a></li>
+              <?php } ?>
             </ul>
           </li>
           <li class="dropdown">
@@ -74,7 +76,9 @@
             <ul class="dropdown-menu" role="menu">
               
               <li><a href="<?php echo PATH;?>/lista_utenti.php">Lista Utenti</a></li>
-              <li><a href="<?php echo UTENTI;?>add_user.php">Aggiungi Utenti</a></li>
+              <?php if ($_SESSION['livello']=='suxuser') { ?>
+                <li><a href="<?php echo UTENTI;?>add_user.php">Aggiungi Utenti</a></li>
+              <?php } ?>
               <li class="divider"></li>
             </ul>
           </li>
@@ -95,7 +99,7 @@
               <?php if ($_SESSION['livello']=='suxuser') {
                 echo '<li class="divider"></li>
                         <li class="dropdown-header">Configurazione</li>
-                        <li><a href="#">Dati Azienda</a></li>
+                        <li><a href="'.PATH.'/azienda.php">Dati Azienda</a></li>
                         <li><a href="#">Lista Dipendenti</a></li>
                         <li><a href="#">Aggiungi Dipendente</a></li>
                         <li class="divider"></li>

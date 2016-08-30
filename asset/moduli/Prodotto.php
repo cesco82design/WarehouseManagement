@@ -108,12 +108,12 @@ class Prodotto extends DB_con {
 		$id_nuovo_oggetto = $db_con->insert($table,$dati_prodotto);
 		/*var_dump($id_nuovo_oggetto);
 		exit();*/
-		if ( $id_nuovo_oggetto ) {
+		/*if ( $id_nuovo_oggetto ) {
 			$prodotto = new Prodotto($id_nuovo_oggetto);
 			if ( $prodotto ) {
 				return $prodotto;
 			}
-		}
+		}*/
 		return $id_nuovo_oggetto;
 	}
 }

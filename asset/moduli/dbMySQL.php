@@ -21,6 +21,13 @@ class DB_con {
 	  return $this;
 	}
 
+	public function test_input($data) {
+	  $data = trim($data);
+	  $data = stripslashes($data);
+	  $data = htmlspecialchars($data);
+	  return $data;
+	}
+
 	public function CheckLogin($user,$pwd) {
 		$this->res= $this->conn->query("SELECT * FROM utenti WHERE username = '$user' AND password = '$pwd'");
 		return $this->res;
@@ -33,6 +40,24 @@ class DB_con {
 
 	public function pulisci_stringa($stringa){
 		return $this->conn->real_escape_string(trim($stringa));
+	}
+
+	public function validate_email($stringa){
+		$email = $this->test_input($stringa);
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		  header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la mail inserita non è valida');
+		} else {
+			return $stringa;
+		}
+	}
+	public function validate_url($stringa){
+		$website = $this->test_input($stringa);
+	    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
+	    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
+	       header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=L\'URL inserito non è valido'); 
+	    } else {
+			return $stringa;
+		}
 	}
 
 	public function salta_pwd($pwd){
@@ -94,9 +119,9 @@ class DB_con {
 			$sql = ('INSERT INTO '.$table.' (' . implode(',', $colonne) . ') VALUES (\'' . implode('\',\'', $valori) . '\')');
 			
 			$result = $this->conn->query($sql);
-			/*echo $sql;
+			echo $sql;
 			var_dump($result);
-			exit();*/
+			exit();
 			if ( $result ) {
 				return $this->conn->query('SELECT LAST_INSERT_ID()');
 			}
