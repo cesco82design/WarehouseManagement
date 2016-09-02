@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="<?php echo CSS; ?>font-awesome.min.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo CSS; ?>style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="<?php echo JS; ?>imgLiquid-min.js"></script>
 <script src="<?php echo JS; ?>custom_script.js"></script>
 <script src="<?php echo JS; ?>bootstrap.min.js"></script>
 <!--favicon-->
@@ -27,6 +28,10 @@
 <meta name="msapplication-square310x310logo" content="<?php echo IMG;?>mstile-310x310.png" />
 </head>
 <body>
+<div class="background imgLiquidFill">
+  <img src="<?php echo IMG;?>negozio.jpg">
+  <div class="overlay"></div>
+</div>
 <div id="menu">
   <nav class="navbar navbar-inverse navbar-fixed-top navbar-static-top">
     <div class="container">
@@ -47,20 +52,22 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Magazzino <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li class="dropdown-header">Gestione Prodotti</li>
+              <?php if ($_SESSION['livello']=='suxuser') { ?>
               <li><a href="<?php echo PATH;?>/magazzino.php">Tutti i prodotti</a></li>
               <li><a href="<?php echo MAGAZZINO;?>add_mag.php">Aggiungi Prodotto</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">Gestione Magazzino</li>
               <li><a href="#">Movimenti Magazzino</a></li>
               <li><a href="#">Inventario Magazzino</a></li>
+              <?php } ?>
             </ul>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clienti <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Lista Clienti</a></li>
-              <li><a href="#">Scheda Cliente</a></li>
               <?php if ($_SESSION['livello']=='suxuser') { ?>
+                <li><a href="#">Lista Clienti</a></li>
+                <li><a href="#">Scheda Cliente</a></li>
                 <li><a href="#">Aggiungi Cliente</a></li>
               <?php } ?>
             </ul>
@@ -100,7 +107,7 @@
                 echo '<li class="divider"></li>
                         <li class="dropdown-header">Configurazione</li>
                         <li><a href="'.PATH.'/azienda.php">Dati Azienda</a></li>
-                        <li><a href="#">Lista Dipendenti</a></li>
+                        <li><a href="'.PATH.'/dipendenti.php">Lista Dipendenti</a></li>
                         <li><a href="#">Aggiungi Dipendente</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Gestione Categorie</li>

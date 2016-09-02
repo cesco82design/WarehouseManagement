@@ -56,8 +56,9 @@ class Azienda extends DB_con {
 		}
     }
 	
-	public function aggiorna_azienda($id,$barcode,$newnome,$marca,$categoria,$datainserimento) {
+	public function aggiorna_azienda($id, $denominazione, $tipo, $proprietario, $indirizzo, $citta, $provincia, $cap, $telefono, $telefono2, $cellulare, $mail, $partitaiva, $codicefiscale, $banca, $filiale, $contocorrente, $abi, $cab, $cin, $cciaa) {
 		$aggiorna_azienda="UPDATE azienda SET denominazione='$denominazione', tipo='$tipo', proprietario='$proprietario', indirizzo='$indirizzo', citta='$citta', provincia='$provincia', cap='$cap', telefono='$telefono', telefono2='$telefono2', cellulare='$cellulare', mail='$mail', partitaiva='$partitaiva', codicefiscale='$codicefiscale', banca='$banca', filiale='$filiale', contocorrente='$contocorrente', abi='$abi', cab='$cab', cin='$cin', cciaa='$cciaa' WHERE id = '$id'";
+		
     	$this->res= $this->conn->query($aggiorna_azienda);
 	  return $this->res;
 	}

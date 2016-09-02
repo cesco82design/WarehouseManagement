@@ -8,6 +8,18 @@ body {
 header {
 	margin-top:80px;
 }
+.background {
+	position: fixed;
+	width:100%;
+	height:100vh;
+	top:0;
+	left:0;
+	z-index:-1;
+	& .overlay {
+		@include overlay;
+		opacity: .9;
+	}
+}
 #insert_prod {
 	& > div {
 		margin-top:15px;
@@ -15,12 +27,15 @@ header {
 	& label, & input {
 		width:100%;
 	}
+	& input {
+	    padding: 10px 15px;
+	}
 	& select {
 		display: inline-block;
-		padding: 3px 2px;
+		padding: 12px 15px;
 	}
 	& .addfield {
-		padding: 3px 2px;
+		padding: 12px 2px;
 		display: inline-block;
 	}
 }

@@ -11,11 +11,61 @@ jQuery(window).load(function() {
 	    3000
 	  );
 	}
-    $("input").keydown(function(e){
-        if(e.which==17 || e.which==74){
+/*
+ var DLElements = [];
+    $("input").keydown(function(e) {
+        // if <LF><CR> is detected, break the line
+        if(e.ctrlKey && e.which == 17) {
+        DLElements.push( $("#barcode").val() );
+        $("#barcode").val( "" );
+        e.preventDefault(); 
+        }
+        // Listen for <CTRL> J
+        if(e.ctrlKey && e.which == 74) {
+        e.preventDefault(); 
+        }
+        // Listen for <CTRL> M Mute
+        if(e.ctrlKey && e.which == 77) {
+        e.preventDefault(); 
+        }
+
+    });
+    var holding_ctrl = false;
+
+	$("input").keydown(function(e){
+	    if(e.which==17){
+	        holding_ctrl = true;
+	    }
+	}); 
+
+	$("input").keyup(function(e){
+	    if(e.which==17){
+	        holding_ctrl = false;
+	    }
+	}); 
+
+
+	$("input").keydown(function(e){
+	    if(holding_ctrl && e.which==74){
+	        e.preventDefault();
+	    }else{
+	        console.log(e.which);
+	    }
+	});
+	*/
+
+    $("#barcode").keydown(function(e){
+        //if(e.which==17||e.which==13||e.which==74){
+        if(e.which==13||e.which==74){
             e.preventDefault();
         }else{
             console.log(e.which);
         }
-    })
+    });
+$('#barcode').on('change', function(event){console.log(event); });
+    jQuery(".imgLiquidFill").imgLiquid({
+	    fill: true,
+	    horizontalAlign: "center",
+	    verticalAlign: "50%"
+	});
 });

@@ -2,29 +2,30 @@
 session_start();
 include_once('../../functions.php');
   include CLASMOD.'User.php';
-$adddipendente = new User();
+$addUser = new User();
 
 // data insert code starts here.
 if(isset($_POST['btn-save'])) {
 
- $nome = $adddipendente->pulisci_stringa($_POST['nome']);
- $cognome = $adddipendente->pulisci_stringa($_POST['cognome']);
- $user = $adddipendente->pulisci_stringa($_POST['user']);
+ $nomeutente = $addUser->pulisci_stringa($_POST['nome']);
+ $cognome = $addUser->pulisci_stringa($_POST['cognome']);
+ $user = $addUser->pulisci_stringa($_POST['user']);
  $password = $_POST ['password'];
+ $livello = $_POST['livello'];
  //echo $nomeutente.' - '.$user.' - '.$password.' - '.$livello;
  
- $dipendente = User::insert_dipendente($nomeutente,$cognome,$user,$password,$livello);
+ $utente = User::insert_user($nomeutente,$cognome,$user,$password,$livello);
  /*var_dump($utente);
  exit();*/
  if($utente) {
     header('location:../../lista_utenti.php?messaggio=utente aggiunto correttamente');
   } else {
-    header('location:?messaggio=c\'è un errore nell\'inserimento del dipendente');
+    header('location:?messaggio=c\'è un errore nell\'inserimento dell\'utente');
   }
 } else {
 // data insert code ends here.
   if ($_SESSION['livello']!='suxuser') {
-    header('location:'.PATH.'?alert=danger&messaggio=non hai i permessi per aggiungere altri dipendenti');
+    header('location:'.PATH.'?alert=danger&messaggio=non hai i permessi per aggiungere altri utenti');
     exit();
   }
 include_once(LAYOUT.'pretitle.php'); ?>

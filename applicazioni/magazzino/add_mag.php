@@ -76,7 +76,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="barcode">Barcode</label>
-                <input type="text" name="barcode" placeholder="Barcode Prodotto" required />
+                <input type="text" id="barcode" name="barcode" placeholder="Barcode Prodotto" required />
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="nome">Nome Prodotto</label>

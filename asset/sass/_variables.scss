@@ -12,6 +12,7 @@ $greylight2:#dcdcdc;
 $greyvlight:#f5f5f5;
 $greyhard: #333234;
 $greyclassic: #444444;
+$pink: #E88AAF;
 
 $facebook: #3b5998;
 $twitter: #55acee;
@@ -312,7 +313,7 @@ MIXING
   height: 100%;
   top: 0px;
   left: 0px;
-  background: rgba($white, .8);
+  background: rgba($white, .9);
 }
 @mixin overlayBlack {
   position: absolute;
@@ -414,6 +415,9 @@ MIXING
 }
 .text-center {
   text-align: center;
+}
+.margintop30 {
+  margin-top: 30px;
 }
 #search {
     position: fixed;
@@ -602,4 +606,15 @@ progress {
   display: block;
   line-height: 150px;
   margin: 30px auto;
+}
+.btn-save,.update {
+  text-transform: uppercase;
+  color: $black;
+  background: $pink;
+  border: 1px solid $black;
+  padding: 13px 25px;
+  @include css3-prefix('transition',  "all 0.3s ease-in-out");
+  &:hover {
+    background:none;
+  }
 }

@@ -159,7 +159,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
                 <input type="text" name="cciaa" value="<?php echo $add_azienda->cciaa; ?>"  />
             </div>
             <div class="col-xs-12">
-                <input type="submit" name="update" value="AGGIORNA" />
+                <input type="submit" name="update" class="update margintop30" value="AGGIORNA" />
             </div>
         </form>
       </div>
@@ -327,7 +327,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
                 <input type="text" name="cciaa" placeholder="CCIAA"  />
             </div>
             <div class="col-xs-12">
-                <input type="submit" name="btn-save" value="SALVA" />
+                <input type="submit" name="btn-save" class="btn-save margintop30" value="SALVA" />
             </div>
         </form>
       </div>
