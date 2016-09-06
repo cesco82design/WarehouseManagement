@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="<?php echo CSS; ?>bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo CSS; ?>font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="<?php echo CSS; ?>style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="<?php echo JS; ?>imgLiquid-min.js"></script>
 <script src="<?php echo JS; ?>custom_script.js"></script>
 <script src="<?php echo JS; ?>bootstrap.min.js"></script>
@@ -108,7 +110,7 @@
                         <li class="dropdown-header">Configurazione</li>
                         <li><a href="'.PATH.'/azienda.php">Dati Azienda</a></li>
                         <li><a href="'.PATH.'/dipendenti.php">Lista Dipendenti</a></li>
-                        <li><a href="#">Aggiungi Dipendente</a></li>
+                        <li><a href="'.UTENTI.'add_dip.php">Aggiungi Dipendente</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Gestione Categorie</li>
                         <li><a href="'.PATH.'/categorie.php">Tutte le categorie</a></li>

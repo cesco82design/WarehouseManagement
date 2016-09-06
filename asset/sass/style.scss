@@ -39,3 +39,24 @@ header {
 		display: inline-block;
 	}
 }
+.add_dipendente {
+	& .first_block > div {
+		margin-top: 15px;
+	}
+	& input, & label {
+		width: 100%;
+	}	
+	& input {
+	    padding: 10px 15px;
+	    &#reg_dipendente {
+	    	width: 100%;
+	    	height: 40px;
+	    }
+	}
+	& .reg_mi {
+		display: none;
+	}
+	& .endform {
+		padding:15px;
+	}
+}
