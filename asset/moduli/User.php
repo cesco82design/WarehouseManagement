@@ -88,6 +88,11 @@ class User extends DB_con {
     	$this->res= $this->conn->query($deluser);
 	  return $this->res;
 	}
+	public function last_id() {
+		$last_id="SELECT Max(id) FROM utenti";
+    	$this->res= $this->conn->query($last_id);
+	  return $this->res;
+	}
 
 	 
 }

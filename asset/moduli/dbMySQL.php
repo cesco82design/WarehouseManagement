@@ -119,9 +119,9 @@ class DB_con {
 			$sql = ('INSERT INTO '.$table.' (' . implode(',', $colonne) . ') VALUES (\'' . implode('\',\'', $valori) . '\')');
 			
 			$result = $this->conn->query($sql);
-			echo $sql;
+			/*echo $sql;
 			var_dump($result);
-			exit();
+			exit();*/
 			if ( $result ) {
 				return $this->conn->query('SELECT LAST_INSERT_ID()');
 			}
