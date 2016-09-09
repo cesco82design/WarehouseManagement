@@ -2,9 +2,10 @@
 session_start();
 include_once('../../functions.php');
   include CLASMOD.'User.php';
-$adddipendente = new User();
-
-// data insert code starts here.
+  include CLASMOD.'Dipendente.php';
+$adddipendente = new Dipendente();
+$newUser = new User();
+// data insert code starts here.*/
 if(isset($_POST['btn-save'])) {
 
   $nome = $adddipendente->pulisci_stringa($_POST['nome']);
@@ -14,6 +15,8 @@ if(isset($_POST['btn-save'])) {
   $provincia = $adddipendente->pulisci_stringa($_POST['provincia']);
   $cap = $adddipendente->pulisci_stringa($_POST['cap']);
   $data_nascita = $_POST ['data_nascita'];
+  $time = strtotime($data_nascita);
+  $newformat = date('Y-m-d',$time);
   $telefono = $adddipendente->pulisci_stringa($_POST['telefono']);
   $cellulare = $adddipendente->pulisci_stringa($_POST['cellulare']);
   $mail = $adddipendente->validate_email($_POST['mail']);
@@ -23,16 +26,24 @@ if(isset($_POST['btn-save'])) {
   $registrare = $_POST ['registrare'];
   $username = $adddipendente->pulisci_stringa($_POST['username']);
   $password = $_POST ['password'];
+
  //echo $nomeutente.' - '.$user.' - '.$password.' - '.$livello;
- 
- $dipendente = User::insert_dipendente($nome,$cognome,$indirizzo,$citta,$provincia,$cap,$data_nascita,$telefono,$cellulare,$mail,$partitaiva,$codicefiscale,$registrare,$username,$password);
- /*var_dump($utente);
+ /*echo $nome;
  exit();*/
- if($utente) {
-    header('location:../../lista_utenti.php?messaggio=utente aggiunto correttamente');
+  if ($registrare) {
+   $user = User::insert_user($nome,$cognome,$username,$password,'dipendente');
+  }
+  
+ $dipendente = Dipendente::insert_dipendente($nome,$cognome,$indirizzo,$citta,$provincia,$cap,$newformat,$telefono,$cellulare,$mail,$partitaiva,$codicefiscale,$operatrice,$registrare);
+/* var_dump($dipendente);
+ exit();*/
+ if($dipendente) {
+    header('location:../../dipendenti.php?messaggio=Dipendente aggiunto correttamente');
   } else {
     header('location:?messaggio=c\'è un errore nell\'inserimento del dipendente');
   }
+  /*var_dump($user);
+  exit();*/
 } else {
 // data insert code ends here.
   if ($_SESSION['livello']!='suxuser') {
@@ -85,19 +96,19 @@ include_once(LAYOUT.'pretitle.php'); ?>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="indirizzo">Indirizzo</label>
-                    <input type="text" name="indirizzo" value="Indirizzo"  required/>
+                    <input type="text" name="indirizzo" placeholder="Indirizzo"  required/>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="citta">Città</label>
-                    <input type="text" name="citta" value="Città"  required/>
+                    <input type="text" name="citta" placeholder="Città"  required/>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="provincia">Provincia</label>
-                    <input type="text" name="provincia" value="Provincia"  required/>
+                    <input type="text" name="provincia" placeholder="Provincia"  required/>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="cap">CAP</label>
-                    <input type="text" name="cap" value="CAP" maxlength="5"  required/>
+                    <input type="text" name="cap" placeholder="CAP" maxlength="5"  required/>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <div class="formgroup">
@@ -110,27 +121,27 @@ include_once(LAYOUT.'pretitle.php'); ?>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="telefono">Telefono</label>
-                    <input type="text" name="telefono" value="Telefono"  />
+                    <input type="text" name="telefono" placeholder="Telefono"  />
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="cellulare">Cellulare</label>
-                    <input type="text" name="cellulare" value="Cellulare"  required/>
+                    <input type="text" name="cellulare" placeholder="Cellulare"  required/>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="mail">Mail</label>
-                    <input type="text" name="mail" value="Mail"  required/>
+                    <input type="text" name="mail" placeholder="Mail"  required/>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="partitaiva">Partita Iva</label>
-                    <input type="text" name="partitaiva" value="Partita Iva" required/>
+                    <input type="text" name="partitaiva" placeholder="Partita Iva" />
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="codicefiscale">Codice Fiscale</label>
-                    <input type="text" name="codicefiscale" value="Codice Fiscale"  />
+                    <input type="text" name="codicefiscale" placeholder="Codice Fiscale"  />
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <label for="operatrice">Operatrice</label>
-                    <input type="text" name="operatrice" value="Operatrice"  />
+                    <input type="text" name="operatrice" placeholder="Operatrice"  />
                 </div>
                 <div class="col-xs-12 col-sm-6" style="margin-top:30px;"">
                   <div class="col-xs-12 col-sm-6" style="margin-top:6px;">
@@ -143,11 +154,11 @@ include_once(LAYOUT.'pretitle.php'); ?>
                 <div class="reg_mi col-xs-12 bordered">
                   <div class="col-xs-12 col-sm-6">
                       <label for="username">Username</label>
-                      <input type="text" name="username" placeholder="Username" required />
+                      <input type="text" name="username" placeholder="Username"  />
                   </div>
                   <div class="col-xs-12 col-sm-6">
                       <label for="password">Password</label>
-                      <input type="text" name="password" placeholder="Password" required />
+                      <input type="text" name="password" placeholder="Password"  />
                   </div>              
                 </div>
               </div>
@@ -160,4 +171,5 @@ include_once(LAYOUT.'pretitle.php'); ?>
 </section>
 
 <?php include_once(LAYOUT.'footer.php'); ?>
-<?php } ?>
+<?php } 
+?>

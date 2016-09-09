@@ -36,8 +36,12 @@ jQuery(window).load(function() {
     });
 	//$('#barcode').on('change', function(event){console.log(event); });
 	$("#reg_dipendente").change(function() {
+				//toggle effetto slide
+	         var $this = $('#reg_dipendente');
+	         var $required = $('.reg_mi input');
 	        //$('.reg_mi').fadeToggle();		//toggle fadeIn/fadeOut
 	        $('.reg_mi').slideToggle();			//toggle effetto slide
+    		$this.is(":checked") ? $required.prop('required', 'true') : $required.removeProp('required')
 	    /*if(this.checked) {				//questo con un normale if + else
 	  	    $('.reg_mi').fadeIn();
 	    } else {

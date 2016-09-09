@@ -1,5 +1,5 @@
 <?php
-include 'dbMySQL.php';  
+include_once('dbMySQL.php');  
 
 class Dipendente extends DB_con {
 	
@@ -7,8 +7,6 @@ class Dipendente extends DB_con {
 	public $id_utente 			= '';
 	public $nome 				= '';
 	public $cognome 			= '';
-	public $username 			= '';
-	public $password  			= '';
 	public $indirizzo  			= '';
 	public $citta		 		= '';
 	public $provincia	 		= '';
@@ -33,8 +31,6 @@ class Dipendente extends DB_con {
 			$this->id_utente 		= $dipendente->id_utente;
 			$this->nome 			= $dipendente->nome;
 			$this->cognome 			= $dipendente->cognome;
-			$this->username 		= $dipendente->username;
-			$this->password 		= $dipendente->password;
 			$this->data_nascita 	= $dipendente->data_nascita;	
 			$this->indirizzo 		= $dipendente->indirizzo;
 			$this->citta 			= $dipendente->citta;	
@@ -50,10 +46,10 @@ class Dipendente extends DB_con {
 		}
     }
     
-    static function aggiorna_utente($idUtente,$newnomeutente,$newuser,$password,$newlivello){
+    static function aggiorna_dipendente($idUtente,$newnomeutente,$newuser,$password,$newlivello){
 		$db_con = new DB_con();
 		$newpassword = $db_con->checkPWD($idUtente,$password);
-		$table 			= 'utenti';
+		$table 			= 'dipendenti';
 		/*echo $newpassword;
 		exit();*/
 		if ($newpassword) {
@@ -76,37 +72,24 @@ class Dipendente extends DB_con {
     }
     
 
-
-	static public function insert_user($nomeutente,$cognome,$username,$password,$livello)  {
+	static public function insert_dipendente($nome,$cognome,$indirizzo,$citta,$provincia,$cap,$data_nascita,$telefono,$cellulare,$mail,$partitaiva,$codicefiscale,$operatrice,$registrare)  {
 		$db_con = new DB_con();
 		//echo $password;
-		$newpassword = $db_con->reg_pwd($password);
-		/*echo $newpassword; 
-		exit();*/
-		if ($newpassword) {
-			$password = $newpassword;
-		} else {
-				header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri');
-				exit();
-		}
-
-		$dati_utente = array('id'=>NULL,'nome'=>$nomeutente,'cognome'=>$cognome,'username'=>$username,'password'=>$password,'livello'=>$livello);
-		$table 			= 'utenti';
-		$checkUser = $db_con->checknewUserExist($username);
-		$contau = $checkUser->num_rows;
-		/*echo $contau;
-		exit();*/
-		if ($contau==1) {
-			header('location:?alert=danger&messaggio=lo username scelto è già utilizzato,devi sceglierne un altro');
+		if ($registrare) {
+			$id_utente=$db_con->last_user_id();
+			echo $id_utente;
 			exit();
-		} else {
-			$id_nuovo_utente = $db_con->insert($table,$dati_utente);
 		}
-		return $id_nuovo_utente;
+		
+		$dati_dip = array('id'=>NULL,'idutente'=>$id_utente,'nome'=>$nome,'cognome'=>$cognome,'data_nascita'=>$data_nascita,'indirizzo'=>$indirizzo,'citta'=>$citta,'provincia'=>$provincia,'cap'=>$cap,'telefono'=>$telefono,'cellulare'=>$cellulare,'mail'=>$mail,'partitaiva'=>$partitaiva,'codicefiscale'=>$codicefiscale,'operatrice'=>$operatrice);
+		$table 			= 'dipendenti';
+		$id_nuovo_dip = $db_con->insert($table,$dati_dip);
+		
+		return $id_nuovo_dip;
 	}
 
-	public function del_utente($id) {
-		$deluser="DELETE FROM utenti WHERE id = '$id'";
+	public function del_dipendente($id) {
+		$deluser="DELETE FROM dipendenti WHERE id = '$id'";
     	$this->res= $this->conn->query($deluser);
 	  return $this->res;
 	}

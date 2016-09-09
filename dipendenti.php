@@ -1,6 +1,7 @@
 <?php
 include_once 'functions.php';
 include CLASMOD.'User.php';
+include CLASMOD.'Dipendente.php';
 
 include APPL.'check_login.php';
 session_start();
@@ -8,7 +9,7 @@ $Dipendenti = new DB_con();
 $table = "dipendenti";
 // cancello utente se mi è stato passato un parametro di cancellazione
 if(isset($_GET['iddipendenteCancella'])){
-  $del_dipendente = new User();
+  $del_dipendente = new Dipendente();
   
    $res=$del_dipendente->del_dipendente($_GET['iddipendenteCancella']);
     if ($res) {

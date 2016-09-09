@@ -1,5 +1,5 @@
 <?php
-include 'dbMySQL.php';  
+include_once('dbMySQL.php');
 
 class User extends DB_con {
 	
@@ -86,11 +86,6 @@ class User extends DB_con {
 	public function del_utente($id) {
 		$deluser="DELETE FROM utenti WHERE id = '$id'";
     	$this->res= $this->conn->query($deluser);
-	  return $this->res;
-	}
-	public function last_id() {
-		$last_id="SELECT Max(id) FROM utenti";
-    	$this->res= $this->conn->query($last_id);
 	  return $this->res;
 	}
 
