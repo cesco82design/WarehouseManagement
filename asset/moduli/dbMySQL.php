@@ -129,23 +129,29 @@ class DB_con {
 		return true;
 	}
 	public function update($table, $id, $fields){
-			$set = '';
-			$x = 1;
-			
-			foreach($fields as $name => $value){
-				$set .= "{$name} = '$value'";
-				if($x < count($fields)){
-					$set .= ', ';
-				}
-				$x++;
+		$set = '';
+		$x = 1;
+		
+		foreach($fields as $name => $value){
+			$set .= "{$name} = '$value'";
+			if($x < count($fields)){
+				$set .= ', ';
 			}
-			
-			$sql = "UPDATE {$table} SET {$set} WHERE id = {$id} ";
+			$x++;
+		}
+		
+		$sql = "UPDATE {$table} SET {$set} WHERE id = {$id} ";
 
-			if($this->conn->query($sql)){
-				return true;
-			}
-			return false;
-		}		
+		if($this->conn->query($sql)){
+			return true;
+		}
+		return false;
+	}	
+
+	public function last_user_id() {
+		$last_id="SELECT Max(id) FROM utenti";
+    	$this->res=$this->conn->query($last_id);
+	  return $this->res;
+	}	
 }
 ?>
