@@ -60,3 +60,33 @@ header {
 		padding:15px;
 	}
 }
+#Mov_mag {
+	& .radio {
+	  display:inline-block;
+	  & input[type="radio"] {
+	  	display:none;
+	  	& + label {
+		    color: $greyhard;
+		    font-family:Arial, sans-serif;
+		    font-size:14px;
+		    & span {
+			    display:inline-block;
+			    width:19px;
+			    height:19px;
+			    margin:-1px 4px 0 0;
+			    vertical-align:middle;
+			    cursor:pointer;
+			    @include border-radius( 50% );
+			     background-color:$greyhard;
+			}
+	  	}
+	  	&:checked + label span{
+		     background-color:$pink;
+		}
+		& + label span,
+		&:checked + label span {
+			@include css3-prefix('transition',  "background-color 0.4s linear");
+		}
+	  }
+	}
+}

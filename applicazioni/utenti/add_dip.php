@@ -35,15 +35,16 @@ if(isset($_POST['btn-save'])) {
   }
   
  $dipendente = Dipendente::insert_dipendente($nome,$cognome,$indirizzo,$citta,$provincia,$cap,$newformat,$telefono,$cellulare,$mail,$partitaiva,$codicefiscale,$operatrice,$registrare);
-/* var_dump($dipendente);
- exit();*/
+ var_dump($dipendente);
+ exit();
  if($dipendente) {
     header('location:../../dipendenti.php?messaggio=Dipendente aggiunto correttamente');
   } else {
     header('location:?messaggio=c\'è un errore nell\'inserimento del dipendente');
   }
   /*var_dump($user);
-  exit();*/
+  exit();
+  header('location:../../dipendenti.php?messaggio=utente aggiunto correttamente');*/
 } else {
 // data insert code ends here.
   if ($_SESSION['livello']!='suxuser') {
