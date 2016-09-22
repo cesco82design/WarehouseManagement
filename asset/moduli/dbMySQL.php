@@ -149,9 +149,17 @@ class DB_con {
 	}	
 
 	public function last_user_id() {
-		$last_id="SELECT Max(id) FROM utenti";
+		$last_id="SELECT Max(id) AS maxid FROM utenti";
     	$this->res=$this->conn->query($last_id);
 	  return $this->res;
 	}	
+
+	public function sel_ID_prod($barcode) {
+		$sql = "SELECT id FROM prodotti WHERE barcode = '$barcode'";
+		$this->res = $this->conn->query($sql);
+		$prod_id = $this->res->fetch_object();
+		$id_prod = $prod_id->id;
+	  	return $id_prod;
+	}
 }
 ?>

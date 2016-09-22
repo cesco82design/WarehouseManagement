@@ -1,4 +1,6 @@
 <?php
+//session_start();
+include_once '../check_login.php';
 session_start();
 include_once('../../functions.php');
   include CLASMOD.'User.php';
@@ -35,8 +37,8 @@ if(isset($_POST['btn-save'])) {
   }
   
  $dipendente = Dipendente::insert_dipendente($nome,$cognome,$indirizzo,$citta,$provincia,$cap,$newformat,$telefono,$cellulare,$mail,$partitaiva,$codicefiscale,$operatrice,$registrare);
- var_dump($dipendente);
- exit();
+ /*var_dump($dipendente);
+ exit();*/
  if($dipendente) {
     header('location:../../dipendenti.php?messaggio=Dipendente aggiunto correttamente');
   } else {

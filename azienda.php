@@ -1,4 +1,5 @@
 <?php
+include_once 'applicazioni/check_login.php';
 session_start();
 include_once('functions.php');
 include CLASMOD.'Azienda.php';

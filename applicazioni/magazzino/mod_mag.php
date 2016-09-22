@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	//session_start();
+
+include_once '../check_login.php';
   include_once('../../functions.php');
 include CLASMOD.'Prodotto.php';
 $modifica = new Prodotto($_GET['barcode']);

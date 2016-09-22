@@ -2,7 +2,7 @@
 include_once('functions.php');
 include CLASMOD.'Prodotto.php';
 include 'applicazioni/check_login.php';
-//session_start();
+session_start();
 
 $marca = new Prodotto();
 

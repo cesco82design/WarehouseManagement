@@ -1,5 +1,5 @@
 <?php
-include 'dbMySQL.php';
+include_once('dbMySQL.php');  
 class Prodotto extends DB_con {
 	
 	public $id 				= '';
@@ -116,6 +116,7 @@ class Prodotto extends DB_con {
 		}*/
 		return $id_nuovo_oggetto;
 	}
+	
 }
 
 /*******

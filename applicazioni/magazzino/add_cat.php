@@ -1,4 +1,9 @@
 <?php
+
+
+//session_start();
+
+include_once '../check_login.php';
 session_start();
 include_once('../../functions.php');
 include CLASMOD.'Prodotto.php';

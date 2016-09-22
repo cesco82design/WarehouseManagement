@@ -18,6 +18,8 @@ include_once(LAYOUT.'pretitle.php'); ?>
             <div class="messaggio <?php if (isset($_GET['alert'])) { echo 'alert alert-danger';} else { echo 'alert alert-success';} ?>">
             <?php
               echo $_GET['messaggio'];
+              //echo PATH;
+              //echo LOGURL;
               ?>
               </div>
               <?php

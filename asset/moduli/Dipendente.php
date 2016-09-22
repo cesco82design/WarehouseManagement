@@ -75,13 +75,20 @@ class Dipendente extends DB_con {
 	static public function insert_dipendente($nome,$cognome,$indirizzo,$citta,$provincia,$cap,$data_nascita,$telefono,$cellulare,$mail,$partitaiva,$codicefiscale,$operatrice,$registrare)  {
 		$db_con = new DB_con();
 		//echo $password;
-		if ($registrare) {
+		//echo $nome.' - '.$cognome.' - '.$indirizzo.' - '.$citta.' - '.$provincia.' - '.$cap.' - '.$data_nascita.' - '.$telefono.' - '.$cellulare.' - '.$mail.' - '.$partitaiva.' - '.$codicefiscale.' - '.$operatrice.' - '.$registrare;
+		//exit();
+		if ($registrare=='on') {
 			$id_utente=$db_con->last_user_id();
-			echo $id_utente;
-			exit();
+			$new_utente_id = $id_utente->fetch_object();
+			$new_id_utente = $new_utente_id->maxid;
+			//return $new_id_utente;
 		}
+		//echo $new_utente->maxid;
 		
-		$dati_dip = array('id'=>NULL,'idutente'=>$id_utente,'nome'=>$nome,'cognome'=>$cognome,'data_nascita'=>$data_nascita,'indirizzo'=>$indirizzo,'citta'=>$citta,'provincia'=>$provincia,'cap'=>$cap,'telefono'=>$telefono,'cellulare'=>$cellulare,'mail'=>$mail,'partitaiva'=>$partitaiva,'codicefiscale'=>$codicefiscale,'operatrice'=>$operatrice);
+		
+		$dati_dip = array('id'=>NULL,'idutente'=>$new_id_utente,'nome'=>$nome,'cognome'=>$cognome,'indirizzo'=>$indirizzo,'citta'=>$citta,'provincia'=>$provincia,'cap'=>$cap,'data_nascita'=>$data_nascita,'telefono'=>$telefono,'cellulare'=>$cellulare,'mail'=>$mail,'partitaiva'=>$partitaiva,'codicefiscale'=>$codicefiscale,'operatrice'=>$operatrice);
+		/*print_r($dati_dip);
+		exit();*/
 		$table 			= 'dipendenti';
 		$id_nuovo_dip = $db_con->insert($table,$dati_dip);
 		

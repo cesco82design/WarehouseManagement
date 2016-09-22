@@ -8,6 +8,9 @@ body {
 header {
 	margin-top:80px;
 }
+input {
+    padding: 10px 15px;
+}
 .background {
 	position: fixed;
 	width:100%;
@@ -61,6 +64,15 @@ header {
 	}
 }
 #Mov_mag {
+	& > div {
+		margin-top:20px;
+	}
+	& label, & input, & textarea { 
+		width: 100%;
+	}
+	& textarea {
+		padding: 15px;
+	}
 	& .radio {
 	  display:inline-block;
 	  & input[type="radio"] {

@@ -1,26 +1,28 @@
 <?php
+//session_start();
+include_once ('../check_login.php');
 session_start();
 include_once('../../functions.php');
-/*include CLASMOD.'Movimento.php';
-$addprod = new Prodotto();
-*/
+include CLASMOD.'Movimento.php';
+$add_mov = new Movimento();
+
 if(isset($_POST['btn-save'])) {
-/*
- $barcode = $addprod->pulisci_stringa($_POST['barcode']);
- $nome = $addprod->pulisci_stringa($_POST['nome']);
- $marca = $_POST['marca'];
- $categoria = $_POST['categoria'];
- $sottoscorta = $addprod->pulisci_stringa($_POST['sottoscorta']);
+
+ $barcode = $add_mov->pulisci_stringa($_POST['barcode']);
+ $prezzo = $add_mov->pulisci_stringa($_POST['prezzo']);
+ $quantita = $add_mov->pulisci_stringa($_POST['quantita']);
+ $causale = $add_mov->pulisci_stringa($_POST['radio']);
+ $note = $add_mov->pulisci_stringa($_POST['note']);
 /*echo $barcode.' '.$nome.' '.$marca.' '.$categoria.' '.$sottoscorta;
-exit();* /
- $prodotto = Prodotto::insert_magazzino($barcode,$nome,$marca,$categoria,$sottoscorta);
- /*var_dump($prodotto);
- exit();* /
- if($prodotto)   {
-    header('location:?messaggio=Prodotto inserito correttamente');
+exit();*/
+ $movimento = Movimento::insert_movimento($barcode,$prezzo,$quantita,$causale,$note);
+/* var_dump($movimento);
+ exit();*/
+ if($movimento)   {
+    header('location:?messaggio=Movimento inserito correttamente');
   } else {
-    header('location:?alert=danger&messaggio=c\'è un errore nell\'inserimento del prodotto');
-  }*/
+    header('location:?alert=danger&messaggio=c\'è un errore nell\'inserimento del movimento');
+  }
 } else {
 // data insert code ends here.
 
@@ -69,19 +71,22 @@ include_once(LAYOUT.'pretitle.php'); ?>
                 <label for="quantita">Quantità</label>
                 <input type="number" name="quantita" placeholder="Quantità" />
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-6" style="margin-top: 45px;">
               <div class="radio">
-                <input type="radio" id="radio01" name="radio" />
+                <input type="radio" id="radio01" name="radio" value="entrata"/>
                 <label for="radio01"><span></span>Entrata</label>
               </div>
 
               <div class="radio">
-               <input type="radio" id="radio02" name="radio" />
+               <input type="radio" id="radio02" name="radio" value="uscita"/>
                <label for="radio02"><span></span>Uscita</label>
               </div>
             </div>
             <div class="col-xs-12">
-                <input type="submit" name="btn-save" value="Aggiungi" />
+              <textarea placeholder="Inserisci eventuali note" name="note"></textarea>
+            </div>
+            <div class="col-xs-12">
+                <input type="submit" name="btn-save" class="btn-save" value="Aggiungi" />
             </div>
         </form>
       </div>

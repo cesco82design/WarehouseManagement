@@ -71,7 +71,10 @@ include_once(LAYOUT.'pretitle.php');
              ?>
               <tr>
               <td><?php echo $Dipendente->nome.' '.$Dipendente->cognome; ?></td>
-              <td><?php echo $Dipendente->username; ?></td>
+              <td><?php if ( $Dipendente->idutente != '0' ) {
+                $User = new User($Dipendente->idutente);
+                 echo $User->username; 
+              } ?></td>
               <td><?php echo $Dipendente->cellulare; ?></td>
               <td><?php echo $Dipendente->mail; ?></td>
               <td><?php echo $Dipendente->operatrice; ?></td>

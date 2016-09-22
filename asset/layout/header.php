@@ -59,7 +59,7 @@
               <li><a href="<?php echo MAGAZZINO;?>add_mag.php">Aggiungi Prodotto</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">Gestione Magazzino</li>
-              <li><a href="#">Movimenti Magazzino</a></li>
+              <li><a href="<?php echo MAGAZZINO;?>mov_mag.php">Movimenti Magazzino</a></li>
               <li><a href="#">Inventario Magazzino</a></li>
               <?php } ?>
             </ul>

@@ -1,8 +1,9 @@
 <?php
 include_once('functions.php');
-include 'asset/moduli/Prodotto.php';
-include 'applicazioni/check_login.php';
-//session_start();
+include CLASMOD.'Prodotto.php';
+include CLASMOD.'Movimento.php';
+include APPL.'check_login.php';
+session_start();
 
 $magazzino = new DB_con();
 $table = "prodotti";
@@ -88,7 +89,7 @@ include_once(LAYOUT.'pretitle.php');
                     <td><?php echo $dati_prodotto->quantita; ?></td>
                     <td>&euro; <?php echo number_format((float)$totprezzo, 2, '.', ''); ?></td>
                     <td>&euro; <?php echo $dati_prodotto->costo; ?></td>*/ ?>
-                    <td><a href="applicazioni/magazzino/mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
+                    <td><a href="<?php echo MAGAZZINO;?>mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
                     <td><a href="?idMagazzinoCancella=<?php echo $dati_prodotto->Barcode;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
                     <?php

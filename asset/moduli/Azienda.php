@@ -1,5 +1,5 @@
 <?php
-include 'dbMySQL.php';
+include_once('dbMySQL.php');  
 class Azienda extends DB_con {
 	
 	public $id 					= '';
