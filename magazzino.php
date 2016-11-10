@@ -2,17 +2,17 @@
 include_once('functions.php');
 include CLASMOD.'Prodotto.php';
 include CLASMOD.'Movimento.php';
-include APPL.'check_login.php';
+include 'applicazioni/check_login.php';
 session_start();
 
 $magazzino = new DB_con();
 $table = "prodotti";
 
 // cancello utente se mi è stato passato un parametro di cancellazione
-if(isset($_GET['idMagazzinoCancella'])){
+if(isset($_GET['id_Magazzino_Cancella'])){
   $delprodotto = new Prodotto();
   
-   $res=$delprodotto->del_prodotto($_GET['idMagazzinoCancella']);
+   $res=$delprodotto->del_prodotto($_GET['id_Magazzino_Cancella']);
    if ($res) {
       header('location:?messaggio=cancellazione avvenuta correttamente');
    } else {
@@ -66,10 +66,13 @@ include_once(LAYOUT.'pretitle.php');
           <th>Barcode</th>
           <th>Nome Prodotto</th>
           <th>Marca</th>
-          <th>Prezzo</th>
-          <th>Quantit&agrave;</th>
-          <th>Tot. articolo</th>
-          <th>Costo unitario</th>
+          <th>Categoria</th>
+          <th>Prezzo Medio</th>
+          <th>Q.t&agrave;</th>
+          <th>Valore</th>
+          <th>Scorta minima</th>
+          <th>Modifica</th>
+          <th>Elimina</th>
           <th></th>
           <th></th>
           </tr>
@@ -80,26 +83,37 @@ include_once(LAYOUT.'pretitle.php');
                 $sommaprezzo[] = $totprezzo;*/
                    ?>
                     <tr>
-                    <td><?php echo $dati_prodotto->barcode; ?></td>
-                    <td><?php echo $dati_prodotto->nome; ?></td>
+                    <td><a href="details.php?details=prodotto&id=<?php echo $dati_prodotto->id; ?>"><?php echo $dati_prodotto->barcode; ?></a></td>
+                    <td><a href="details.php?details=prodotto&id=<?php echo $dati_prodotto->id; ?>"><?php echo $dati_prodotto->nome; ?></td>
                     <td><?php echo $dati_prodotto->marca; ?></td>
-                    <td><?php  ?></td>
-                    <td><?php  ?></td>
-                    <?php /* <td>&euro; <?php echo $dati_prodotto->prezzo; ?></td>
+                    <td><?php echo $dati_prodotto->categoria; ?></td>
+                    <td><?php $barcode = $dati_prodotto->barcode;
+                    $prezzo_quantita = new Movimento();
+                    $prezzo_medio = $prezzo_quantita->prezzo_medio_prodotto( $barcode );
+                    echo '&euro; '.number_format((float)$prezzo_medio, 2, '.', '');  ?></td>
+                    <td><?php 
+                    $quantita_prodotto = $prezzo_quantita->quantita_prodotto( $barcode );
+                    if ($quantita_prodotto<=$dati_prodotto->scortaminima) {
+                      echo '<span class="red">'.$quantita_prodotto.'</span>';
+                    } else {
+                      echo $quantita_prodotto; 
+                    }?></td>
+                    <td>&euro; <?php $valore_magazzino = ($prezzo_medio*$quantita_prodotto); echo number_format((float)$valore_magazzino, 2, '.', '');?></td>
+                    <td><?php echo $dati_prodotto->scorta_minima; ?></td>
+                    <?php /* 
                     <td><?php echo $dati_prodotto->quantita; ?></td>
                     <td>&euro; <?php echo number_format((float)$totprezzo, 2, '.', ''); ?></td>
                     <td>&euro; <?php echo $dati_prodotto->costo; ?></td>*/ ?>
-                    <td><a href="<?php echo MAGAZZINO;?>mod_mag.php?barcode=<?php echo $dati_prodotto->Barcode;?>"><i class="fa fa-edit"></i></a></td>
-                    <td><a href="?idMagazzinoCancella=<?php echo $dati_prodotto->Barcode;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
+                    <td><a href="<?php echo MAGAZZINO;?>mod_mag.php?barcode=<?php echo $dati_prodotto->id;?>"><i class="fa fa-edit"></i></a></td>
+                    <td><a href="?id_Magazzino_Cancella=<?php echo $dati_prodotto->id;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
                     <?php
-                 
+                    $totale_inventario[]= $valore_magazzino;
               }
-              echo '<tr><td colspan="4"></td>
-            <td><strong>&euro; ';
-            //$totsomma= array_sum($sommaprezzo);
-            //echo number_format((float)$totsomma, 2, '.', '');
-            echo '</strong></td>
+              $media_inventario = array_sum( $totale_inventario );
+
+            
+              echo '<tr><td colspan="3"></td><td colspan="2"><strong>Totale Magazzino</strong></td><td><strong>&euro; '.number_format((float)$media_inventario, 2, '.', '').'</td>
             <td colspan="3"></td>
             </tr>';
             }

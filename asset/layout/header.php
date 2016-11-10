@@ -1,8 +1,11 @@
 <link rel="stylesheet" href="<?php echo CSS; ?>bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo CSS; ?>font-awesome.min.css" type="text/css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="<?php echo CSS; ?>style.css" type="text/css" />
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="<?php echo JS; ?>imgLiquid-min.js"></script>
 <script src="<?php echo JS; ?>custom_script.js"></script>
@@ -30,10 +33,13 @@
 <meta name="msapplication-square310x310logo" content="<?php echo IMG;?>mstile-310x310.png" />
 </head>
 <body>
-<div class="background imgLiquidFill">
-  <img src="<?php echo IMG;?>negozio.jpg">
-  <div class="overlay"></div>
-</div>
+<?php $url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+if ($url=='http://gestionale.francescosciolti.com/') { ?>
+  <div class="background imgLiquidFill">
+    <img src="<?php echo IMG;?>negozio.jpg">
+    <div class="overlay"></div>
+  </div>
+<?php } ?>
 <div id="menu">
   <nav class="navbar navbar-inverse navbar-fixed-top navbar-static-top">
     <div class="container">
@@ -55,29 +61,42 @@
             <ul class="dropdown-menu" role="menu">
               <li class="dropdown-header">Gestione Prodotti</li>
               <?php if ($_SESSION['livello']=='suxuser') { ?>
-              <li><a href="<?php echo PATH;?>/magazzino.php">Tutti i prodotti</a></li>
+              <li><a href="<?php echo PATH;?>/magazzino.php">Inventario Magazzino</a></li>
               <li><a href="<?php echo MAGAZZINO;?>add_mag.php">Aggiungi Prodotto</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">Gestione Magazzino</li>
-              <li><a href="<?php echo MAGAZZINO;?>mov_mag.php">Movimenti Magazzino</a></li>
-              <li><a href="#">Inventario Magazzino</a></li>
+              <li><a href="<?php echo MAGAZZINO;?>mov_mag.php">Aggiungi Movimenti</a></li>
+              <li><a href="<?php echo PATH;?>/movimenti.php">Lista Movimenti</a></li>
               <?php } ?>
             </ul>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clienti <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <?php if ($_SESSION['livello']=='suxuser') { ?>
-                <li><a href="#">Lista Clienti</a></li>
-                <li><a href="#">Scheda Cliente</a></li>
-                <li><a href="#">Aggiungi Cliente</a></li>
+                <?php if ($_SESSION['livello']=='suxuser') { ?>
+                <li class="divider"></li>
+                <li class="dropdown-header">Anagrafica Clienti</li>
+                <li><a href="<?php echo PATH;?>/clienti.php">Lista Clienti</a></li>
+                <li><a href="<?php echo PATH;?>/cerca.php">Cerca Cliente</a></li>
+                <li><a href="<?php echo CLIENTI;?>add_cliente.php">Aggiungi Cliente</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Schede Clienti</li>
+                <li><a href="<?php echo PATH;?>/schede_clienti.php">Schede Cliente</a></li>
+                <li><a href="<?php echo SCHEDE;?>add_scheda.php">Aggiungi Scheda</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Gestione Tessere</li>
+                <li><a href="<?php echo PATH;?>/card.php">Lista Tessere</a></li>
+                <li><a href="<?php echo TESSERE;?>add_tessera.php">Aggiungi Tessera</a></li>
               <?php } ?>
             </ul>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fornitori <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Anagrafica Fornitori</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Anagrafica Fornitori</li>
+                <li><a href="<?php echo PATH;?>/fornitori.php">Lista Fornitori</a></li>
+                <li><a href="<?php echo FORNITORI;?>add_fornitore.php">Aggiungi Fornitore</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -118,7 +137,11 @@
                         <li class="divider"></li>
                         <li class="dropdown-header">Gestione Marche</li>
                         <li><a href="'.PATH.'/brand.php">Tutte le marche</a></li>
-                        <li><a href="'.MAGAZZINO.'add_marca.php">Aggiungi marca</a></li>';
+                        <li><a href="'.MAGAZZINO.'add_marca.php">Aggiungi marca</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Gestione Trattamenti</li>
+                        <li><a href="'.PATH.'/trattamenti.php">Tutti trattamenti</a></li>
+                        <li><a href="'.TRATTAMENTI.'add_trattamento.php">Aggiungi Trattamento</a></li>';
                 } ?>
               <li class="divider"></li>
               <?php /*<li><a href="<?php echo UTENTI;?>add_user.php"><i class="fa fa-check-square-o"></i> Registrati</a></li>*/ ?>

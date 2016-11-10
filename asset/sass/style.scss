@@ -8,8 +8,14 @@ body {
 header {
 	margin-top:80px;
 }
-input {
+input, textarea, select {
     padding: 10px 15px;
+}
+textarea {
+	white-space: pre-wrap;
+}
+label {
+	width:100%;
 }
 .background {
 	position: fixed;
@@ -100,5 +106,103 @@ input {
 			@include css3-prefix('transition',  "background-color 0.4s linear");
 		}
 	  }
+	}
+}
+#search_client {
+	cursor: pointer;
+	color: $pink;
+}
+#form_search {
+	display:none;
+}
+.radio {
+  display:inline-block;
+  & input[type="radio"] {
+  	display:none;
+  	& + label {
+	    color: $greyhard;
+	    font-family:Arial, sans-serif;
+	    font-size:14px;
+	    & span {
+		    display:inline-block;
+		    width:19px;
+		    height:19px;
+		    margin:-1px 4px 0 0;
+		    vertical-align:middle;
+		    cursor:pointer;
+		    @include border-radius( 50% );
+		     background-color:$greyhard;
+		}
+  	}
+  	&:checked + label span{
+	     background-color:$pink;
+	}
+	& + label span,
+	&:checked + label span {
+		@include css3-prefix('transition',  "background-color 0.4s linear");
+	}
+  }
+}
+form.add_scheda_cliente {
+	& #card, & #trattamentom, & #prodotti {
+		display: none;
+	}
+}
+#bodydetails {
+	font-size:20px;
+}
+.box_home {
+	background:$white;
+	margin-top:40px;
+	& a {
+		display: block;
+		width: 100%;
+		height: 100%;/*
+		& .utenti {
+			background-image: url('../img/utenti.png');
+			background-size: cover;
+			-o-background-size: cover;
+			-moz-background-size: cover;
+			background-position:center center;
+		}
+		& .magazzino {
+			background-image: url('../img/magazzino.png');
+			background-size: cover;
+			-o-background-size: cover;
+			-moz-background-size: cover;
+			background-position:center center;
+		}
+		& .clienti {
+			background-image: url('../img/clienti.png');
+			background-size: cover;
+			-o-background-size: cover;
+			-moz-background-size: cover;
+			background-position:center center;
+		}
+		& .fornitori {
+			background-image: url('../img/fornitori.png');
+			background-size: cover;
+			-o-background-size: cover;
+			-moz-background-size: cover;
+			background-position:center center;
+		}
+		& .schede {
+			background-image: url('../img/schede.png');
+			background-size: cover;
+			-o-background-size: cover;
+			-moz-background-size: cover;
+			background-position:center center;
+		}
+		& .utenti {
+			background-image: url('../img/utenti.png');
+			background-size: cover;
+			-o-background-size: cover;
+			-moz-background-size: cover;
+			background-position:center center;
+		}*/
+		& span {
+			display: block;
+			background:$white;
+		}
 	}
 }

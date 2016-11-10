@@ -39,17 +39,53 @@ include_once(LAYOUT.'pretitle.php'); ?>
 <section class="text-center">
  <div class="container">
      <div class="row">
-       <div class="col-xs-12 col-md-6 text-center">
-         <a href="lista_utenti.php" class="btn-home">Utenti</a>
+       <div class="col-xs-12 col-sm-3 text-center">
+         <div class="box_home bordered">
+          <a href="clienti.php" class="btn-home">
+          <div class="square clienti">
+           <img src="asset/img/clienti.png" width="200">
+           </div><span>Clienti</span></a>
+        </div>
        </div>
-       <div class="col-xs-12 col-md-6 text-center">
-         <a href="magazzino.php" class="btn-home">Magazzino</a>
+       <div class="col-xs-12 col-sm-3 text-center">
+         <div class="box_home bordered">
+          <a href="schede_clienti.php" class="btn-home">
+          <div class="square schede">
+           <img src="asset/img/schede.png">
+           </div><span>Schede Clienti</span></a>
+        </div>
        </div>
-       <div class="col-xs-12 col-md-6 text-center">
-         <a href="clienti.php" class="btn-home">Clienti</a>
+       <div class="col-xs-12 col-sm-3 text-center">
+         <div class="box_home bordered">
+          <a href="magazzino.php" class="btn-home">
+          <div class="square magazzino">
+           <img src="asset/img/magazzino.png">
+           </div><span>Magazzino</span></a>
+        </div>
        </div>
-       <div class="col-xs-12 col-md-6 text-center">
-         <a href="fornitori.php" class="btn-home">Fornitori</a>
+       <div class="col-xs-12 col-sm-3 text-center">
+         <div class="box_home bordered">
+         <a href="fornitori.php" class="btn-home">
+         <div class="square fornitori">
+           <img src="asset/img/fornitori.png">
+           </div><span>Fornitori</span></a>
+        </div>
+       </div>
+       <div class="col-xs-12 col-sm-3 text-center">
+         <div class="box_home bordered">
+           <a href="dipendenti.php" class="btn-home">
+           <div class="square utenti">
+             <img src="asset/img/utenti.png">
+           </div><span>Dipendenti</span></a>
+         </div>
+       </div>
+       <div class="col-xs-12 col-sm-3 text-center">
+         <div class="box_home bordered">
+           <a href="lista_utenti.php" class="btn-home">
+           <div class="square utenti">
+             <img src="asset/img/utenti.png">
+           </div><span>Utenti</span></a>
+         </div>
        </div>
      </div>
   </div>

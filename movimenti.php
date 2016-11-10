@@ -2,16 +2,15 @@
 include_once 'functions.php';
 include CLASMOD.'Prodotto.php';
 include CLASMOD.'Movimento.php';
-
-include APPL.'check_login.php';
+include 'applicazioni/check_login.php';
 session_start();
 $Movimenti = new DB_con();
 $table='movimenti';
 // cancello utente se mi è stato passato un parametro di cancellazione
 if(isset($_GET['id_movimento_del'])){
-  $del_dipendente = new Dipendente();
+  $del_movimento = new Movimento();
   
-   $res=$del_dipendente->del_dipendente($_GET['id_movimento_del']);
+   $res=$del_movimento->del_movimento($_GET['id_movimento_del']);
     if ($res) {
       header('location:?messaggio=cancellazione avvenuta correttamente');
    } else {
@@ -58,8 +57,9 @@ include_once(LAYOUT.'pretitle.php');
         <tr>
         <th>Barcode</th>
         <th>Prodotto</th>
-        <th>Causale</th>
-        <th>Q.tà</th>
+        <th>Entrate</th>
+        <th>Euscite</th>
+        <th>Prezzo</th>
         <th>Note</th>
         <th></th>
         <th></th>
@@ -73,13 +73,13 @@ include_once(LAYOUT.'pretitle.php');
               <td><?php echo $Movimento->barcode; ?></td>
               <td><?php $barcode = $Movimento->barcode;
               $id_prod = $Movimenti->sel_ID_prod($barcode);
-              //$id_prod = '1';
-              /*var_dump($id_prod);
-              exit();*/
               $Prodotto = new Prodotto($id_prod);
               echo $Prodotto->nome; ?></td>
-              <td><?php echo $Movimento->causale; ?></td>
-              <td><?php if ($Movimento->causale=='uscita') { $simbolo='-';} else {$simbolo='';} echo $simbolo.' '.$Movimento->quantita; ?></td>
+              <td><?php $entrate = $Movimento->quantitae;
+              if ($entrate!='0') { echo $entrate;} ?></td>
+              <td class="red"><?php $uscite = $Movimento->quantitau;
+              if ($uscite!='0') {echo '-'.$uscite;} ?></td>
+              <td><?php echo $Movimento->prezzo; ?></td>
               <td><?php echo $Movimento->note; ?></td>
               <td><?php 
               if ($_SESSION['livello']=='suxuser') { ?>

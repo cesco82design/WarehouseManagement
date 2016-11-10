@@ -2,8 +2,7 @@
 include_once 'functions.php';
 include CLASMOD.'User.php';
 include CLASMOD.'Dipendente.php';
-
-include APPL.'check_login.php';
+include 'applicazioni/check_login.php';
 session_start();
 $Dipendenti = new DB_con();
 $table = "dipendenti";
@@ -68,9 +67,10 @@ include_once(LAYOUT.'pretitle.php');
         if  ($res=$Dipendenti->select($table)) {
            while($Dipendente = $res->fetch_object())
            {
+            //print_r($Dipendente);exit();
              ?>
               <tr>
-              <td><?php echo $Dipendente->nome.' '.$Dipendente->cognome; ?></td>
+              <td><a href="details.php?details=dipendente&id=<?php echo $Dipendente->id; ?>"><?php echo $Dipendente->nome.' '.$Dipendente->cognome; ?></a></td>
               <td><?php if ( $Dipendente->idutente != '0' ) {
                 $User = new User($Dipendente->idutente);
                  echo $User->username; 
@@ -78,8 +78,8 @@ include_once(LAYOUT.'pretitle.php');
               <td><?php echo $Dipendente->cellulare; ?></td>
               <td><?php echo $Dipendente->mail; ?></td>
               <td><?php echo $Dipendente->operatrice; ?></td>
-              <td><?php 
-              if ($Dipendente->livello=='suxuser') : echo 'Supervisor'; else : echo $Dipendente->livello; endif; ?></td>
+              <?php /*<td><?php 
+              if ($Dipendente->livello=='suxuser') : echo 'Supervisor'; else : echo $Dipendente->livello; endif; ?></td>*/?>
               <?php if ($_SESSION['livello']=='dipendente') {
                 if ($_SESSION['userID']==$Dipendente->id) {
                   echo '<td><a href="applicazioni/utenti/mod_dip.php?idDipendente='.$Dipendente->id.'"><i class="fa fa-edit"></i></a></td><td></td>';

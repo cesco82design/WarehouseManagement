@@ -12,10 +12,17 @@ if(isset($_POST['btn-save'])) {
  $prezzo = $add_mov->pulisci_stringa($_POST['prezzo']);
  $quantita = $add_mov->pulisci_stringa($_POST['quantita']);
  $causale = $add_mov->pulisci_stringa($_POST['radio']);
+ if ($causale=='entrata') {
+  $quantitae = $quantita;
+  $quantitau = '';
+ } else {
+  $quantitau = $quantita;
+  $quantitae = '';
+ }
  $note = $add_mov->pulisci_stringa($_POST['note']);
 /*echo $barcode.' '.$nome.' '.$marca.' '.$categoria.' '.$sottoscorta;
 exit();*/
- $movimento = Movimento::insert_movimento($barcode,$prezzo,$quantita,$causale,$note);
+ $movimento = Movimento::insert_movimento($barcode,$prezzo,$quantitae,$quantitau,$note);
 /* var_dump($movimento);
  exit();*/
  if($movimento)   {
@@ -61,7 +68,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
             
             <div class="col-xs-12 col-sm-6">
                 <label for="barcode">Barcode</label>
-                <input type="text" id="barcode" name="barcode" placeholder="Barcode Prodotto" required />
+                <input type="text" class="barcode_input" name="barcode" placeholder="Barcode Prodotto" required />
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="prezzo">Prezzo</label>
@@ -86,7 +93,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
               <textarea placeholder="Inserisci eventuali note" name="note"></textarea>
             </div>
             <div class="col-xs-12">
-                <input type="submit" name="btn-save" class="btn-save" value="Aggiungi" />
+                <input type="submit" name="btn-save" class="btn-save" value="Aggiungi" onclick="return confirm('Sei sicuro di modificare?')"/>
             </div>
         </form>
       </div>

@@ -1,4 +1,4 @@
-<?php
+ <?php
 //session_start();
 
 include_once '../check_login.php';
@@ -79,7 +79,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="barcode">Barcode</label>
-                <input type="text" id="barcode" name="barcode" placeholder="Barcode Prodotto" required />
+                <input type="text"  name="barcode" placeholder="Barcode Prodotto" class="barcode_input" required />
             </div>
             <div class="col-xs-12 col-sm-6">
                 <label for="nome">Nome Prodotto</label>
@@ -101,8 +101,8 @@ include_once(LAYOUT.'pretitle.php'); ?>
           
             </div>
             <div class="col-xs-12 col-sm-6">
-                <label for="nome">Sottoscorta</label>
-                <input type="text" name="sottoscorta" placeholder="indica una scorta minima" required />
+                <label for="sottoscorta">Sottoscorta</label>
+                <input type="number" name="sottoscorta" placeholder="indica una scorta minima" required />
             </div>
             <div class="col-xs-12">
                 <input type="submit" name="btn-save" value="Aggiungi" />

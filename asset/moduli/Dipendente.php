@@ -28,7 +28,7 @@ class Dipendente extends DB_con {
 			$dipendente = $res->fetch_object();
 
 			$this->id 				= $dipendente->id;
-			$this->id_utente 		= $dipendente->id_utente;
+			$this->idutente 		= $dipendente->idutente;
 			$this->nome 			= $dipendente->nome;
 			$this->cognome 			= $dipendente->cognome;
 			$this->data_nascita 	= $dipendente->data_nascita;	
@@ -46,29 +46,13 @@ class Dipendente extends DB_con {
 		}
     }
     
-    static function aggiorna_dipendente($idUtente,$newnomeutente,$newuser,$password,$newlivello){
+    static function aggiorna_dipendente($idUtente,$nome,$cognome,$indirizzo,$citta,$provincia,$cap,$data_nascita,$telefono,$cellulare,$mail,$partitaiva,$codicefiscale,$operatrice){
 		$db_con = new DB_con();
-		$newpassword = $db_con->checkPWD($idUtente,$password);
-		$table 			= 'dipendenti';
-		/*echo $newpassword;
-		exit();*/
-		if ($newpassword) {
-			$password = $newpassword;
-		} else {
-			header('location:'.$_SERVER['HTTP_REFERER'].'?alert=danger&messaggio=la password non soddisfa i criteri di sicurezza');
-			return false;
-			exit();
-		}
-
-    	$checku = $db_con->checkUserExist($idUtente,$newuser);
-	 	$contau = $checku->num_rows;
-	 	if ($contau==1){
-	 		header('location:?idUtente='.$idUtente.'&alert=danger&messaggio=l\'utente scelto è già in uso');
-    	} else {
-    		$fields = array('nome'=>$newnomeutente,'cognome'=>$newcognome,'username'=>$newuser,'password'=>$password,'livello'=>$newlivello);
+		$table = 'dipendenti';
+    		$fields = array('nome'=>$nome,'cognome'=>$cognome,'indirizzo'=>$indirizzo,'citta'=>$citta,'provincia'=>$provincia,'cap'=>$cap,'data_nascita'=>$data_nascita,'telefono'=>$telefono,'cellulare'=>$cellulare,'mail'=>$mail,'partitaiva'=>$partitaiva,'codicefiscale'=>$codicefiscale,'operatrice'=>$operatrice);
     		$res = $db_con->update($table, $idUtente, $fields);
-    	}
-    	return true;
+    	
+    	return $res;
     }
     
 
@@ -98,6 +82,12 @@ class Dipendente extends DB_con {
 	public function del_dipendente($id) {
 		$deluser="DELETE FROM dipendenti WHERE id = '$id'";
     	$this->res= $this->conn->query($deluser);
+	  return $this->res;
+	}
+
+	public function select_operatrici() {
+		$sql = "SELECT * FROM dipendenti WHERE operatrice !=''";
+		$this->res= $this->conn->query($sql);
 	  return $this->res;
 	}
 

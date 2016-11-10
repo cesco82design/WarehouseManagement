@@ -77,31 +77,35 @@ include_once(LAYOUT.'pretitle.php'); ?>
             </div>
         
         </div>
-        <div id="content">
-            <form method="post">
-                <table align="center">
-                <tr>
-                <td colspan="2"><input type="text" name="nome" placeholder="Nome Utente" required /></td>
-                </tr>
-                <tr>
-                <td colspan="2"><input type="text" name="cognome" placeholder="Cognome Utente" required /></td>
-                </tr>
-                <tr>
-                <td colspan="2"><input type="text" name="user" placeholder="Username" required /></td>
-                </tr>
-                <tr>
-                <td colspan="2"><input type="password" maxlength="12" name="password" placeholder="Password" required /></td>
-                </tr>
-                <tr>
-                <td colspan="2"><input type="hidden"  name="livello" value="guest" /></td>
-                </tr>
-                <tr>
-                <td class="text-center">
-                <button type="submit" name="btn-save"><strong>Aggiungi</strong></button>
-                </td>
-                </tr>
-                </table>
-            </form>
+        <div class="row">
+          <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div id="content">
+                <form method="post">
+                    <table align="center">
+                    <tr>
+                    <td colspan="2"><input type="text" name="nome" placeholder="Nome Utente" required /></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2"><input type="text" name="cognome" placeholder="Cognome Utente" required /></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2"><input type="text" name="user" placeholder="Username" required /></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2"><input type="password" maxlength="12" name="password" placeholder="Password" required /></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2"><input type="hidden"  name="livello" value="guest" /></td>
+                    </tr>
+                    <tr>
+                    <td class="text-center">
+                    <button type="submit" name="btn-save"><strong>Aggiungi</strong></button>
+                    </td>
+                    </tr>
+                    </table>
+                </form>
+            </div>
+          </div>
         </div>
     </div>
 </section>

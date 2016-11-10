@@ -1,8 +1,7 @@
 <?php
 include_once 'functions.php';
 include CLASMOD.'User.php';
-
-include APPL.'check_login.php';
+include 'applicazioni/check_login.php';
 session_start();
 $Utenti = new DB_con();
 $table = "utenti";
@@ -67,21 +66,24 @@ include_once(LAYOUT.'pretitle.php');
            {
              ?>
               <tr>
-              <td><?php echo $User->nome; ?></td>
+              <td><?php echo $User->nome.' '.$User->cognome; ?></td>
               <td><?php echo $User->username; ?></td>
               <td><?php 
-              if ($User->livello=='suxuser') : echo 'Supervisor'; else : echo $User->livello; endif; ?></td>
-              <?php if ($_SESSION['livello']=='dipendente') {
-                if ($_SESSION['userID']==$User->id) {
-                  echo '<td><a href="applicazioni/utenti/mod_user.php?idUtente='.$User->id.'"><i class="fa fa-edit"></i></a></td><td></td>';
-                } else {
-                  echo '<td></td><td></td>';
+                if ($User->livello=='suxuser') : echo 'Supervisor'; else : echo $User->livello; endif; ?></td>
+                <?php if ($_SESSION['livello']=='dipendente') {
+                  if ($_SESSION['userID']==$User->id) {
+                    echo '<td><a href="applicazioni/utenti/mod_user.php?idUtente='.$User->id.'"><i class="fa fa-edit"></i></a></td><td></td>';
+                  } else {
+                    echo '<td></td><td></td>';
+                  }
                 }
-              }
+              if ($_SESSION["nome"] == 'Cesco') {
               if ($_SESSION['livello']=='suxuser') { ?>
               <td><a href="applicazioni/utenti/mod_user.php?idUtente=<?php echo $User->id;?>"><i class="fa fa-edit"></i></a></td>
               <td><a href="?idUtenteCancella=<?php echo $User->id;?>" onclick="return confirm('Sei sicuro di voler cancellare?')"><i class="fa fa-times-circle"></i></a></td>
-              <?php } ?>
+              <?php }
+              
+              } ?>
               </tr>
               <?php
            }

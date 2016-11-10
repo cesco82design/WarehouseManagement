@@ -79,7 +79,7 @@ include_once(LAYOUT.'pretitle.php'); ?>
         if ($_SESSION['livello']=='dipendnete') {echo '<p><input type="hidden"  name="livello" value="guest" /></p>';} ?>
         <p>
         	<input type="hidden" name="hidden_id" value="<?php echo $_GET['idUtente']; ?>">
-          <input type="submit" name="aggiorna" value="MODIFICA">
+          <input type="submit" name="aggiorna" value="MODIFICA" onclick="return confirm('Sei sicuro di modificare?')">
         </p>
       </form>
     </div>

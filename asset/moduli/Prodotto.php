@@ -7,7 +7,7 @@ class Prodotto extends DB_con {
 	public $nome 			= '';
 	public $marca  			= '';
 	public $categoria 		= '';
-	private $sottoscorta 	= '';
+	public $scorta_minima 	= '';
 
 	function __construct( $id = NULL ) {
 		parent::__construct();
@@ -22,8 +22,7 @@ class Prodotto extends DB_con {
 			$this->nome 		= $dati_prodotto->nome;	
 			$this->marca 		= $dati_prodotto->marca;
 			$this->categoria 	= $dati_prodotto->categoria;	
-			$this->sottoscorta 	= $dati_prodotto->sottoscorta;	
-			//$this->costo 		= $dati_prodotto->costo;
+			$this->scorta_minima 	= $dati_prodotto->scorta_minima;
 		}
     }
     public function cambia_prezzo( $nuovo_prezzo ) {
@@ -41,7 +40,7 @@ class Prodotto extends DB_con {
 
 	public function decrementa( $quantita ){
 		$this->quantita -= $quantita;
-		if ( $this->quantita < $this->sottoscorta  ) {
+		if ( $this->quantita < $this->scorta_minima  ) {
 			$this->metti_in_ordine();
 		}
 	}
@@ -56,9 +55,14 @@ class Prodotto extends DB_con {
 			return $res;
     }
 
-    public function select_categorie() {
-    	$res=$this->conn->query("SELECT * FROM categorie");
+    public function select_categorie($id) {
+		if ( is_null($id) ) {
+    		$res=$this->conn->query("SELECT * FROM categorie");
 			return $res;
+		} else {
+    		$res=$this->conn->query("SELECT * FROM categorie WHERE id ='$id'");
+			return $res;
+		}
     }
 
     public function insert_categorie($nome) {
@@ -73,9 +77,14 @@ class Prodotto extends DB_con {
 	  return $this->res;
     }
 
-    public function select_brand() {
-    	$res=$this->conn->query("SELECT * FROM marche");
+    public function select_brand($id) {
+		if ( is_null($id) ) {
+    		$res=$this->conn->query("SELECT * FROM marche");
 			return $res;
+		} else {
+    		$res=$this->conn->query("SELECT * FROM marche WHERE id ='$id'");
+			return $res;
+		}
     }
 
     public function insert_marca($nome) {
@@ -90,11 +99,33 @@ class Prodotto extends DB_con {
 	  return $this->res;
     }
 
-	public function aggiorna_prodotto($id,$barcode,$newnome,$marca,$categoria,$datainserimento) {
-		$aggiornaprod="UPDATE prodotti SET barcode='$barcode', nome='$newnome', marca='$marca', categoria='$categoria' WHERE id = '$id'";
+	static public function aggiorna_prodotto($id,$barcode,$newnome,$marca,$categoria,$scorta_minima) {
+		/*$aggiornaprod="UPDATE prodotti SET barcode='$barcode', nome='$newnome', marca='$marca', categoria='$categoria', scorta_minima='$scorta_minima' WHERE id = '$id'";
     	$this->res= $this->conn->query($aggiornaprod);
-	  return $this->res;
+	  return $this->res;*/
+	  $db_con = new DB_con();
+	  $table = 'prodotti';
+	  $fields = array('barcode'=>$barcode,'nome'=>$newnome,'marca'=>$marca,'categoria'=>$categoria,'scorta_minima'=>$scorta_minima);
+    	$res = $db_con->update($table, $id, $fields);
+    	return $res;
 	}
+
+	static public function aggiorna_categoria($id,$nome) {
+	  $db_con = new DB_con();
+	  $table = 'categorie';
+	  $fields = array('nome'=>$nome,);
+    	$res = $db_con->update($table, $id, $fields);
+    	return $res;
+	}
+
+	static public function aggiorna_brand($id,$nome) {
+	  $db_con = new DB_con();
+	  $table = 'marche';
+	  $fields = array('nome'=>$nome,);
+    	$res = $db_con->update($table, $id, $fields);
+    	return $res;
+	}
+
 	public function del_prodotto($id) {
 		$delprod="DELETE FROM prodotti WHERE id = '$id'";
     	$this->res= $this->conn->query($delprod);
@@ -115,6 +146,11 @@ class Prodotto extends DB_con {
 			}
 		}*/
 		return $id_nuovo_oggetto;
+	}
+	public function prod_by_barcode($barcode) {
+		$sql = "SELECT id FROM prodotti WHERE barcode = '$barcode'";
+		$this->res= $this->conn->query($sql);
+	  	return $this->res;
 	}
 	
 }

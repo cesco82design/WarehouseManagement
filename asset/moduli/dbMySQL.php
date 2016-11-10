@@ -39,7 +39,8 @@ class DB_con {
 	}  
 
 	public function pulisci_stringa($stringa){
-		return $this->conn->real_escape_string(trim($stringa));
+		$res = $this->conn->real_escape_string(trim(addslashes($stringa)));
+		return str_replace('\'', '&squo;', $res);
 	}
 
 	public function validate_email($stringa){
@@ -150,6 +151,18 @@ class DB_con {
 
 	public function last_user_id() {
 		$last_id="SELECT Max(id) AS maxid FROM utenti";
+    	$this->res=$this->conn->query($last_id);
+	  return $this->res;
+	}	
+
+	public function last_card_id() {
+		$last_id="SELECT Max(id) AS maxid FROM card";
+    	$this->res=$this->conn->query($last_id);
+	  return $this->res;
+	}	
+
+	public function last_client_id() {
+		$last_id="SELECT Max(id) AS maxid FROM clienti";
     	$this->res=$this->conn->query($last_id);
 	  return $this->res;
 	}	
